@@ -1,0 +1,59 @@
+Manifest-Version: 1.0
+Class-Path: tomcat-embed-el-8.5.29.jar bcprov-jdk15on-1.59.jar mybatis
+ -spring-1.3.2.jar lombok-1.16.10.jar ezmorph-1.0.6.jar jackson-databi
+ nd-2.9.5.jar spring-boot-starter-aop-2.0.1.RELEASE.jar swagger-models
+ -1.5.13.jar jsqlparser-1.1.jar spring-boot-starter-logging-2.0.1.RELE
+ ASE.jar spring-aspects-5.0.5.RELEASE.jar shiro-core-1.3.2.jar spring-
+ boot-starter-tomcat-2.0.1.RELEASE.jar log4j-to-slf4j-2.10.0.jar sprin
+ gfox-spring-web-2.7.0.jar mybatis-spring-boot-starter-1.3.2.jar dom4j
+ -1.6.1.jar HikariCP-2.7.8.jar logback-core-1.1.6.jar spring-boot-star
+ ter-json-2.0.1.RELEASE.jar javassist-3.22.0-GA.jar mybatis-plus-gener
+ ate-2.1.9.jar activation-1.1.jar jul-to-slf4j-1.7.25.jar jboss-loggin
+ g-3.3.2.Final.jar jackson-core-2.9.5.jar commons-compiler-3.0.8.jar t
+ omcat-embed-websocket-8.5.29.jar spring-boot-2.0.1.RELEASE.jar hibern
+ ate-commons-annotations-5.0.1.Final.jar mybatis-spring-boot-autoconfi
+ gure-1.3.2.jar classmate-1.3.4.jar commons-lang-2.4.jar spring-plugin
+ -metadata-1.2.0.RELEASE.jar fastjson-1.2.47.jar jiguang-common-1.0.8.
+ jar mybatis-3.4.6.jar spring-context-5.0.5.RELEASE.jar springfox-swag
+ ger-ui-2.7.0.jar error_prone_annotations-2.1.3.jar antlr-2.7.7.jar an
+ imal-sniffer-annotations-1.14.jar attoparser-2.0.4.RELEASE.jar json-l
+ ib-2.2.3-jdk15.jar httpcore-4.4.9.jar spring-boot-autoconfigure-2.0.1
+ .RELEASE.jar mybatis-plus-2.1.9.jar freemarker-2.3.28.jar mybatis-gen
+ erator-core-1.3.5.jar tools.jar swagger-annotations-1.5.13.jar okio-1
+ .14.0.jar thymeleaf-spring5-3.0.9.RELEASE.jar springfox-swagger-commo
+ n-2.7.0.jar spring-beans-5.0.5.RELEASE.jar spring-aop-5.0.5.RELEASE.j
+ ar shiro-spring-1.3.2.jar velocity-engine-core-2.0.jar commons-loggin
+ g-1.1.1.jar spring-boot-configuration-processor-2.0.1.RELEASE.jar slf
+ 4j-api-1.7.22.jar spring-core-5.0.5.RELEASE.jar mybatis-plus-support-
+ 2.1.9.jar javax.mail-1.6.1.jar qiniu-java-sdk-7.2.12.jar spring-tx-5.
+ 0.5.RELEASE.jar httpclient-4.5.5.jar logback-classic-1.1.6.jar janino
+ -3.0.8.jar guava-25.0-jre.jar spring-boot-starter-jdbc-2.0.1.RELEASE.
+ jar okhttp-3.10.0.jar spring-boot-starter-web-2.0.1.RELEASE.jar jacks
+ on-annotations-2.9.0.jar checker-compat-qual-2.0.0.jar jackson-dataty
+ pe-jsr310-2.9.5.jar thymeleaf-3.0.9.RELEASE.jar mybatisplus-spring-bo
+ ot-starter-1.0.5.jar unbescape-1.1.5.RELEASE.jar springfox-schema-2.7
+ .0.jar tomcat-embed-core-8.5.29.jar gson-2.8.2.jar spring-jdbc-5.0.5.
+ RELEASE.jar jackson-datatype-jdk8-2.9.5.jar jsms-client-1.2.8.jar spr
+ ing-orm-5.0.5.RELEASE.jar commons-codec-1.11.jar hibernate-jpa-2.1-ap
+ i-1.0.0.Final.jar spring-jcl-5.0.5.RELEASE.jar spring-plugin-core-1.2
+ .0.RELEASE.jar validation-api-2.0.1.Final.jar commons-beanutils-1.7.0
+ .jar snakeyaml-1.19.jar jconsole.jar springfox-swagger2-2.7.0.jar spr
+ ing-context-support-5.0.5.RELEASE.jar byte-buddy-1.7.11.jar mybatis-p
+ lus-core-2.1.9.jar javax.mail-api-1.6.1.jar netty-all-4.1.23.Final.ja
+ r commons-collections-3.2.jar commons-collections4-4.0.jar spring-dat
+ a-commons-2.0.6.RELEASE.jar mapstruct-1.1.0.Final.jar jandex-2.0.3.Fi
+ nal.jar druid-1.1.0.jar happy-dns-java-0.1.6.jar mysql-connector-java
+ -5.1.46.jar xstream-1.4.9.jar reflections-0.9.11.jar springfox-spi-2.
+ 7.0.jar hibernate-validator-6.0.9.Final.jar javax.annotation-api-1.3.
+ 2.jar hibernate-core-5.2.16.Final.jar spring-boot-starter-thymeleaf-2
+ .0.1.RELEASE.jar springfox-core-2.7.0.jar thymeleaf-extras-java8time-
+ 3.0.1.RELEASE.jar aspectjweaver-1.8.13.jar spring-boot-starter-data-j
+ pa-2.0.1.RELEASE.jar jsr305-1.3.9.jar xmlpull-1.1.3.1.jar commons-lan
+ g3-3.7.jar spring-expression-5.0.5.RELEASE.jar log4j-api-2.10.0.jar s
+ pring-web-5.0.5.RELEASE.jar j2objc-annotations-1.1.jar spring-boot-st
+ arter-2.0.1.RELEASE.jar spring-data-jpa-2.0.6.RELEASE.jar javax.trans
+ action-api-1.2.jar spring-webmvc-5.0.5.RELEASE.jar xpp3_min-1.1.4c.ja
+ r shiro-web-1.3.2.jar commons-io-2.4.jar jackson-module-parameter-nam
+ es-2.9.5.jar
+Main-Class: com.cunjia.ordering.OrderingApplication
+

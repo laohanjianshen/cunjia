@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.AddressesMapper">
+    <insert id="insertAddresses" parameterType="com.cunjia.ordering.domain.Addresses">
+        INSERT INTO `addresses` (user_id,address_name,address_sex,address_phone,location_id)
+        VALUES (#{userId},#{addressName},#{addressSex},#{addressPhone},#{locationId})
+    </insert>
+    <select id="listAddresses" parameterType="java.lang.Integer" resultType="com.cunjia.ordering.vo.AddressesVO">
+        SELECT a.`address_id`,a.`user_id`,a.`address_name` AS addressName,a.`address_sex`,a.`address_phone`,a.address_default,
+            l.`location_building`,l.`address_detail`,l.location_id,d.`district_name`,c.`city_name`
+        FROM `addresses` a
+        INNER JOIN `locations` l ON a.`location_id` = l.`location_id` AND l.`location_state` = 1
+        INNER JOIN `district` d ON d.`district_id` = l.`district_id`
+        INNER JOIN `city` c ON c.`city_id` = d.`city_id`
+        WHERE a.`user_id` = #{userId} AND a.address_default != 99
+    </select>
+    <update id="updateAddressDefault" parameterType="com.cunjia.ordering.domain.Addresses">
+        UPDATE `addresses` SET address_default = #{addressDefault}
+        <where>
+            <if test="userId != null and userId > 0">
+                and `user_id` = #{userId}
+            </if>
+            <if test="addressId != null and addressId > 0">
+                and  address_id = #{addressId}
+            </if>
+        </where>
+    </update>
+    <update id="updateAddress" parameterType="com.cunjia.ordering.domain.Addresses">
+        UPDATE `addresses` SET
+        address_name = #{addressName},
+        address_sex = #{addressSex},
+        address_phone = #{addressPhone},
+        location_id = #{locationId}
+        WHERE address_id = #{addressId}
+    </update>
+    <!--后台管理页面 新增配送点-->
+    <select id="selectByCityName" parameterType="java.lang.String" resultType="com.cunjia.ordering.domain.CityDO" >
+        select * from city where city_name = #{cityName}
+    </select>
+    <insert id="insertCity" parameterType="com.cunjia.ordering.domain.CityDO" keyProperty="cityId" useGeneratedKeys="true">
+        insert into city(city_name)
+        value( #{cityName})
+    </insert>
+    <select id="selectByDistrictName" resultType="com.cunjia.ordering.domain.DistrictDO">
+        select * from district where district_name = #{districtName}
+    </select>
+    <insert id="insertDistrict" parameterType="com.cunjia.ordering.domain.DistrictDO" keyProperty="districtId" useGeneratedKeys="true">
+        insert into district(district_name,city_id)
+        values ( #{districtName}, #{cityId})
+    </insert>
+    <select id="selectByLocationBuildingAndAddressDetail" resultType="com.cunjia.ordering.domain.LocationsDO" >
+        select * from locations where location_building = #{arg0} and address_detail = #{arg1}
+    </select>
+    <insert id="insertLocation" parameterType="com.cunjia.ordering.domain.LocationsDO" keyProperty="location_id" useGeneratedKeys="true">
+        INSERT INTO locations (location_building,address_detail,location_longitude,location_latitude,district_id,location_state)
+        VALUES (#{locationBuilding}, #{addressDetail}, #{locationLongitude}, #{locationLatitude}, #{districtId}, #{locationState})
+    </insert>
+</mapper>

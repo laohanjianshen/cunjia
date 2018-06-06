@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.SelfBoxLunchDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.SelfBoxLunchDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="self_id" jdbcType="INTEGER" property="selfId" />
+    <result column="food_id" jdbcType="INTEGER" property="foodId" />
+    <result column="food_name" jdbcType="VARCHAR" property="foodName" />
+    <result column="food_number" jdbcType="INTEGER" property="foodNumber" />
+    <result column="food_sale_price" jdbcType="DECIMAL" property="foodSalePrice" />
+    <result column="food_type" jdbcType="VARCHAR" property="foodType" />
+    <result column="food_images_url" jdbcType="VARCHAR" property="foodImagesUrl" />
+    <result column="food_price" jdbcType="DECIMAL" property="foodPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, self_id, food_id, food_name, food_number, food_sale_price, food_type, food_images_url, 
+    food_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from self_box_lunch_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from self_box_lunch_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cunjia.ordering.domain.SelfBoxLunchDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into self_box_lunch_detail (self_id, food_id, food_name, 
+      food_number, food_sale_price, food_type, 
+      food_images_url, food_price)
+    values (#{selfId,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER}, #{foodName,jdbcType=VARCHAR}, 
+      #{foodNumber,jdbcType=INTEGER}, #{foodSalePrice,jdbcType=DECIMAL}, #{foodType,jdbcType=VARCHAR}, 
+      #{foodImagesUrl,jdbcType=VARCHAR}, #{foodPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cunjia.ordering.domain.SelfBoxLunchDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into self_box_lunch_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="selfId != null">
+        self_id,
+      </if>
+      <if test="foodId != null">
+        food_id,
+      </if>
+      <if test="foodName != null">
+        food_name,
+      </if>
+      <if test="foodNumber != null">
+        food_number,
+      </if>
+      <if test="foodSalePrice != null">
+        food_sale_price,
+      </if>
+      <if test="foodType != null">
+        food_type,
+      </if>
+      <if test="foodImagesUrl != null">
+        food_images_url,
+      </if>
+      <if test="foodPrice != null">
+        food_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="selfId != null">
+        #{selfId,jdbcType=INTEGER},
+      </if>
+      <if test="foodId != null">
+        #{foodId,jdbcType=INTEGER},
+      </if>
+      <if test="foodName != null">
+        #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodNumber != null">
+        #{foodNumber,jdbcType=INTEGER},
+      </if>
+      <if test="foodSalePrice != null">
+        #{foodSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="foodType != null">
+        #{foodType,jdbcType=VARCHAR},
+      </if>
+      <if test="foodImagesUrl != null">
+        #{foodImagesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null">
+        #{foodPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cunjia.ordering.domain.SelfBoxLunchDetail">
+    update self_box_lunch_detail
+    <set>
+      <if test="selfId != null">
+        self_id = #{selfId,jdbcType=INTEGER},
+      </if>
+      <if test="foodId != null">
+        food_id = #{foodId,jdbcType=INTEGER},
+      </if>
+      <if test="foodName != null">
+        food_name = #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodNumber != null">
+        food_number = #{foodNumber,jdbcType=INTEGER},
+      </if>
+      <if test="foodSalePrice != null">
+        food_sale_price = #{foodSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="foodType != null">
+        food_type = #{foodType,jdbcType=VARCHAR},
+      </if>
+      <if test="foodImagesUrl != null">
+        food_images_url = #{foodImagesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null">
+        food_price = #{foodPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cunjia.ordering.domain.SelfBoxLunchDetail">
+    update self_box_lunch_detail
+    set self_id = #{selfId,jdbcType=INTEGER},
+      food_id = #{foodId,jdbcType=INTEGER},
+      food_name = #{foodName,jdbcType=VARCHAR},
+      food_number = #{foodNumber,jdbcType=INTEGER},
+      food_sale_price = #{foodSalePrice,jdbcType=DECIMAL},
+      food_type = #{foodType,jdbcType=VARCHAR},
+      food_images_url = #{foodImagesUrl,jdbcType=VARCHAR},
+      food_price = #{foodPrice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectBySelfId" resultType="com.cunjia.ordering.domain.SelfBoxLunchDetail">
+    select * from self_box_lunch_detail where self_id = #{selfId}
+  </select>
+  <select id="selectAllLinkedInfoBySelfId" resultType="com.cunjia.ordering.dto.CartSelfDTO">
+    SELECT a.*,b.*,c.*
+    FROM `self_box_lunch_detail` a
+    LEFT JOIN `foods` b ON a.`food_id` = b.`food_id`
+    LEFT JOIN `food_types` c ON b.`category_id` = c.`category_id`
+    WHERE a.`self_id` in
+    <foreach collection="foodIdList" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+  <insert id="insertList" parameterType="java.util.List">
+    insert into self_box_lunch_detail (self_id, food_id, food_name,
+    food_number, food_sale_price, food_type,
+    food_images_url,food_price)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.selfId,jdbcType=INTEGER}, #{item.foodId,jdbcType=INTEGER}, #{item.foodName,jdbcType=VARCHAR},
+      #{item.foodNumber,jdbcType=INTEGER}, #{item.foodSalePrice,jdbcType=DECIMAL}, #{item.foodType,jdbcType=VARCHAR},
+      #{item.foodImagesUrl,jdbcType=VARCHAR}, #{item.foodPrice,jdbcType=DECIMAL})
+    </foreach>
+  </insert>
+  <!--根据selfIdList批量删除数据-->
+  <delete id="deleteBySelfIdList" parameterType="java.util.List">
+    delete from self_box_lunch_detail where self_id in
+    <foreach collection="list" separator="," index="index" item="selfId" open="(" close=")">
+      #{selfId}
+    </foreach>
+  </delete>
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.DateGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.DateGoods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="date_goods_id" jdbcType="INTEGER" property="dateGoodsId" />
+    <result column="date_timestamp" jdbcType="BIGINT" property="dateTimestamp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, date_goods_id, date_timestamp
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from date_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from date_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cunjia.ordering.domain.DateGoods">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into date_goods (date_goods_id, date_timestamp)
+    values (#{dateGoodsId,jdbcType=INTEGER}, #{dateTimestamp,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cunjia.ordering.domain.DateGoods">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into date_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dateGoodsId != null">
+        date_goods_id,
+      </if>
+      <if test="dateTimestamp != null">
+        date_timestamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dateGoodsId != null">
+        #{dateGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="dateTimestamp != null">
+        #{dateTimestamp,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cunjia.ordering.domain.DateGoods">
+    update date_goods
+    <set>
+      <if test="dateGoodsId != null">
+        date_goods_id = #{dateGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="dateTimestamp != null">
+        date_timestamp = #{dateTimestamp,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cunjia.ordering.domain.DateGoods">
+    update date_goods
+    set date_goods_id = #{dateGoodsId,jdbcType=INTEGER},
+      date_timestamp = #{dateTimestamp,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectGoodsListByTimestamp" parameterType="java.util.List" resultMap="BaseResultMap">
+    select * from date_goods where date_timestamp in
+    <foreach item="item" collection="list" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.GoodsMapper">
+    <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.Goods">
+        <id column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice"/>
+        <result column="goods_sale_price" jdbcType="DECIMAL" property="goodsSalePrice"/>
+        <result column="goods_desc" jdbcType="VARCHAR" property="goodsDesc"/>
+        <result column="goods_label" jdbcType="VARCHAR" property="goodsLabel"/>
+        <result column="goods_create_time" jdbcType="TIMESTAMP" property="goodsCreateTime"/>
+        <result column="goods_update_time" jdbcType="TIMESTAMP" property="goodsUpdateTime"/>
+        <result column="goods_status" jdbcType="INTEGER" property="goodsStatus"/>
+        <result column="goods_like_number" jdbcType="INTEGER" property="goodsLikeNumber"/>
+        <result column="goods_sold_number" jdbcType="INTEGER" property="goodsSoldNumber"/>
+        <result column="goods_images_url" jdbcType="VARCHAR" property="goodsImagesUrl"/>
+        <result column="goods_detail" jdbcType="VARCHAR" property="goodsDetail"/>
+        <result column="goods_evaluation_rate" jdbcType="INTEGER" property="goodsEvaluationRate"/>
+        <result column="goods_taste_rate" jdbcType="INTEGER" property="goodsTasteRate"/>
+        <result column="goods_surface_rate" jdbcType="INTEGER" property="goodsSurfaceRate"/>
+        <result column="default_sku_id" jdbcType="INTEGER" property="defaultSkuId"/>
+        <result column="goods_remain_number" jdbcType="INTEGER" property="goodsRemainNumber"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    goods_id, category_id, goods_name, goods_price, goods_sale_price, goods_desc, goods_label, 
+    goods_create_time, goods_update_time, goods_status, goods_like_number, goods_sold_number, 
+    goods_images_url, goods_detail, goods_evaluation_rate, goods_taste_rate, goods_surface_rate, 
+    default_sku_id, goods_remain_number
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where goods_id = #{goodsId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.cunjia.ordering.domain.Goods">
+    insert into goods (goods_id, category_id, goods_name, 
+      goods_price, goods_sale_price, goods_desc, 
+      goods_label, goods_create_time, goods_update_time, 
+      goods_status, goods_like_number, goods_sold_number, 
+      goods_images_url, goods_detail, goods_evaluation_rate, 
+      goods_taste_rate, goods_surface_rate, default_sku_id,
+      goods_remain_number)
+    values (#{goodsId,jdbcType=BIGINT}, #{categoryId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=DECIMAL}, #{goodsSalePrice,jdbcType=DECIMAL}, #{goodsDesc,jdbcType=VARCHAR}, 
+      #{goodsLabel,jdbcType=VARCHAR}, #{goodsCreateTime,jdbcType=TIMESTAMP}, #{goodsUpdateTime,jdbcType=TIMESTAMP}, 
+      #{goodsStatus,jdbcType=INTEGER}, #{goodsLikeNumber,jdbcType=INTEGER}, #{goodsSoldNumber,jdbcType=INTEGER}, 
+      #{goodsImagesUrl,jdbcType=VARCHAR}, #{goodsDetail,jdbcType=VARCHAR}, #{goodsEvaluationRate,jdbcType=INTEGER}, 
+      #{goodsTasteRate,jdbcType=INTEGER}, #{goodsSurfaceRate,jdbcType=INTEGER}, #{defaultSkuId,jdbcType=INTEGER},
+      #{goodsRemainNumber,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.cunjia.ordering.domain.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsPrice != null">
+                goods_price,
+            </if>
+            <if test="goodsSalePrice != null">
+                goods_sale_price,
+            </if>
+            <if test="goodsDesc != null">
+                goods_desc,
+            </if>
+            <if test="goodsLabel != null">
+                goods_label,
+            </if>
+            <if test="goodsCreateTime != null">
+                goods_create_time,
+            </if>
+            <if test="goodsUpdateTime != null">
+                goods_update_time,
+            </if>
+            <if test="goodsStatus != null">
+                goods_status,
+            </if>
+            <if test="goodsLikeNumber != null">
+                goods_like_number,
+            </if>
+            <if test="goodsSoldNumber != null">
+                goods_sold_number,
+            </if>
+            <if test="goodsImagesUrl != null">
+                goods_images_url,
+            </if>
+            <if test="goodsDetail != null">
+                goods_detail,
+            </if>
+            <if test="goodsEvaluationRate != null">
+                goods_evaluation_rate,
+            </if>
+            <if test="goodsTasteRate != null">
+                goods_taste_rate,
+            </if>
+            <if test="goodsSurfaceRate != null">
+                goods_surface_rate,
+            </if>
+            <if test="defaultSkuId != null">
+                default_sku_id,
+            </if>
+            <if test="goodsRemainNumber != null">
+                goods_remain_number,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null">
+                #{goodsPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsSalePrice != null">
+                #{goodsSalePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsDesc != null">
+                #{goodsDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsLabel != null">
+                #{goodsLabel,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCreateTime != null">
+                #{goodsCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="goodsUpdateTime != null">
+                #{goodsUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="goodsStatus != null">
+                #{goodsStatus,jdbcType=INTEGER},
+            </if>
+            <if test="goodsLikeNumber != null">
+                #{goodsLikeNumber,jdbcType=INTEGER},
+            </if>
+            <if test="goodsSoldNumber != null">
+                #{goodsSoldNumber,jdbcType=INTEGER},
+            </if>
+            <if test="goodsImagesUrl != null">
+                #{goodsImagesUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsDetail != null">
+                #{goodsDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsEvaluationRate != null">
+                #{goodsEvaluationRate,jdbcType=INTEGER},
+            </if>
+            <if test="goodsTasteRate != null">
+                #{goodsTasteRate,jdbcType=INTEGER},
+            </if>
+            <if test="goodsSurfaceRate != null">
+                #{goodsSurfaceRate,jdbcType=INTEGER},
+            </if>
+            <if test="defaultSkuId != null">
+                #{defaultSkuId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsRemainNumber != null">
+                #{goodsRemainNumber,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cunjia.ordering.domain.Goods">
+        update goods
+        <set>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsSalePrice != null">
+                goods_sale_price = #{goodsSalePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsDesc != null">
+                goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsLabel != null">
+                goods_label = #{goodsLabel,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCreateTime != null">
+                goods_create_time = #{goodsCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="goodsUpdateTime != null">
+                goods_update_time = #{goodsUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="goodsStatus != null">
+                goods_status = #{goodsStatus,jdbcType=INTEGER},
+            </if>
+            <if test="goodsLikeNumber != null">
+                goods_like_number = #{goodsLikeNumber,jdbcType=INTEGER},
+            </if>
+            <if test="goodsSoldNumber != null">
+                goods_sold_number = #{goodsSoldNumber,jdbcType=INTEGER},
+            </if>
+            <if test="goodsImagesUrl != null">
+                goods_images_url = #{goodsImagesUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsDetail != null">
+                goods_detail = #{goodsDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsEvaluationRate != null">
+                goods_evaluation_rate = #{goodsEvaluationRate,jdbcType=INTEGER},
+            </if>
+            <if test="goodsTasteRate != null">
+                goods_taste_rate = #{goodsTasteRate,jdbcType=INTEGER},
+            </if>
+            <if test="goodsSurfaceRate != null">
+                goods_surface_rate = #{goodsSurfaceRate,jdbcType=INTEGER},
+            </if>
+            <if test="defaultSkuId != null">
+                default_sku_id = #{defaultSkuId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsRemainNumber != null">
+                goods_remain_number = #{goodsRemainNumber,jdbcType=INTEGER},
+            </if>
+        </set>
+        where goods_id = #{goodsId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cunjia.ordering.domain.Goods">
+    update goods
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_sale_price = #{goodsSalePrice,jdbcType=DECIMAL},
+      goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      goods_label = #{goodsLabel,jdbcType=VARCHAR},
+      goods_create_time = #{goodsCreateTime,jdbcType=TIMESTAMP},
+      goods_update_time = #{goodsUpdateTime,jdbcType=TIMESTAMP},
+      goods_status = #{goodsStatus,jdbcType=INTEGER},
+      goods_like_number = #{goodsLikeNumber,jdbcType=INTEGER},
+      goods_sold_number = #{goodsSoldNumber,jdbcType=INTEGER},
+      goods_images_url = #{goodsImagesUrl,jdbcType=VARCHAR},
+      goods_detail = #{goodsDetail,jdbcType=VARCHAR},
+      goods_evaluation_rate = #{goodsEvaluationRate,jdbcType=INTEGER},
+      goods_taste_rate = #{goodsTasteRate,jdbcType=INTEGER},
+      goods_surface_rate = #{goodsSurfaceRate,jdbcType=INTEGER},
+      default_sku_id = #{defaultSkuId,jdbcType=INTEGER},
+      goods_remain_number = #{goodsRemainNumber,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </update>
+    <select id="findAllByGoodsId" resultMap="BaseResultMap" parameterType="java.util.List">
+        select * from goods where goods_id in
+        <foreach collection="list"  item="goodsIdList" index="index" open="(" separator="," close=")">
+            #{goodsIdList}
+        </foreach>
+    </select>
+</mapper>

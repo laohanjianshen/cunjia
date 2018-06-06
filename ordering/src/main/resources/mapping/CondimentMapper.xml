@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.CondimentMapper">
+    <resultMap id="BaseResultMap" type="com.cunjia.ordering.vo.CondimentVO">
+        <id column="condiment_id" jdbcType="INTEGER" property="condimentId"/>
+        <result column="condiment_name" jdbcType="VARCHAR" property="condimentName"/>
+        <result column="condiment_status" jdbcType="INTEGER" property="condimentStatus"/>
+        <result column="condiment_price" jdbcType="DECIMAL" property="condimentPrice"/>
+    </resultMap>
+
+    <select id="getCondimentListByBoxLunchId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    c.condiment_id,c.condiment_name,c.condiment_status,c.condiment_price
+    from condiment c,condiment_box_lunch cbl
+    where c.condiment_id = cbl.condiment_id
+    and cbl.box_lunch_id=#{boxLunchId}
+    and c.condiment_status > 0
+  </select>
+    <select id="selectByPrimaryKey" resultType="com.cunjia.ordering.domain.Condiment">
+        select condiment_name from condiment where condiment_id = #{condimentId}
+    </select>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.OrdersSelfBoxLunchMapper">
+  <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.OrdersSelfBoxLunch">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="box_lunch_id" jdbcType="INTEGER" property="boxLunchId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, box_lunch_id
+  </sql>
+
+  <!--自助点餐订单详情表批量插入盒饭-->
+  <insert id="insertSelfBatch">
+    insert into orders_self_box_lunch (order_id, box_lunch_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.orderId,jdbcType=INTEGER}, #{item.boxLunchId,jdbcType=INTEGER})
+    </foreach>
+
+  </insert>
+
+</mapper>

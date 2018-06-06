@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.FoodsMapper">
+    <resultMap id="BaseResultMap" type="com.cunjia.ordering.vo.FoodsVO">
+        <id column="food_id" jdbcType="INTEGER" property="foodId"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="food_name" jdbcType="VARCHAR" property="foodName"/>
+        <result column="food_price" jdbcType="DECIMAL" property="foodPrice"/>
+        <result column="food_sale_price" jdbcType="DECIMAL" property="foodSalePrice"/>
+        <result column="food_desc" jdbcType="VARCHAR" property="foodDesc"/>
+        <result column="food_create_time" jdbcType="TIMESTAMP" property="foodCreateTime"/>
+        <result column="food_update_time" jdbcType="TIMESTAMP" property="foodUpdateTime"/>
+        <result column="food_status" jdbcType="INTEGER" property="foodStatus"/>
+        <result column="food_like_number" jdbcType="INTEGER" property="foodLikeNumber"/>
+        <result column="food_sold_number" jdbcType="INTEGER" property="foodSoldNumber"/>
+        <result column="food_images_url" jdbcType="VARCHAR" property="foodImagesUrl"/>
+        <result column="food_detail" jdbcType="VARCHAR" property="foodDetail"/>
+        <result column="food_evaluation_rate" jdbcType="INTEGER" property="foodEvaluationRate"/>
+        <result column="food_taste_rate" jdbcType="INTEGER" property="foodTasteRate"/>
+        <result column="food_surface_rate" jdbcType="INTEGER" property="foodSurfaceRate"/>
+        <result column="food_remain_number" jdbcType="INTEGER" property="foodRemainNumber"/>
+        <result column="food_surface_price" jdbcType="DECIMAL" property="foodSurfacePrice"/>
+    </resultMap>
+
+    <!--盒饭详情的食品数据结构-->
+    <resultMap id="foodsClassify" type="com.cunjia.ordering.vo.FoodsClassifyVo">
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <result column="category_classify" jdbcType="INTEGER" property="categoryClassify"/>
+        <collection property="foodsList" ofType="com.cunjia.ordering.vo.FoodsVO">
+            <id column="food_id" jdbcType="INTEGER" property="foodId"/>
+            <result column="food_name" jdbcType="VARCHAR" property="foodName"/>
+            <result column="food_desc" jdbcType="VARCHAR" property="foodDesc"/>
+            <result column="food_status" jdbcType="INTEGER" property="foodStatus"/>
+            <result column="food_images_url" jdbcType="VARCHAR" property="foodImagesUrl"/>
+            <result column="food_detail" jdbcType="VARCHAR" property="foodDetail"/>
+        </collection>
+    </resultMap>
+
+    <!--自助点餐中返回的食品分类数据结构-->
+    <resultMap id="foodSelf" type="com.cunjia.ordering.vo.FoodSelfVo">
+        <result column="f_category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <collection property="foodVOList" ofType="com.cunjia.ordering.vo.FoodsVO">
+            <id column="food_id" jdbcType="INTEGER" property="foodId"/>
+            <result column="food_name" jdbcType="VARCHAR" property="foodName"/>
+            <result column="food_price" jdbcType="DECIMAL" property="foodPrice"/>
+            <result column="food_sale_price" jdbcType="DECIMAL" property="foodSalePrice"/>
+            <result column="food_desc" jdbcType="VARCHAR" property="foodDesc"/>
+            <result column="food_status" jdbcType="INTEGER" property="foodStatus"/>
+            <result column="food_images_url" jdbcType="VARCHAR" property="foodImagesUrl"/>
+        </collection>
+    </resultMap>
+
+    <!--食品详情中数据结构-->
+    <resultMap id="foodDetail" type="com.cunjia.ordering.vo.FoodsVO">
+        <id column="food_id" jdbcType="INTEGER" property="foodId"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <result column="food_name" jdbcType="VARCHAR" property="foodName"/>
+        <result column="food_price" jdbcType="DECIMAL" property="foodPrice"/>
+        <result column="food_sale_price" jdbcType="DECIMAL" property="foodSalePrice"/>
+        <result column="food_desc" jdbcType="VARCHAR" property="foodDesc"/>
+        <result column="food_create_time" jdbcType="TIMESTAMP" property="foodCreateTime"/>
+        <result column="food_update_time" jdbcType="TIMESTAMP" property="foodUpdateTime"/>
+        <result column="food_status" jdbcType="INTEGER" property="foodStatus"/>
+        <result column="food_like_number" jdbcType="INTEGER" property="foodLikeNumber"/>
+        <result column="food_sold_number" jdbcType="INTEGER" property="foodSoldNumber"/>
+        <result column="food_images_url" jdbcType="VARCHAR" property="foodImagesUrl"/>
+        <result column="food_detail" jdbcType="VARCHAR" property="foodDetail"/>
+        <result column="food_remain_number" jdbcType="INTEGER" property="foodRemainNumber"/>
+        <result column="food_surface_price" jdbcType="DECIMAL" property="foodSurfacePrice"/>
+    </resultMap>
+
+    <!--通过盒饭id查询食品列表(不区分是否下架)-->
+    <select id="getFoodListByBoxLunchId" parameterType="java.lang.Integer" resultMap="foodsClassify">
+    select
+    f.food_id,f.category_id,ft.category_name,f.food_name,f.food_desc,f.food_status,f.food_images_url,f.food_detail
+    from foods f,box_lunch_food blf,food_types ft
+    where f.food_id = blf.food_id and ft.category_id = f.category_id and blf.box_lunch_id = #{boxLunchId}
+  </select>
+
+    <!--通过盒饭id分页查询食品列表(区分是否下架)-->
+    <select id="getFoodListByAll" parameterType="java.util.Map" resultMap="foodSelf">
+    select a.*,ft.category_id,ft.category_name
+    from (
+    select f.food_id,f.food_name,f.food_price,f.category_id as f_category_id,f.food_sale_price,f.food_desc,f.food_status,f.food_images_url
+    from foods f
+    where f.food_status = 1 or f.food_status = 2 limit #{offset},#{limit}) a,food_types ft
+    where ft.category_id=#{categoryId} and ft.category_id = a.f_category_id
+  </select>
+
+    <!--获得食品信息(不区分是否下架)-->
+    <select id="getFoodByFoodId" parameterType="java.lang.Integer" resultMap="foodDetail">
+        select f.food_id,f.category_id,ft.category_name,f.food_name,f.food_price,f.food_sale_price,
+        f.food_like_number,f.food_sold_number,f.food_desc,f.food_status,f.food_images_url,f.food_detail,
+        f.food_remain_number,f.food_surface_price
+        from foods f,food_types ft
+        where f.food_id=#{foodId} and ft.category_id = f.category_id
+    </select>
+
+    <!--获得所有的食品类型-->
+    <select id="getFoodClassifyByAll" resultMap="foodsClassify">
+        select category_id,category_name,category_classify
+        from food_types;
+    </select>
+
+    <!--自助点餐数据结构-->
+    <resultMap id="selfBoxLunchDetail" type="com.cunjia.ordering.vo.DateBoxLunchVO">
+        <result column="box_lunch_date" property="boxLunchDate"/>
+        <collection property="boxLunchList" ofType="com.cunjia.ordering.vo.OrderBoxLunchVO">
+            <result column="self_id" jdbcType="INTEGER" property="boxLunchId"/>
+            <result column="box_lunch_number" property="boxLunchNumber"/>
+            <collection property="foodVOList" ofType="com.cunjia.ordering.vo.FoodsVO">
+                <id column="food_id" jdbcType="INTEGER" property="foodId"/>
+                <result column="food_name" jdbcType="VARCHAR" property="foodName"/>
+                <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+                <result column="category_id" jdbcType="VARCHAR" property="categoryId"/>
+                <result column="food_desc" jdbcType="VARCHAR" property="foodDesc"/>
+                <result column="food_status" jdbcType="INTEGER" property="foodStatus"/>
+                <result column="food_images_url" jdbcType="VARCHAR" property="foodImagesUrl"/>
+                <result column="food_detail" jdbcType="VARCHAR" property="foodDetail"/>
+                <result column="food_price" jdbcType="DECIMAL" property="foodPrice"/>
+                <result column="food_sale_price" jdbcType="DECIMAL" property="foodSalePrice"/>
+                <result column="food_number" jdbcType="INTEGER" property="foodNumber"/>
+            </collection>
+        </collection>
+
+    </resultMap>
+
+    <!--获取自助点餐列表-->
+    <select id="getSelfBoxLunchListByIdList" parameterType="java.util.List" resultMap="selfBoxLunchDetail">
+        select a.self_id, a.box_lunch_number, a.box_lunch_date, b.food_number, c.food_name, d.category_id, d.category_name, c.food_status, c.food_price, c.food_sale_price, c.food_images_url
+         from self_box_lunch a,  self_box_lunch_detail b, foods c, food_types d where b.self_id = a.self_id AND c.food_id = b.food_id AND d.category_id = c.category_id AND d.category_id = c.category_id
+        AND a.self_id in
+        <foreach collection="list" item="boxLunch"
+                 index="index" open="(" separator="," close=")">
+            #{boxLunch.boxLunchId}
+        </foreach>
+    </select>
+
+    <!--购物车模块:查询食物信息和所属类别-->
+    <select id="selectFoodsAndFoodsTypeByFoodsId" parameterType="java.util.List" resultType="com.cunjia.ordering.dto.CartSelfDTO">
+        SELECT a.*,b.* FROM foods a
+        LEFT JOIN food_types b ON a.category_id = b.category_id
+        WHERE a.food_id in
+        <foreach collection="list" item="item"
+                 index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <insert id="insertFoods" parameterType="com.cunjia.ordering.dto.FoodsDTO">
+        INSERT INTO `foods` (category_id,food_name,food_price,food_sale_price,food_desc,food_status,food_images_url,food_detail,food_remain_number,food_surface_price)
+        VALUES(#{categoryId},#{foodName},#{foodPrice},#{foodSalePrice},#{foodDesc},#{foodStatus},#{foodImagesUrl},#{foodDetail},#{foodRemainNumber},#{foodSurfacePrice})
+    </insert>
+    <update id="updateFoods" parameterType="com.cunjia.ordering.dto.FoodsDTO">
+        UPDATE foods
+        SET
+        category_id = #{categoryId},
+        food_name = #{foodName},
+        food_price = #{foodPrice},
+        food_sale_price = #{foodSalePrice},
+        food_desc = #{foodDesc},
+        food_status = #{foodStatus},
+        food_images_url = #{foodImagesUrl},
+        food_detail = #{foodDetail},
+        food_remain_number = #{foodRemainNumber},
+        food_surface_price = #{foodSurfacePrice},
+        food_update_time = NOW()
+        WHERE
+        food_id = #{foodId}
+    </update>
+    <update id="updateFoodStatus" parameterType="com.cunjia.ordering.dto.FoodsDTO">
+        UPDATE `foods` SET food_status = #{foodStatus} WHERE food_id IN
+        <foreach collection="idList" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

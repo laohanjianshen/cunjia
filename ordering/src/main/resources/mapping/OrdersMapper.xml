@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.OrdersMapper">
+    <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.Order">
+        <id column="order_id" jdbcType="INTEGER" property="orderId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime"/>
+        <result column="order_status" jdbcType="INTEGER" property="orderStatus"/>
+        <result column="order_total_price" jdbcType="DECIMAL" property="orderTotalPrice"/>
+        <result column="order_deal_price" jdbcType="DECIMAL" property="orderDealPrice"/>
+        <result column="address_id" jdbcType="INTEGER" property="addressId"/>
+        <result column="order_send_price" jdbcType="DECIMAL" property="orderSendPrice"/>
+        <result column="order_surface_price" jdbcType="DECIMAL" property="orderSurfacePrice"/>
+        <result column="red_packet_id" jdbcType="INTEGER" property="redPacketId"/>
+        <result column="order_pay_type" jdbcType="INTEGER" property="orderPayType"/>
+        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    order_id, user_id, order_create_time, order_status, order_total_price, order_deal_price, 
+    address_id, order_send_price, order_surface_price, red_packet_id, order_pay_type, 
+    order_number
+  </sql>
+
+    <resultMap id="OrderListResultMap" type="com.cunjia.ordering.domain.Order">
+        <id column="order_id" jdbcType="INTEGER" property="orderId"/>
+        <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime"/>
+        <result column="order_status" jdbcType="INTEGER" property="orderStatus"/>
+        <result column="order_total_price" jdbcType="DECIMAL" property="orderTotalPrice"/>
+        <result column="order_deal_price" jdbcType="DECIMAL" property="orderDealPrice"/>
+        <result column="address_id" jdbcType="INTEGER" property="addressId"/>
+        <result column="order_send_price" jdbcType="DECIMAL" property="orderSendPrice"/>
+        <result column="order_surface_price" jdbcType="DECIMAL" property="orderSurfacePrice"/>
+        <result column="red_packet_id" jdbcType="INTEGER" property="redPacketId"/>
+        <result column="order_pay_type" jdbcType="INTEGER" property="orderPayType"/>
+        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where order_id = #{orderId,jdbcType=INTEGER}
+        limit #{number},#{size}
+    </select>
+
+    <!--获取用户订单列表带分页-->
+    <resultMap id="OrderGoodsList" type="com.cunjia.ordering.vo.OrderDetailVO">
+        <result column="order_id" property="orderId"/>
+        <result column="order_create_time" property="orderCreateTime"/>
+        <result column="order_send_time" property="orderSendTime"/>
+        <result column="order_deal_price" property="orderDealPrice"/>
+        <result column="order_pay_type" property="orderPayType"/>
+        <result column="order_send_price" property="orderSendPrice"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="order_surface_price" property="orderSurfacePrice"/>
+        <result column="order_total_price" property="orderTotalPrice"/>
+        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
+        <result column="red_packet_name" property="redPacketName"/>
+        <result column="address_name" property="addressName"/>
+        <result column="user_sex" property="userSex"/>
+        <result column="address_phone" property="addressPhone"/>
+        <result column="city_name" property="cityName"/>
+        <result column="district_name" property="districtName"/>
+        <result column="location_building" property="locationBuilding"/>
+        <result column="address_detail" property="addressDetail"/>
+        <result column="order_type" property="orderType"/>
+        <!--订单盒饭集合-->
+        <collection property="boxLunchList" ofType="com.cunjia.ordering.vo.BoxLunchVO">
+            <result column="box_lunch_id" property="boxLunchId"/>
+            <result column="box_lunch_name" jdbcType="VARCHAR" property="boxLunchName"/>
+            <result column="box_lunch_price" jdbcType="DECIMAL" property="boxLunchPrice"/>
+            <result column="box_lunch_sale_price" jdbcType="DECIMAL" property="boxLunchSalePrice"/>
+            <result column="box_lunch_number" jdbcType="INTEGER" property="boxLunchNumber"/>
+            <result column="box_lunch_images_url" jdbcType="INTEGER" property="boxLunchImagesUrl"/>
+            <result column="sku_id" jdbcType="INTEGER" property="skuId"/>
+            <result column="sku_name" jdbcType="VARCHAR" property="skuName"/>
+            <collection property="foodVOList" ofType="com.cunjia.ordering.vo.FoodsVO">
+                <id column="food_id" jdbcType="INTEGER" property="foodId"/>
+                <result column="food_name" jdbcType="VARCHAR" property="foodName"/>
+                <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+                <result column="food_desc" jdbcType="VARCHAR" property="foodDesc"/>
+                <result column="food_status" jdbcType="INTEGER" property="foodStatus"/>
+                <result column="food_images_url" jdbcType="VARCHAR" property="foodImagesUrl"/>
+                <result column="food_price" jdbcType="VARCHAR" property="foodPrice"/>
+                <result column="food_sale_price" jdbcType="VARCHAR" property="foodSalePrice"/>
+                <result column="food_number" jdbcType="VARCHAR" property="foodNumber"/>
+            </collection>
+        </collection>
+    </resultMap>
+   <!-- 获取用户某个状态的订单列表-->
+    <select id="getOrderListByUserId" resultMap="OrderGoodsList">
+    select a.* from orders_list a,(select order_status, order_number, order_id from orders where user_id = #{userId} AND order_status = #{order.orderStatus} order by order_id desc limit #{page.offset},#{page.limit}) b  where a.order_id = b.order_id
+    </select>
+    <!--获取用户所有订单的列表-->
+    <select id="getOrderListAll" resultMap="OrderGoodsList">
+    select a.* from orders_list a,(select order_status, order_number, order_id from orders where user_id = #{userId} order by order_id desc limit #{page.offset},#{page.limit}) b  where a.order_id = b.order_id
+    </select>
+
+    <!--获取个人点餐订单详情-->
+    <resultMap id="PersonOrderDetail" type="com.cunjia.ordering.vo.OrderDetailVO">
+        <result column="order_id" property="orderId"/>
+        <result column="order_create_time" property="orderCreateTime"/>
+        <result column="order_send_time" property="orderSendTime"/>
+        <result column="order_deal_price" property="orderDealPrice"/>
+        <result column="order_pay_type" property="orderPayType"/>
+        <result column="order_send_price" property="orderSendPrice"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="order_surface_price" property="orderSurfacePrice"/>
+        <result column="order_total_price" property="orderTotalPrice"/>
+        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
+        <result column="red_packet_price" property="redPacketPrice"/>
+        <result column="address_name" property="addressName"/>
+        <result column="user_sex" property="userSex"/>
+        <result column="address_phone" property="addressPhone"/>
+        <result column="city_name" property="cityName"/>
+        <result column="district_name" property="districtName"/>
+        <result column="location_building" property="locationBuilding"/>
+        <result column="address_detail" property="addressDetail"/>
+        <result column="box_lunch_type" property="boxLunchType"/>
+        <!--订单盒饭集合-->
+        <collection property="boxLunchList" ofType="com.cunjia.ordering.vo.BoxLunchVO">
+            <result column="box_lunch_id" property="boxLunchId"/>
+            <result column="box_lunch_name" jdbcType="VARCHAR" property="boxLunchName"/>
+            <result column="box_lunch_price" jdbcType="DECIMAL" property="boxLunchPrice"/>
+            <result column="box_lunch_sale_price" jdbcType="DECIMAL" property="boxLunchSalePrice"/>
+            <result column="box_lunch_number" jdbcType="INTEGER" property="boxLunchNumber"/>
+            <result column="box_lunch_images_url" jdbcType="INTEGER" property="boxLunchImagesUrl"/>
+            <result column="sku_name" jdbcType="VARCHAR" property="skuName"/>
+            <result column="condiment_name" jdbcType="VARCHAR" property="condimentName"/>
+        </collection>
+    </resultMap>
+    <select id="getPersonOrderDetail" parameterType="java.lang.Integer" resultMap="PersonOrderDetail">
+    select a.box_lunch_id, a.box_lunch_name, a.box_lunch_images_url, a.box_lunch_price, a.box_lunch_sale_price, UNIX_TIMESTAMP(b.order_create_time) order_create_time, UNIX_TIMESTAMP(b.order_send_time) order_send_time, b.order_deal_price, b.order_pay_type, b.order_send_price, b.order_status,b.order_surface_price,
+    b.order_total_price, b.order_number, c.sku_name, c.condiment_name, c.box_lunch_number, d.red_packet_price, f.address_name, f.address_phone,f.location_building, f.address_detail,
+    f.district_name, f.city_name, f.user_sex
+    from orders b
+	left join orders_box_lunch c on c.order_id = b.order_id
+    left join box_lunch a on a.box_lunch_id = c.box_lunch_id
+	left join red_packet_user d on d.red_packet_id = b.red_packet_id
+	left join address_whole f on f.address_id = b.address_id
+    where b.order_id = #{orderId, jdbcType=INTEGER} AND b.order_type = 0;
+  </select>
+
+    <!--获取自助点餐订单详情-->
+
+    <select id="getSelfOrderDetail" parameterType="java.lang.Integer" resultMap="OrderGoodsList">
+    select UNIX_TIMESTAMP(b.order_create_time) order_create_time, UNIX_TIMESTAMP(b.order_send_time) order_send_time, b.order_deal_price, b.order_pay_type, b.order_send_price, b.order_status,b.order_surface_price,
+    b.order_total_price, b.order_number,
+    e.self_id box_lunch_id, e.food_number,
+    c.box_lunch_number,
+    d.red_packet_price,
+    f.address_name, f.address_phone,f.location_building, f.address_detail,
+    f.district_name, f.city_name, f.user_sex,
+    a.food_id, a.food_name, g.category_name, a.food_price, a.food_sale_price
+    from orders b
+    left join orders_self_box_lunch c on c.order_id = b.order_id
+    left join red_packet_user d on d.red_packet_id = b.red_packet_id
+    left join address_whole f on f.address_id = b.address_id
+    left join self_box_lunch_detail e on e.self_id = c.box_lunch_id
+    left join foods a on a.food_id = e.food_id
+    left join food_types g on g.category_id = a.category_id
+    where b.order_id = #{orderId, jdbcType=INTEGER} AND b.order_type = 1
+  </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+    <!--批量插入订单信息-->
+    <insert id="insertOrderBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="orderId">
+        insert into orders(order_number, user_id, order_total_price, order_surface_price, order_pay_type, order_type, address_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.orderNumber}, #{item.userId}, #{item.orderTotalPrice},#{item.orderSurfacePrice}, #{item.orderPayType},
+            #{item.orderType},#{item.addressId})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cunjia.ordering.domain.Order">
+        update orders
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="orderCreateTime != null">
+                order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="orderTotalPrice != null">
+                order_total_price = #{orderTotalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="orderDealPrice != null">
+                order_deal_price = #{orderDealPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="addressId != null">
+                address_id = #{addressId,jdbcType=INTEGER},
+            </if>
+            <if test="orderSendPrice != null">
+                order_send_price = #{orderSendPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="orderSurfacePrice != null">
+                order_surface_price = #{orderSurfacePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="redPacketId != null">
+                red_packet_id = #{redPacketId,jdbcType=INTEGER},
+            </if>
+            <if test="orderPayType != null">
+                order_pay_type = #{orderPayType,jdbcType=INTEGER},
+            </if>
+            <if test="orderNumber != null">
+                order_number = #{orderNumber,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateOrderStatus" parameterType="com.cunjia.ordering.domain.Order">
+        update orders
+        <set>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        <where>
+            <if test="userId != null">
+                user_id = #{userId}
+            </if>
+            <if test="orderId != null">
+                AND order_id = #{orderId}
+            </if>
+        </where>
+    </update>
+
+</mapper>

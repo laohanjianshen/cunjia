@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.LocationsMapper">
+    <resultMap id="BaseResultMap" type="com.cunjia.ordering.vo.CityVO" >
+        <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+        <collection property="districtList" ofType="com.cunjia.ordering.vo.DistrictVO">
+            <result column="district_name" property="districtName" />
+            <collection property="localtionsList" ofType="com.cunjia.ordering.vo.LocaltionsVO">
+                <result column="location_id" property="locationId" />
+                <result column="address_detail" property="addressDetail" />
+                <result column="location_building" property="locationBuilding"/>
+                <result column="location_latitude" property="locationLatitude"/>
+                <result column="location_longitude" property="locationLongitude"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="listLocations" resultMap="BaseResultMap">
+        SELECT c.`city_name`,
+            d.`district_name`,
+            l.`address_detail`,l.`location_building`,
+            l.`location_id`,l.`location_latitude`,l.`location_longitude`
+         FROM city c
+         INNER JOIN district d ON c.`city_id` = d.`city_id`
+         INNER JOIN locations l ON d.`district_id` = l.`district_id` and l.location_state = 1
+    </select>
+    <!--获取每个市下面支持配送点的经纬度-->
+    <select id="listLatitudeAndLongitudeByCityName" parameterType="java.lang.String" resultType="com.cunjia.ordering.domain.LocationsDO">
+          SELECT location_longitude,location_latitude FROM `city` c
+          INNER JOIN  `district` d ON c.city_id = d.city_id AND c.city_name LIKE CONCAT( #{cityName},'%')
+          INNER JOIN  `locations` l ON d.district_id = l.district_id and l.locatio_state = 1
+    </select>
+</mapper>

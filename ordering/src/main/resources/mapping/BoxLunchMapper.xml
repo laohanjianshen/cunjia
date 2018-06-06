@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.BoxLunchMapper">
+
+    <!--盒饭详情和sku的数据结构-->
+    <resultMap id="BoxLunchVO" type="com.cunjia.ordering.vo.BoxLunchVO">
+        <id column="box_lunch_id" jdbcType="INTEGER" property="boxLunchId"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <result column="box_lunch_name" jdbcType="VARCHAR" property="boxLunchName"/>
+        <result column="box_lunch_price" jdbcType="DECIMAL" property="boxLunchPrice"/>
+        <result column="box_lunch_sale_price" jdbcType="DECIMAL" property="boxLunchSalePrice"/>
+        <result column="box_lunch_desc" jdbcType="VARCHAR" property="boxLunchDesc"/>
+        <result column="box_lunch_status" jdbcType="INTEGER" property="boxLunchStatus"/>
+        <result column="box_lunch_like_number" jdbcType="INTEGER" property="boxLunchLikeNumber"/>
+        <result column="box_lunch_sold_number" jdbcType="INTEGER" property="boxLunchSoldNumber"/>
+        <result column="box_lunch_images_url" jdbcType="VARCHAR" property="boxLunchImagesUrl"/>
+        <result column="box_lunch_detail" jdbcType="VARCHAR" property="boxLunchDetail"/>
+        <result column="default_sku_id" jdbcType="INTEGER" property="defaultSkuId"/>
+        <result column="box_lunch_remain_number" jdbcType="INTEGER" property="boxLunchRemainNumber"/>
+        <result column="box_lunch_is_fire" jdbcType="TINYINT" property="boxLunchIsFire"/>
+        <result column="box_lunch_is_condiment" jdbcType="TINYINT" property="boxLunchIsCondiment"/>
+        <collection property="boxLunchSkuVOList" ofType="com.cunjia.ordering.vo.BoxLunchSkuVO">
+            <id column="sku_id" jdbcType="INTEGER" property="skuId"/>
+            <result column="s_box_lunch_id" jdbcType="INTEGER" property="boxLunchId"/>
+            <result column="sku_name" jdbcType="VARCHAR" property="skuName"/>
+            <result column="sku_price" jdbcType="DECIMAL" property="skuPrice"/>
+            <result column="sku_sale_price" jdbcType="DECIMAL" property="skuSalePrice"/>
+            <result column="sku_status" jdbcType="INTEGER" property="skuStatus"/>
+        </collection>
+        <collection property="condimentList" ofType="com.cunjia.ordering.vo.CondimentVO">
+            <id column="condiment_id" jdbcType="INTEGER" property="condimentId"/>
+            <result column="condiment_name" jdbcType="VARCHAR" property="condimentName"/>
+            <result column="condiment_status" jdbcType="INTEGER" property="condimentStatus"/>
+            <result column="condiment_price" jdbcType="DECIMAL" property="condimentPrice"/>
+        </collection>
+    </resultMap>
+
+    <!--个人点餐中的盒饭详情与sku数据结构-->
+    <resultMap id="PersonalBoxLunchVO" type="com.cunjia.ordering.vo.PersonalBoxLunchVO">
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <collection property="boxLunchVOList" ofType="com.cunjia.ordering.vo.BoxLunchVO">
+            <id column="box_lunch_id" jdbcType="INTEGER" property="boxLunchId"/>
+            <result column="box_lunch_name" jdbcType="VARCHAR" property="boxLunchName"/>
+            <result column="box_lunch_price" jdbcType="DECIMAL" property="boxLunchPrice"/>
+            <result column="box_lunch_sale_price" jdbcType="DECIMAL" property="boxLunchSalePrice"/>
+            <result column="box_lunch_desc" jdbcType="VARCHAR" property="boxLunchDesc"/>
+            <result column="box_lunch_status" jdbcType="INTEGER" property="boxLunchStatus"/>
+            <result column="box_lunch_like_number" jdbcType="INTEGER" property="boxLunchLikeNumber"/>
+            <result column="box_lunch_sold_number" jdbcType="INTEGER" property="boxLunchSoldNumber"/>
+            <result column="box_lunch_images_url" jdbcType="VARCHAR" property="boxLunchImagesUrl"/>
+            <result column="default_sku_id" jdbcType="INTEGER" property="defaultSkuId"/>
+            <result column="box_lunch_remain_number" jdbcType="INTEGER" property="boxLunchRemainNumber"/>
+            <result column="box_lunch_is_fire" jdbcType="TINYINT" property="boxLunchIsFire"/>
+            <result column="box_lunch_is_condiment" jdbcType="TINYINT" property="boxLunchIsCondiment"/>
+            <collection property="boxLunchSkuVOList" ofType="com.cunjia.ordering.vo.BoxLunchSkuVO">
+                <id column="sku_id" jdbcType="INTEGER" property="skuId"/>
+                <result column="s_box_lunch_id" jdbcType="INTEGER" property="boxLunchId"/>
+                <result column="sku_name" jdbcType="VARCHAR" property="skuName"/>
+                <result column="sku_price" jdbcType="DECIMAL" property="skuPrice"/>
+                <result column="sku_sale_price" jdbcType="DECIMAL" property="skuSalePrice"/>
+                <result column="sku_status" jdbcType="INTEGER" property="skuStatus"/>
+            </collection>
+            <collection property="condimentList" ofType="com.cunjia.ordering.vo.CondimentVO">
+                <id column="condiment_id" jdbcType="INTEGER" property="condimentId"/>
+                <result column="condiment_name" jdbcType="VARCHAR" property="condimentName"/>
+                <result column="condiment_status" jdbcType="INTEGER" property="condimentStatus"/>
+                <result column="condiment_price" jdbcType="DECIMAL" property="condimentPrice"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!--单个盒饭详情及sku-->
+    <select id="getBoxLunchAndSkuByBoxLunchId" parameterType="java.lang.Integer" resultMap="BoxLunchVO">
+    select
+      b.box_lunch_id,b.category_id,blt.category_name,b.box_lunch_name,b.box_lunch_price,b.box_lunch_sale_price,
+      b.box_lunch_desc,b.box_lunch_status,b.box_lunch_like_number,b.box_lunch_sold_number,b.box_lunch_images_url,
+      b.box_lunch_detail,b.default_sku_id,b.box_lunch_remain_number,b.box_lunch_is_fire,b.box_lunch_is_condiment,
+      s.sku_id,s.box_lunch_id as s_box_lunch_id,s.sku_name,s.sku_price,s.sku_sale_price,s.sku_status
+     from box_lunch b
+     inner join box_lunch_types blt on  b.category_id = blt.category_id
+     left join box_lunch_sku s on b.box_lunch_id = s.box_lunch_id
+     where b.box_lunch_id=#{boxLunchId}
+  </select>
+
+    <!--分页获取个人点餐页面分类盒饭列表-->
+    <select id="getBoxLunchListForPersonal" parameterType="java.util.Map" resultMap="PersonalBoxLunchVO">
+    select a.*,d.category_name, c.box_lunch_id as s_box_lunch_id, c.sku_id, c.sku_name,c.sku_price,c.sku_sale_price,c.sku_status,
+    con.condiment_id, con.condiment_name, con.condiment_status, con.condiment_price
+    from
+    (select b.box_lunch_id,b.category_id,b.box_lunch_name,b.box_lunch_price,b.box_lunch_sale_price, b.box_lunch_desc,b.box_lunch_status,
+	b.box_lunch_like_number,b.box_lunch_sold_number,b.box_lunch_images_url,b.default_sku_id, b.box_lunch_remain_number,b.box_lunch_is_fire,
+	b.box_lunch_is_condiment
+	from box_lunch b, date_box_lunch c
+	where b.box_lunch_id = c.date_box_lunch_id
+	and b.box_lunch_status > 0
+	and c.date_timestamp=#{timestamp}
+	and b.category_id=#{categoryId}
+	limit #{offset},#{limit}
+	) a
+	left join box_lunch_sku c on c.box_lunch_id = a.box_lunch_id
+	left join box_lunch_types d on d.category_id= a.category_id
+	left join condiment_box_lunch cbl on cbl.box_lunch_id = a.box_lunch_id
+    left join condiment con on cbl.condiment_id = con.condiment_id and con.condiment_status > 0
+    </select>
+
+    <!--分页获取爆款盒饭列表-->
+    <select id="getBoxLunchFireListByPage" parameterType="java.util.Map" resultMap="BoxLunchVO">
+    select a.*, d.category_name, c.box_lunch_id as s_box_lunch_id, c.sku_id, c.sku_name,c.sku_price,c.sku_sale_price,c.sku_status,
+    con.condiment_id, con.condiment_name, con.condiment_status, con.condiment_price
+    from (select
+          b.box_lunch_id,b.category_id,b.box_lunch_name,b.box_lunch_price,b.box_lunch_sale_price,
+          b.box_lunch_desc,b.box_lunch_status,b.box_lunch_like_number,b.box_lunch_sold_number,b.box_lunch_images_url,
+          b.box_lunch_detail,b.default_sku_id,b.box_lunch_remain_number,b.box_lunch_is_fire,b.box_lunch_is_condiment
+        from box_lunch b
+        where b.box_lunch_is_fire = 1
+        limit #{offset},#{limit}) a
+    left join box_lunch_sku c on c.box_lunch_id = a.box_lunch_id
+	left join box_lunch_types d on d.category_id= a.category_id
+	left join condiment_box_lunch cbl on cbl.box_lunch_id = a.box_lunch_id
+    left join condiment con on cbl.condiment_id = con.condiment_id and con.condiment_status > 0
+    </select>
+
+    <!--获取某天的所有盒饭分类(只取上架的盒饭的分类)-->
+    <select id="getBoxLunchClassifyByTimestamp" parameterType="java.lang.Long"
+            resultType="com.cunjia.ordering.vo.BoxLunchClassifyVO">
+        select
+        blt.category_id,blt.category_name
+        from box_lunch b, date_box_lunch d, box_lunch_types blt
+        where d.date_timestamp=#{timestamp}
+        and d.date_box_lunch_id = b.box_lunch_id
+        and b.category_id = blt.category_id
+        and b.box_lunch_status > 0
+        group by blt.category_id
+    </select>
+
+    <!--分页获取首页推荐的盒饭列表-->
+    <select id="getBoxLunchListByIndex" parameterType="java.util.Map" resultType="com.cunjia.ordering.vo.BoxLunchVO">
+    select a.*,d.category_name
+    from
+    (select b.box_lunch_id,b.category_id,b.box_lunch_name,b.box_lunch_price,b.box_lunch_sale_price, b.box_lunch_desc,b.box_lunch_status,
+	b.box_lunch_like_number,b.box_lunch_sold_number,b.box_lunch_images_url,b.default_sku_id, b.box_lunch_remain_number,b.box_lunch_is_fire,
+	b.box_lunch_is_condiment
+	from box_lunch b, date_box_lunch c
+	where b.box_lunch_id = c.date_box_lunch_id
+	and b.box_lunch_status > 0
+	and c.date_timestamp=#{timestamp}
+	limit #{offset},#{limit}
+	) a
+	left join box_lunch_types d on d.category_id= a.category_id
+    </select>
+
+    <resultMap id="BoxLunchList" type="com.cunjia.ordering.vo.DateBoxLunchVO">
+        <result column="box_lunch_date" property="boxLunchDate"/>
+        <collection property="boxLunchList" ofType="com.cunjia.ordering.vo.OrderBoxLunchVO">
+            <result column="box_lunch_id" jdbcType="INTEGER" property="boxLunchId"/>
+            <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+            <result column="box_lunch_name" jdbcType="VARCHAR" property="boxLunchName"/>
+            <result column="box_lunch_images_url" jdbcType="VARCHAR" property="boxLunchImagesUrl"/>
+            <result column="box_lunch_price" jdbcType="DECIMAL" property="boxLunchPrice"/>
+            <result column="box_lunch_sale_price" jdbcType="DECIMAL" property="boxLunchSalePrice"/>
+            <result column="box_lunch_status" jdbcType="INTEGER" property="boxLunchStatus"/>
+            <result column="box_lunch_surface_price" jdbcType="DECIMAL" property="boxLunchSurfacePrice"/>
+            <result column="box_lunch_number" property="boxLunchNumber"/>
+            <result column="default_sku_id" property="defaultSkuId"/>
+            <result column="sku_id" property="skuId"/>
+            <result column="sku_name" property="skuName"/>
+            <result column="sku_status" property="skuStatus"/>
+            <result column="condiment_id" property="condimentId"/>
+            <result column="condiment_name" property="condimentName"/>
+        </collection>
+
+    </resultMap>
+
+    <!--根据id获取多品盒饭列表-->
+    <select id="getMultiBoxLunchListByIdList" parameterType="java.util.List" resultMap="BoxLunchList">
+        select a.box_lunch_id, a.box_lunch_name, a.box_lunch_status, a.box_lunch_price, a.box_lunch_sale_price,
+        a.box_lunch_images_url,
+        a.box_lunch_send_price, a.box_lunch_surface_price, b.sku_id, b.sku_status, c.box_lunch_number, c.box_lunch_date
+        from box_lunch a, box_lunch_sku b, cart_personal c
+        where a.default_sku_id > 0 AND a.box_lunch_id = c.box_lunch_id AND b.sku_id = c.sku_id AND c.sku_id in
+        <foreach collection="list" item="boxLunch"
+                 index="index" open="(" separator="," close=")">
+            #{boxLunch.skuId}
+        </foreach>
+
+    </select>
+
+    <!--根据id获取单品盒饭列表-->
+    <select id="getSingleBoxLunchListByIdList" parameterType="java.util.List" resultMap="BoxLunchList">
+        select a.box_lunch_id, a.box_lunch_name, a.box_lunch_status, a.box_lunch_price, a.box_lunch_sale_price,
+        a.box_lunch_images_url,
+        a.box_lunch_surface_price, b.box_lunch_number, b.box_lunch_date from box_lunch a, cart_personal b where
+        b.box_lunch_id = a.box_lunch_id AND a.default_sku_id = 0
+        AND a.box_lunch_id in
+        <foreach collection="list" item="boxLunch"
+                 index="index" open="(" separator="," close=")">
+            #{boxLunch.boxLunchId}
+        </foreach>
+    </select>
+
+    <!--根据id集合获取购物车盒饭列表-->
+    <select id="getBoxLunchListByIdList"  resultMap="BoxLunchList">
+        select a.*  from person_cart a
+        WHERE a.default_sku_id = 0 AND a.user_id = #{userId} AND
+        a.box_lunch_id in
+        <foreach collection="list" item="boxLunch"
+                 index="index" open="(" separator="," close=")">
+            #{boxLunch.boxLunchId}
+        </foreach>
+        OR
+        a.default_sku_id > 0 AND a.user_id = #{userId} AND
+        a.sku_id in
+        <foreach collection="list" item="boxLunch"
+                 index="index" open="(" separator="," close=")">
+            #{boxLunch.skuId}
+        </foreach>
+    </select>
+
+    <!--[购物车模块]:通过盒饭id获取盒饭详情和sku详情-->
+    <select id="selectBoxLunchAndSkuByBoxLunchId" parameterType="java.lang.Integer" resultMap="BoxLunchVO">
+     SELECT a.*,b.*,c.*
+        FROM `box_lunch` a
+        LEFT JOIN `box_lunch_sku` b ON a.`box_lunch_id` = b.`box_lunch_id`
+        LEFT JOIN `box_lunch_types` c ON a.`category_id` = c.`category_id`
+        WHERE a.`box_lunch_id` = #{boxLunchId};
+    </select>
+    <!--新增盒饭-->
+    <insert id="insertBoxLunch" parameterType="com.cunjia.ordering.dto.BoxLunchDTO">
+        <selectKey resultType="java.lang.Integer" keyProperty="boxLunchId" order="AFTER">
+            SELECT @@IDENTITY
+        </selectKey>
+        INSERT INTO `box_lunch`(
+          category_id,box_lunch_price,box_lunch_sale_price,box_lunch_desc,
+          box_lunch_status,box_lunch_images_url,box_lunch_detail,default_sku_id,box_lunch_remain_number,
+          box_lunch_surface_price,box_lunch_is_fire,box_lunch_is_condiment)
+        values(#{categoryId},#{boxLunchPrice},#{boxLunchSalePrice},#{boxLunchDesc},
+          #{boxLunchStatus},#{boxLunchImagesUrl},#{boxLunchDetail},#{defaultSkuId},#{boxLunchRemainNumber},
+          #{boxLunchSurfacePrice},#{boxLunchIsFire},#{boxLunchIsCondiment})
+    </insert>
+    <!--新增调料包-->
+    <insert id="insertCondimentBoxLunch" parameterType="com.cunjia.ordering.dto.BoxLunchDTO">
+        INSERT INTO `condiment_box_lunch`(condiment_id,box_lunch_id)
+        values
+        <foreach collection="condimentList" item="item" index="index" close=")" separator="," open="(">
+            #{item},#{boxLunchId}
+        </foreach>
+    </insert>
+    <!--新增盒饭商品关联-->
+    <insert id="insertBoxLunchFood" parameterType="com.cunjia.ordering.dto.BoxLunchDTO">
+        INSERT INTO `box_lunch_food`(box_lunch_id,food_id)
+        VALUES
+        <foreach collection="foodsList" item="item" index="index" open="(" separator="," close=")">
+            #{boxLunchId},#{item}
+        </foreach>
+    </insert>
+    <update id="updateBoxLunchById" parameterType="com.cunjia.ordering.dto.BoxLunchDTO">
+        update box_lunch
+        set
+        category_id = #{categoryId},
+        box_lunch_price =#{boxLunchPrice},
+        box_lunch_sale_price = #{boxLunchSalePrice},
+        box_lunch_desc = #{boxLunchDesc},
+        box_lunch_status = #{boxLunchStatus},
+        box_lunch_images_url = #{boxLunchImagesUrl},
+        box_lunch_detail = #{boxLunchDetail},
+        default_sku_id = #{defaultSkuId},
+        box_lunch_remain_number = #{boxLunchRemainNumber},
+        box_lunch_surface_price = #{boxLunchSurfacePrice},
+        box_lunch_is_fire = #{boxLunchIsFire},
+        box_lunch_is_condiment = #{boxLunchIsCondiment},
+        box_lunch_update_time = NOW()
+        where box_lunch_id = #{boxLunchId}
+    </update>
+    <!--批量作废盒饭-->
+    <update id="updateBoxLunchStatus" parameterType="com.cunjia.ordering.dto.BoxLunchDTO" >
+        UPDATE `box_lunch` SET box_lunch_status = #{boxLunchStatus} WHERE box_lunch_id in
+        <foreach collection="idList" item="item" index="index" open="(" separator="," close=")"  >
+            #{item}
+        </foreach>
+    </update>
+</mapper>

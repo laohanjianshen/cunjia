@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.BoxLunchSkuMapper">
+  <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.BoxLunchSku">
+    <id column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="box_lunch_id" jdbcType="INTEGER" property="boxLunchId" />
+    <result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+    <result column="sku_price" jdbcType="DECIMAL" property="skuPrice" />
+    <result column="sku_sale_price" jdbcType="DECIMAL" property="skuSalePrice" />
+  </resultMap>
+  <select id="selectBySkuId" resultMap="BaseResultMap">
+    select * from box_lunch_sku where sku_id = #{skuId}
+  </select>
+  <!--批量新增盒饭sku-->
+  <insert id="insertSku" parameterType="com.cunjia.ordering.dto.BoxLunchDTO">
+    insert into `box_lunch_sku` (box_lunch_id,sku_name,sku_price,sku_sale_price,sku_surface_price,sku_status)
+    values
+    <foreach collection="boxLunchSkuList" item="item" index="index" open="(" separator="," close=")">
+      #{boxLunchId},#{item.skuName},#{item.skuPrice},#{item.skuSalePrice},#{item.skuSurfacePrice},#{item.skuStatus}
+    </foreach>
+  </insert>
+</mapper>

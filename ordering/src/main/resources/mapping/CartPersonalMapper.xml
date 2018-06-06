@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.CartPersonalMapper">
+  <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.CartPersonal">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="box_lunch_id" jdbcType="INTEGER" property="boxLunchId" />
+    <result column="box_lunch_name" jdbcType="VARCHAR" property="boxLunchName" />
+    <result column="box_lunch_number" jdbcType="INTEGER" property="boxLunchNumber" />
+    <result column="box_lunch_sale_price" jdbcType="DECIMAL" property="boxLunchSalePrice" />
+    <result column="box_lunch_type" jdbcType="INTEGER" property="boxLunchType" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="box_lunch_date" jdbcType="BIGINT" property="boxLunchDate" />
+    <result column="box_lunch_image_url" jdbcType="VARCHAR" property="boxLunchImageUrl" />
+    <result column="condiment_id" jdbcType="INTEGER" property="condimentId" />
+    <result column="condiment_name" jdbcType="VARCHAR" property="condimentName" />
+    <result column="box_lunch_price" jdbcType="DECIMAL" property="boxLunchPrice" />
+    <result column="box_lunch_discount_date" jdbcType="BIGINT" property="boxLunchDiscountDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, box_lunch_id, box_lunch_name, box_lunch_number, box_lunch_sale_price, 
+    box_lunch_type, sku_id, box_lunch_date, box_lunch_image_url, condiment_id, condiment_name, 
+    box_lunch_price, box_lunch_discount_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cart_personal
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cart_personal
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cunjia.ordering.domain.CartPersonal">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cart_personal (user_id, box_lunch_id, box_lunch_name, 
+      box_lunch_number, box_lunch_sale_price, box_lunch_type, 
+      sku_id, box_lunch_date, box_lunch_image_url, 
+      condiment_id, condiment_name, box_lunch_price, 
+      box_lunch_discount_date)
+    values (#{userId,jdbcType=INTEGER}, #{boxLunchId,jdbcType=INTEGER}, #{boxLunchName,jdbcType=VARCHAR}, 
+      #{boxLunchNumber,jdbcType=INTEGER}, #{boxLunchSalePrice,jdbcType=DECIMAL}, #{boxLunchType,jdbcType=INTEGER}, 
+      #{skuId,jdbcType=INTEGER}, #{boxLunchDate,jdbcType=BIGINT}, #{boxLunchImageUrl,jdbcType=VARCHAR}, 
+      #{condimentId,jdbcType=INTEGER}, #{condimentName,jdbcType=VARCHAR}, #{boxLunchPrice,jdbcType=DECIMAL}, 
+      #{boxLunchDiscountDate,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cunjia.ordering.domain.CartPersonal">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cart_personal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="boxLunchId != null">
+        box_lunch_id,
+      </if>
+      <if test="boxLunchName != null">
+        box_lunch_name,
+      </if>
+      <if test="boxLunchNumber != null">
+        box_lunch_number,
+      </if>
+      <if test="boxLunchSalePrice != null">
+        box_lunch_sale_price,
+      </if>
+      <if test="boxLunchType != null">
+        box_lunch_type,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="boxLunchDate != null">
+        box_lunch_date,
+      </if>
+      <if test="boxLunchImageUrl != null">
+        box_lunch_image_url,
+      </if>
+      <if test="condimentId != null">
+        condiment_id,
+      </if>
+      <if test="condimentName != null">
+        condiment_name,
+      </if>
+      <if test="boxLunchPrice != null">
+        box_lunch_price,
+      </if>
+      <if test="boxLunchDiscountDate != null">
+        box_lunch_discount_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchId != null">
+        #{boxLunchId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchName != null">
+        #{boxLunchName,jdbcType=VARCHAR},
+      </if>
+      <if test="boxLunchNumber != null">
+        #{boxLunchNumber,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchSalePrice != null">
+        #{boxLunchSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLunchType != null">
+        #{boxLunchType,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchDate != null">
+        #{boxLunchDate,jdbcType=BIGINT},
+      </if>
+      <if test="boxLunchImageUrl != null">
+        #{boxLunchImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="condimentId != null">
+        #{condimentId,jdbcType=INTEGER},
+      </if>
+      <if test="condimentName != null">
+        #{condimentName,jdbcType=VARCHAR},
+      </if>
+      <if test="boxLunchPrice != null">
+        #{boxLunchPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLunchDiscountDate != null">
+        #{boxLunchDiscountDate,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cunjia.ordering.domain.CartPersonal">
+    update cart_personal
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchId != null">
+        box_lunch_id = #{boxLunchId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchName != null">
+        box_lunch_name = #{boxLunchName,jdbcType=VARCHAR},
+      </if>
+      <if test="boxLunchNumber != null">
+        box_lunch_number = #{boxLunchNumber,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchSalePrice != null">
+        box_lunch_sale_price = #{boxLunchSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLunchType != null">
+        box_lunch_type = #{boxLunchType,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchDate != null">
+        box_lunch_date = #{boxLunchDate,jdbcType=BIGINT},
+      </if>
+      <if test="boxLunchImageUrl != null">
+        box_lunch_image_url = #{boxLunchImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="condimentId != null">
+        condiment_id = #{condimentId,jdbcType=INTEGER},
+      </if>
+      <if test="condimentName != null">
+        condiment_name = #{condimentName,jdbcType=VARCHAR},
+      </if>
+      <if test="boxLunchPrice != null">
+        box_lunch_price = #{boxLunchPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLunchDiscountDate != null">
+        box_lunch_discount_date = #{boxLunchDiscountDate,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cunjia.ordering.domain.CartPersonal">
+    update cart_personal
+    set user_id = #{userId,jdbcType=INTEGER},
+      box_lunch_id = #{boxLunchId,jdbcType=INTEGER},
+      box_lunch_name = #{boxLunchName,jdbcType=VARCHAR},
+      box_lunch_number = #{boxLunchNumber,jdbcType=INTEGER},
+      box_lunch_sale_price = #{boxLunchSalePrice,jdbcType=DECIMAL},
+      box_lunch_type = #{boxLunchType,jdbcType=INTEGER},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      box_lunch_date = #{boxLunchDate,jdbcType=BIGINT},
+      box_lunch_image_url = #{boxLunchImageUrl,jdbcType=VARCHAR},
+      condiment_id = #{condimentId,jdbcType=INTEGER},
+      condiment_name = #{condimentName,jdbcType=VARCHAR},
+      box_lunch_price = #{boxLunchPrice,jdbcType=DECIMAL},
+      box_lunch_discount_date = #{boxLunchDiscountDate,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    SELECT box_lunch_date FROM cart_personal WHERE user_id = #{userId} GROUP BY box_lunch_date;
+  </select>
+  <!--<select id="selectByUserIdAndDate" resultMap="BaseResultMap">-->
+  <!--select * from cart_personal where user_id = #{arg0} and box_lunch_date = #{arg1} limit 0,14-->
+  <!--</select>-->
+  <select id="selectByUserIdAndDateList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM cart_personal where user_id = #{userId} and box_lunch_date in
+    <foreach collection="dateList" index="index" item="dateList" open="(" separator="," close=")">
+      #{dateList}
+    </foreach>
+    order by box_lunch_date limit 0,14
+  </select>
+  <select id="selectByUserIdAndBoxLunchIdAndSkuIdAndTypeAndDate" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from cart_personal
+    <where>
+      <if test="arg0 != null">
+        and  user_id = #{arg0}
+      </if>
+      <if test="arg1 != null">
+        and box_lunch_id = #{arg1}
+      </if>
+      <if test="arg2 != null">
+        and  sku_id = #{arg2}
+      </if>
+      <if test="arg3 != null">
+        and box_lunch_type = #{arg3}
+      </if>
+      <if test="arg4 != null">
+        and box_lunch_date = #{arg4}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKeyList" parameterType="java.util.List" >
+    delete  from cart_personal where id in
+    <foreach collection="list" index="index" item="idList" open="(" separator="," close=")" >
+      #{idList}
+    </foreach>
+  </delete>
+
+  <!--创建订单完成后清空购物车里对应的商品-->
+  <delete id="deleteBoxLunchList"  >
+    delete from cart_personal where user_id = #{userId} AND box_lunch_type = 0 AND box_lunch_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item.boxLunchId}
+    </foreach>
+    or
+    user_id = #{userId} AND
+    box_lunch_type = 1 AND sku_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item.skuId}
+    </foreach>
+  </delete>
+
+  <select id="selectAllByUserId" resultType="com.cunjia.ordering.domain.CartPersonal">
+        select * from cart_personal where user_id = #{userId}
+    </select>
+</mapper>
+
+
+

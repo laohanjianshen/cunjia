@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.SelfBoxLunchMapper">
+  <resultMap id="BaseResultMap" type="com.cunjia.ordering.domain.SelfBoxLunch">
+    <id column="self_id" jdbcType="INTEGER" property="selfId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="box_lunch_number" jdbcType="INTEGER" property="boxLunchNumber" />
+    <result column="box_lunch_date" jdbcType="BIGINT" property="boxLunchDate" />
+    <result column="box_lunch_price" jdbcType="DECIMAL" property="boxLunchPrice" />
+    <result column="box_lunch_sale_price" jdbcType="DECIMAL" property="boxLunchSalePrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    self_id, user_id, box_lunch_number, box_lunch_date, box_lunch_price, box_lunch_sale_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from self_box_lunch
+    where self_id = #{selfId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from self_box_lunch
+    where self_id = #{selfId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cunjia.ordering.domain.SelfBoxLunch">
+    insert into self_box_lunch (self_id, user_id, box_lunch_number, 
+      box_lunch_date, box_lunch_price, box_lunch_sale_price
+      )
+    values (#{selfId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{boxLunchNumber,jdbcType=INTEGER}, 
+      #{boxLunchDate,jdbcType=BIGINT}, #{boxLunchPrice,jdbcType=DECIMAL}, #{boxLunchSalePrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cunjia.ordering.domain.SelfBoxLunch">
+    insert into self_box_lunch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="selfId != null">
+        self_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="boxLunchNumber != null">
+        box_lunch_number,
+      </if>
+      <if test="boxLunchDate != null">
+        box_lunch_date,
+      </if>
+      <if test="boxLunchPrice != null">
+        box_lunch_price,
+      </if>
+      <if test="boxLunchSalePrice != null">
+        box_lunch_sale_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="selfId != null">
+        #{selfId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchNumber != null">
+        #{boxLunchNumber,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchDate != null">
+        #{boxLunchDate,jdbcType=BIGINT},
+      </if>
+      <if test="boxLunchPrice != null">
+        #{boxLunchPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLunchSalePrice != null">
+        #{boxLunchSalePrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cunjia.ordering.domain.SelfBoxLunch">
+    update self_box_lunch
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchNumber != null">
+        box_lunch_number = #{boxLunchNumber,jdbcType=INTEGER},
+      </if>
+      <if test="boxLunchDate != null">
+        box_lunch_date = #{boxLunchDate,jdbcType=BIGINT},
+      </if>
+      <if test="boxLunchPrice != null">
+        box_lunch_price = #{boxLunchPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLunchSalePrice != null">
+        box_lunch_sale_price = #{boxLunchSalePrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where self_id = #{selfId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cunjia.ordering.domain.SelfBoxLunch">
+    update self_box_lunch
+    set user_id = #{userId,jdbcType=INTEGER},
+      box_lunch_number = #{boxLunchNumber,jdbcType=INTEGER},
+      box_lunch_date = #{boxLunchDate,jdbcType=BIGINT},
+      box_lunch_price = #{boxLunchPrice,jdbcType=DECIMAL},
+      box_lunch_sale_price = #{boxLunchSalePrice,jdbcType=DECIMAL}
+    where self_id = #{selfId,jdbcType=INTEGER}
+  </update>
+  <select id="selectOneByUserId" resultType="com.cunjia.ordering.domain.SelfBoxLunch">
+    select * from self_box_lunch where user_id = #{userId} order by self_id DESC limit 0,1
+  </select>
+  <!--<insert id="insertAndReturnSelfId" parameterType="com.cunjia.ordering.domain.SelfBoxLunch">-->
+  <!--<selectKey keyProperty="selfId" resultType="java.lang.Integer" order="AFTER">-->
+  <!--select LAST_INSERT_ID()-->
+  <!--</selectKey>-->
+  <!--insert into self_box_lunch (self_id, user_id, box_lunch_number,-->
+  <!--box_lunch_date, box_lunch_price)-->
+  <!--values (#{selfId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{boxLunchNumber,jdbcType=INTEGER},-->
+  <!--#{boxLunchDate,jdbcType=BIGINT}, #{boxLunchPrice,jdbcType=DECIMAL})-->
+  <!--</insert>-->
+  <insert id="insertAndReturnSelfId" parameterType="com.cunjia.ordering.domain.SelfBoxLunch" keyProperty="selfId" useGeneratedKeys="true" >
+        INSERT INTO
+        self_box_lunch (user_id, box_lunch_number,
+        box_lunch_date, box_lunch_price, box_lunch_sale_price)
+        values (#{userId},#{boxLunchNumber},
+        #{boxLunchDate},#{boxLunchPrice},#{boxLunchSalePrice})
+    </insert>
+  <!--通过用户id查询出所有的selfId记录-->
+  <select id="listByUserId" resultType="com.cunjia.ordering.domain.SelfBoxLunch">
+        select self_id from self_box_lunch where user_id = #{userId}
+    </select>
+  <!--通过用户Id删除所有相关数据-->
+  <delete id="deleteByUserId" parameterType="java.lang.Integer">
+        delete from self_box_lunch where user_id = #{userId}
+    </delete>
+</mapper>

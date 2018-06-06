@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunjia.ordering.dao.CommentFirstLevelMapper">
+    <insert id="insertCommentFirstLevel" parameterType="com.cunjia.ordering.dto.CommentFirstLevelDTO">
+        <selectKey resultType="java.lang.Integer" keyProperty="commentFirstLevelId" order="AFTER">
+            SELECT @@IDENTITY
+        </selectKey>
+        INSERT INTO
+        `comment_first_level`(user_id,goods_id,flavor,packing,comment_detail,picture_url,comment_source,is_anonymous,total_evaluate)
+        VALUES
+        (#{userId},#{goodsId},#{flavor},#{packing},#{commentDetail},#{pictureUrl},#{commentSource},#{isAnonymous},#{totalEvaluate})
+    </insert>
+
+    <insert id="insertCommentFirstLevelDescribe" parameterType="com.cunjia.ordering.dto.CommentFirstLevelDTO">
+        INSERT INTO `comment_first_level_describe`(goods_describe_id,comment_first_level_id)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.goodsDescribeId},#{commentFirstLevelId})
+        </foreach>
+    </insert>
+
+    <select id="listSumGoodsDescribe" parameterType="com.cunjia.ordering.dto.CommentFirstLevelDTO"
+            resultType="com.cunjia.ordering.vo.GoodsDescribeVO">
+        SELECT COUNT(*) as sumNumber,gd.describe_name,gd.goods_describe_id FROM `comment_first_level` cfl, `comment_first_level_describe` cfld,`goods_describe` gd
+        WHERE cfl.`comment_first_level_id` = cfld.`comment_first_level_id` AND cfld.`goods_describe_id` = gd.goods_describe_id AND cfl.goods_id = #{goodsId} AND cfl.comment_source = #{commentSource}
+        GROUP BY gd.describe_name
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.cunjia.ordering.vo.CommentFirstLevelVO" >
+        <id column="comment_first_level_id" property="commentFirstLevelId" jdbcType="INTEGER"/>
+        <result column="comment_detail" property="commentDetail" jdbcType="VARCHAR" />
+        <result column="comment_date" property="commentDate" jdbcType="TIMESTAMP" />
+        <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+        <result column="praise_number" property="praiseNumber" jdbcType="INTEGER" />
+        <result column="is_anonymous" property="isAnonymous" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="f_user_avatar_url" property="userAvatarUrl" jdbcType="VARCHAR" />
+        <result column="total_evaluate" property="totalEvaluate" jdbcType="INTEGER" />
+        <result column="comment_number" property="commentNumber" jdbcType="INTEGER" />
+        <collection property="CommentSecondLevelList" ofType="com.cunjia.ordering.vo.CommentSecondLevelVO">
+            <result column="s_comment_detail" property="commentDetail" />
+            <result column="s_comment_date" property="commentDate" />
+            <result column="s_is_anonymous" property="isAnonymous" />
+            <result column="seondUserName" property="seondUserName" />
+            <result column="s_user_avatar_url" property="userAvatarUrl" />
+        </collection>
+    </resultMap>
+
+   <!-- <select id="listCommentFirstLevel" parameterType="com.cunjia.ordering.dto.CommentFirstLevelDTO" resultMap="BaseResultMap">
+        SELECT cfl.*,fu.user_nickname as user_name
+	    ,csl.comment_detail AS s_comment_detail,csl.comment_date AS s_comment_date,csl.is_anonymous AS s_is_anonymous,su.user_nickname AS seondUserName,fu.user_avatar_url as f_user_avatar_url
+        ,su.user_avatar_url as s_user_avatar_url
+        FROM (
+		  SELECT (praise_number+comment_number) AS `number`,comment_first_level_id,comment_detail,comment_date,picture_url,praise_number,is_anonymous,`user_id`,goods_id,comment_source
+          ,total_evaluate
+        FROM `comment_first_level`
+        WHERE `goods_id` = #{goodsId} AND comment_source = #{commentSource}
+        <if test="isPicture != null and  isPicture == 1">
+            AND picture_url != ""
+        </if>
+          <if test="boxLunchIsFire != null and boxLunchIsFire == 1">
+            ORDER BY `number` DESC
+          </if>
+          <if test="boxLunchIsFire != null and boxLunchIsFire == 0">
+            ORDER BY comment_first_level_id DESC
+          </if>
+          LIMIT #{offset},#{limit}
+        ) cfl
+        LEFT JOIN `comment_second_level` csl  ON cfl.`comment_first_level_id` = csl.`comment_first_level_id`
+        INNER JOIN u_user fu ON cfl.`user_id` = fu.user_id
+        LEFT JOIN u_user su ON su.user_id = csl.user_id
+        
+
+    </select>-->
+    <select id="listCommentFirstLevelByDescribeId" parameterType="com.cunjia.ordering.dto.CommentFirstLevelDTO" resultMap="BaseResultMap">
+        SELECT cfl.*,fu.user_nickname as user_name
+	      ,csl.comment_detail AS s_comment_detail,csl.comment_date AS s_comment_date,csl.is_anonymous AS s_is_anonymous,su.user_nickname AS seondUserName,fu.user_avatar_url as f_user_avatar_url
+        ,su.user_avatar_url as s_user_avatar_url
+        FROM (
+          SELECT (praise_number+comment_number) AS `number`,comment_first_level_id,comment_detail,comment_date,picture_url,praise_number,is_anonymous,`user_id`,goods_id,comment_source
+        ,total_evaluate,comment_number
+        FROM `comment_first_level`
+        where `goods_id` = #{goodsId} AND comment_source = #{commentSource}
+        <if test="goodsDescribeId != null and goodsDescribeId == 1">/*查询好评*/
+          AND total_evaluate > 1
+        </if>
+        <if test="goodsDescribeId != null and goodsDescribeId == 2">/*查询差评*/
+            AND total_evaluate = 1
+        </if>
+        <if test="isPicture != null and  isPicture == 1"> /*有图评价*/
+            AND picture_url != ""
+        </if>
+        <if test="boxLunchIsFire != null and boxLunchIsFire == 1">/*爆款：以评论+点赞数量 为排序*/
+            ORDER BY `number` DESC
+        </if>
+        <if test="boxLunchIsFire != null and boxLunchIsFire == 0">/*非爆款：时间排序*/
+            ORDER BY comment_first_level_id DESC
+        </if>
+          LIMIT #{offset},#{limit}
+        ) cfl
+        LEFT JOIN `comment_second_level` csl  ON cfl.`comment_first_level_id` = csl.`comment_first_level_id`
+        INNER JOIN u_user fu ON cfl.`user_id` = fu.user_id
+        LEFT JOIN u_user su ON su.user_id = csl.user_id
+        <if test="goodsDescribeId != null and goodsDescribeId >2 ">/*非好评和差评*/
+            INNER JOIN `comment_first_level_describe` cfld ON cfld.`comment_first_level_id` = cfl.`comment_first_level_id`
+            where cfld.`goods_describe_id` = #{goodsDescribeId}
+        </if>
+
+    </select>
+    <select id="listPraiseNumber" parameterType="java.util.List" resultType="com.cunjia.ordering.domain.CommentFirstLevelDO">
+        SELECT COUNT(*) as praiseNumber,comment_first_level_id  FROM `comment_praise`
+        WHERE comment_first_level_id in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        GROUP BY comment_first_level_id
+    </select>
+    <select id="listAllCommentFirstLevel" parameterType="com.cunjia.ordering.dto.CommentFirstLevelDTO" resultType="com.cunjia.ordering.vo.CommentFirstLevelVO">
+        SELECT total_evaluate FROM `comment_first_level` WHERE goods_id = #{goodsId} AND comment_source = #{commentSource}
+    </select>
+</mapper>
