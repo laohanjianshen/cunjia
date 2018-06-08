@@ -1,0 +1,20 @@
+<!--pages/mine/moneyDetail.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view class="wrap" wx:if="{{!networkFail}}">
+	<view class="detail-item">
+		<view class="left">
+			<view class="doWhat">微信充值</view>
+			<view class="time">2018-05-02 10:15:53</view>
+		</view>
+		<view class="num">+300</view>
+	</view>
+	<view class="detail-item" wx:for="{{arr}}">
+		<view class="left">
+			<view class="doWhat">{{item.name}}</view>
+			<view class="time">{{item.time}}</view>
+		</view>
+		<view class="num {{item.num<0?'num2':''}}">{{item.num>0?'+'+item.num:item.num}}</view>
+	</view>
+	<view class="loadMore">加载更多</view>
+</view>

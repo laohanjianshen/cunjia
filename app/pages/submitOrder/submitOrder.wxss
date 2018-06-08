@@ -1,0 +1,699 @@
+/* pages/submitOrder/submitOrder.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.chooseAddress {
+  position: relative;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_address_ciontainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffad08;
+  border-radius: 100px;
+  width: 350rpx;
+  height: 80rpx;
+  margin-top: 28rpx;
+  margin-bottom: 28rpx;
+}
+
+.add_address_icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 40rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.add_address_icon1 {
+  background: #fc9c02;
+  height: 36rpx;
+  position: absolute;
+  left: 15rpx;
+  width: 6rpx;
+}
+
+.add_address_icon2 {
+  background: #fc9c02;
+  width: 36rpx;
+  height: 6rpx;
+}
+
+.add_address_text {
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #fc9c02;
+  letter-spacing: 0;
+  margin-right: 38rpx;
+  position: absolute;
+  left: 96rpx;
+}
+
+.show_address, .addressItem {
+  height: 140rpx;
+}
+
+.address_location {
+  position: absolute;
+  top: 54rpx;
+  left: 28rpx;
+  width: 28rpx;
+  height: 32rpx;
+}
+
+.addressItem .address_location {
+  width: 40rpx;
+  height: 40rpx;
+  top: 54rpx;
+  left: 60rpx;
+}
+
+.address_text {
+  position: absolute;
+  top: 20rpx;
+  left: 76rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+  width: 592rpx;
+  height: 44rpx;
+}
+
+.addressItem .address_text {
+  left: 124rpx;
+}
+
+.address_user_container {
+  position: absolute;
+  left: 76rpx;
+  top: 76rpx;
+  margin-bottom: 24rpx;
+}
+
+.addressItem .address_user_container {
+  left: 124rpx;
+}
+
+.address_userName {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  margin-right: 32rpx;
+  letter-spacing: 0;
+}
+
+.address_sex {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  margin-right: 32rpx;
+  letter-spacing: 0;
+}
+
+.address_phone {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+}
+
+.more_address_location {
+  position: absolute;
+  top: 54rpx;
+  right: 24rpx;
+  width: 20rpx;
+  height: 32rpx;
+}
+
+.addressItem .more_address_location {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.expected_delivery_time {
+  background: #fff;
+  position: relative;
+  height: 80rpx;
+  width: 100%;
+  margin-top: 20rpx;
+  margin-bottom: 0rpx;
+}
+
+.expected_delivery_time_icon {
+  position: absolute;
+  left: 28rpx;
+  top: 24rpx;
+  width: 30rpx;
+  height: 28rpx;
+}
+
+.expected_delivery_time_lable {
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+  position: absolute;
+  left: 74rpx;
+  top: 16rpx;
+}
+
+.expected_delivery_time_text {
+  position: absolute;
+  left: 278rpx;
+  top: 20rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #666;
+  letter-spacing: 0;
+}
+
+.container {
+  background: #f2f2f2;
+}
+
+.choosen_foods {
+  background: #fff;
+  position: relative;
+  padding-top: 14rpx;
+  padding-bottom: 16rpx;
+}
+
+.choosen_food_item {
+  height: 116rpx;
+  width: 100%;
+  position: relative;
+  background: #fff;
+  padding-top: 14rpx;
+  padding-bottom: 16rpx;
+}
+
+.choosen_food_item_pic {
+  width: 186rpx;
+  height: 116rpx;
+  position: absolute;
+  left: 24rpx;
+}
+
+.choosen_food_item_name {
+  position: absolute;
+  left: 242rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: rgba(0, 0, 0, 0.87);
+  letter-spacing: 0;
+}
+
+.choosen_food_item_quantity {
+  position: absolute;
+  left: 242rpx;
+  top: 82rpx;
+  font-family: ArialMT;
+  font-size: 32rpx;
+  color: #999;
+  letter-spacing: 0;
+  padding-bottom: 30rpx;
+}
+
+.choosen_food_item_price {
+  position: absolute;
+  right: 34rpx;
+  font-family: ArialMT;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+}
+
+.tops_container {
+  background: #fff;
+  margin-top: 8rpx;
+}
+
+.packing_tip {
+  padding-left: 28rpx;
+  padding-right: 28rpx;
+  padding-top: 22rpx;
+  display: flex;
+  justify-content: space-between;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+}
+
+.delivery_tip {
+  padding-left: 28rpx;
+  padding-right: 28rpx;
+  padding-top: 28rpx;
+  padding-bottom: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+}
+
+.coupon_container {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  width: 750rpx;
+  height: 80rpx;
+  margin:2rpx 0;
+}
+
+.coupon_text, .benifit_info_lable, .benifit_info_lable2, .benifit_info_lable3 {
+  padding-left: 28rpx;
+  position: absolute;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+}
+
+.benifit_info_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #666;
+  letter-spacing: -0.3px;
+  text-align: left;
+}
+
+.benifit_info_lable2 {
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  left: 356rpx;
+  color: #999;
+  letter-spacing: -0.34px;
+  text-align: left;
+}
+
+.benifit_info_lable3 {
+  font-family: PingFangSC-Regular;
+  left: 538rpx;
+  font-size: 28rpx;
+  color: #666;
+  letter-spacing: -0.34px;
+  text-align: left;
+}
+
+.choose_coupon {
+  right: 28rpx;
+  position: absolute;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #999;
+  letter-spacing: 0;
+}
+.choose_coupon .haveCoupon{
+  font-size:32rpx;
+  color:#fc9c02;
+}
+.choose_coupon image{
+  width:20rpx;
+  height:32rpx;
+  margin-left:16rpx;
+}
+.total_price_container {
+  background: #fff;
+  height: 80rpx;
+  margin-bottom:12rpx;
+  text-align: right;
+  padding:0 28rpx;
+  line-height: 80rpx;
+}
+.total_price_container>view{
+  float:left;
+  font-size:28rpx;
+  color:#666666;
+}
+.total_price_container>view>image{
+  width:28rpx;
+  height:28rpx;
+  margin-left:8rpx;
+}
+.total_price_container>text.youhui{
+  font-size:28rpx;
+  color:#999999;
+  margin-right:28rpx;
+}
+.total_price_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #666;
+  display:inline-block;
+}
+
+.total_price {
+  font-family: PingFangSC-Medium;
+  font-size: 24rpx;
+  color: #eb7272;
+  display: inline-block;
+}
+
+.benifit_info_icon {
+  position: absolute;
+  left: 144rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.pay_method_container,.total_benifit {
+  background: #fff;
+  height: 80rpx;
+  padding-left: 22rpx;
+  padding-right: 22rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100rpx;
+}
+.total_benifit{
+   margin-bottom: 0rpx;
+}
+
+.pay_method_lable,.total_benifit_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+}
+
+.pay_method,.total_benifit_text{
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #999;
+  letter-spacing: 0;
+}
+
+.bottom_info {
+  position: fixed;
+  bottom: 0;
+  opacity: 0.96;
+  background: #3d3232;
+  box-shadow: 0 0 14rpx 0 rgba(192, 192, 192, 0.50);
+  width: 750rpx;
+  height: 100rpx;
+  text-align:right;
+  line-height:100rpx;
+
+}
+
+.submit_container {
+  background: #fc9c02;
+  width: 220rpx;
+  height: 100rpx;
+  border-bottom-left-radius: 35rpx;
+  color:#fff;
+  float:right;
+  line-height:100rpx;
+  text-align:center;
+
+}
+
+.submit_price {
+  font-family: PingFangSC-Regular;
+  font-size: 48rpx;
+  color: rgba(255, 255, 255, 0.87);
+  letter-spacing: 0;
+  margin-right:20rpx;
+}
+.submit_bt{
+  font-family:PingFangSC-Regular;
+font-size:36rpx;
+color:rgba(255,255,255,0.87);
+letter-spacing:0;
+}
+
+.submit_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: rgba(255, 255, 255, 0.87);
+  letter-spacing: 0;
+}
+text.coupon{
+  color:#eb7272;
+}
+/*红包弹窗  */
+.redPacket-modal{
+  background:rgba(34,34,34,0.65);
+  width:100%;
+  height:100%; 
+  position:fixed;
+  bottom:0;
+}
+.redPacket-content{
+  width:100%;
+  height:872rpx;
+  background:#ffffff;
+  position: absolute;
+  bottom:0;
+  overflow: scroll;
+}
+.redPacket-content .modal-top{
+  background:#eeeeee;
+  padding: 0 34rpx;
+  height:92rpx;
+  line-height: 92rpx;
+  color:#666666;
+  font-size:28rpx;
+  position: fixed;
+  z-index:100;
+  width:100%;
+}
+.modal-top view{
+  display: inline-block;
+  width:200rpx;
+}
+.modal-top view:last-child{
+  text-align: right;
+}
+.modal-top text{
+  width:282rpx;
+  display: inline-block;
+  text-align: center;
+   font-size:32rpx;
+}
+.modal-top image{
+  width:28rpx;
+  height:28rpx;
+  margin-left:6rpx;
+}
+/*暂无红包  */
+.redPacket-empty{
+  height:212rpx;
+  margin: 244rpx 0;
+  text-align: center;
+  font-size:36rpx;
+  color:#333333;
+}
+.redPacket-empty>view:last-child{
+  font-size:28rpx;
+  color:#999999;
+  margin-top:52rpx;
+}
+.redPacket-empty>view>button{
+  font-size:32rpx;
+  color:#ffad08;
+  background:transparent;
+}
+.redPacket-empty>view>button::after{
+  border: none;
+}
+/*过期红包  */
+.old-redPacket{
+  font-size:28rpx;
+  color:#666666;
+  text-align: center;
+  padding-bottom:40rpx;
+}
+/*红包列表  */
+.redPacket-list{
+  height:auto;
+  padding:30rpx 34rpx;
+  margin-top:92rpx;
+}
+.redPacket-list .redPacket-count{
+  font-size:30rpx;
+  color:#666666;
+  text-align: center;
+}
+.redPacket-list .redPacket-count>text{
+  font-size:48rpx;
+  color:#ddd;
+  margin:0 30rpx;
+}
+.redPacket-list .redPacket-count>text:nth-child(2){
+  font-size:48rpx;
+  color:#d15454;
+  margin:0 10rpx;
+}
+.redPacket-num{
+  font-size:28rpx;
+  color:#999999;
+  margin:30rpx 0 20rpx 0;
+}
+.redPacket-item{
+  height:204rpx;
+  margin-bottom:36rpx;
+}
+.redPacket-item .item-top{
+  padding: 0 30rpx;
+  font-size:24rpx;
+  color:#ffffff;
+  border-radius:12rpx 12rpx 0 0;
+  height:48rpx;
+  line-height:48rpx;
+}
+.redPacket-item .item-top-1{
+  background:#2bbb76;
+}
+.redPacket-item .item-top-2{
+  background:#ee7373;
+}
+.redPacket-item .item-top-3{
+  background:rgba(84,182,220,0.97);
+}
+.redPacket-item .item-top>text:last-child{
+  float:right;
+}
+.redPacket-item>image,.redPacket-item>.item-content{
+  width:690rpx;
+  height:156rpx;
+  position:absolute;
+  margin-left:-4rpx;
+}
+.item-content>view>image{
+  width:40rpx;
+  height:44rpx;
+  margin-right:20rpx;
+  vertical-align:middle;
+}
+.item-content>view:first-child{
+  display:inline-block;
+  font-size:28rpx;
+  color:#d15454;
+  margin-left:48rpx;
+  vertical-align:top;
+  margin-top:40rpx;
+}
+.item-content>view:first-child>text{
+  font-size:48rpx;
+  color:#d15454;
+}
+.item-content>view:nth-child(2){
+  display:inline-block;
+  margin: 20rpx 0 0 50rpx;
+  font-size:24rpx;
+  color:#999999;
+  border-left:2rpx dashed #ccc;
+  padding-left:50rpx;
+}
+.item-content>view:nth-child(2)>text{
+  font-size:32rpx;
+  color:#333333;
+  line-height:70rpx;
+  vertical-align:middle;
+}
+.item-content .choose-redPacket{
+  width:38rpx;
+  height:38rpx;
+  float: right;
+  margin-top:40rpx;
+  margin-right:40rpx;
+}
+.item-content .choose-redPacket>image{
+  width:40rpx;
+  height:40rpx;
+  float:left;
+}
+/*过期红包列表  */
+.overdue .item-content view,.overdue .item-content view text{
+  color:#999;
+}
+.overdue .item-top{
+  background:#cdcdcd;
+}
+
+/*弹出地址选择  */
+
+.changeAddressContainer {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background: rgba(34, 34, 34, 0.65);
+  width: 750rpx;
+}
+
+.changeAddress {
+  height: 984rpx;
+  width: 750rpx;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+}
+
+.changeAddressHeder {
+  height: 80rpx;
+  width: 750rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cencle_bt {
+  plain: true;
+  width: 64rpx;
+  height: 44rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #666;
+  letter-spacing: 0;
+  position: absolute;
+  left: 60rpx;
+}
+
+.myAdddressLable {
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #666;
+  letter-spacing: 0;
+  position: absolute;
+  left: 268rpx;
+}
+/*收获地址列表  */
+.address_list {
+  position: absolute;
+  top: 80rpx;
+  height: 778rpx;
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.addressItem {
+  position: relative;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  width: 750rpx;
+  height: 160rpx;
+}
+.orderItems{
+  width: 750rpx;
+  height:auto;
+  margin-bottom:52rpx;
+}
+.buffet-food-list{
+  background: #fff;
+}

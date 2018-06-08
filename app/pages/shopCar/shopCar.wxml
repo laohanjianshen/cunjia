@@ -1,0 +1,74 @@
+<!--首页购餐车-->
+<view class="wrap">
+	<!-- 个人点餐-start -->
+		<view class="person-order"></view>
+	<!-- 个人点餐-end -->
+	<!-- 自助点餐-start -->
+		<view class="buffet">
+			<view class="title">
+				<image src="{{select_buffet?'../../images/icon/selected.png':'../../images/icon/no_select.png'}}"></image>
+				<view class="title-text">自助点餐</view>
+				<view class="time">2018-05-15 周二</view>
+			</view>
+			<view class="buffet-food-list">
+				<view class="food-item">
+					<view>主食</view>
+					<view>韩国cj白米饭</view>
+					<view>x1</view>
+				</view>
+				<view class="food-item">
+					<view>主菜</view>
+					<view>非洲烤鱼片</view>
+					<view>x1</view>
+				</view>
+				<view class="food-item">
+					<view>辅菜</view>
+					<view>日本寿司</view>
+					<view>x1</view>
+				</view>
+				<view class="food-item">
+					<view>小菜</view>
+					<view>海带丝、酱瓜、黄瓜</view>
+					<view>x3</view>
+				</view>
+				<view class="food-item food-item2">
+					<view>配汤</view>
+					<view>空</view>
+					<!-- <view>x1</view> -->
+				</view>
+				<view class="food-item food-item2">
+					<view>饮料</view>
+					<view>空</view>
+					<!-- <view>x1</view> -->
+				</view>
+				<view class="food-item food-item2">
+					<view>水果</view>
+					<view>空</view>
+					<!-- <view>x1</view> -->
+				</view>
+			</view>
+			<view class="buffet-footer">
+				<view class="reset-select">去重选</view>
+				<view class="change-num">
+					<image src="../../images/common/add.png"></image>
+					<view class="num">1</view>
+					<image src="../../images/common/sub.png"></image>
+				</view>
+			</view>
+			<view class="total">小计：<text>￥32.00</text></view>
+		</view>
+	<!-- 自助点餐-end -->
+	<!-- 底部 -->
+		<view class="footer">
+			<view class="selectAll">
+				<view class="quanxuan">
+					<image src="{{selectAll?'../../images/icon/selected.png':'../../images/icon/no_select.png'}}"></image>
+					<view>全选</view>
+				</view>
+				<view class='price'>￥<text>234</text></view>
+			</view>
+			<view class="toOrder">买单</view>
+		</view>
+	<!-- 底部 -->
+</view>
+

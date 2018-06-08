@@ -1,0 +1,255 @@
+/* pages/addAddress/addAddress.wxss */
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.username {
+  background: #fff;
+  width: 750rpx;
+  height: 92rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.usernale_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  position: absolute;
+  left: 28rpx;
+}
+
+.usernme_input, .address_detail_input {
+  position: absolute;
+  left: 216rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #bbb;
+  text-align: left;
+  width: 288rpx;
+  height: 44rpx;
+}
+
+.sex {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  width: 750rpx;
+  height: 100rpx;
+}
+
+.man {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 28rpx;
+  left: 216rpx;
+}
+.man_icon,.womam_icon{
+  width:40rpx;
+height:40rpx;
+}
+.man_lable,.woman_lable{
+  padding-left: 14rpx;
+  font-family:PingFangSC-Regular;
+font-size:32rpx;
+color:#333333;
+letter-spacing:0;
+}
+.woman {
+  position: absolute;
+  left: 416rpx;
+  top: 28rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.phone {
+  background: #fff;
+  width: 750rpx;
+  height: 92rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.phone_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  position: absolute;
+  left: 28rpx;
+}
+
+.phone_input {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #bbb;
+  text-align: left;
+  position: absolute;
+  left: 216rpx;
+}
+
+.address {
+  background: #fff;
+  width: 750rpx;
+  height: 92rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.address_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  position: absolute;
+  left: 28rpx;
+  top: 24rpx;
+}
+
+.address_input {
+  position: absolute;
+  left: 216rpx;
+  display: flex;
+  align-items: center;
+  width: 534rpx;
+}
+
+.address_location_icon {
+  width: 28rpx;
+  height: 32rpx;
+}
+
+.adddress_location_choose_text {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #bbb;
+  text-align: left;
+  position: absolute;
+  left: 40rpx;
+}
+
+.address_location_choose {
+  width: 28rpx;
+  height: 32rpx;
+  position: absolute;
+  right: 28rpx;
+}
+
+.address_detail {
+  background: #fff;
+  width: 750rpx;
+  height: 92rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.address_detail_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  position: absolute;
+  left: 28rpx;
+  top: 24rpx;
+}
+
+.save {
+  background: #ddd;
+  border-radius: 12rpx;
+  width: 684rpx;
+  height: 94rpx;
+}
+
+.save, .delate {
+  position: relative;
+  top: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+  border-radius: 12rpx;
+  width: 684rpx;
+  height: 94rpx;
+}
+
+.delate {
+  background: #fff;
+  top: 60rpx;
+  border: 1px solid #fc9c02;
+}
+
+.save_bt, .delate_bt {
+  position: relative;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #999;
+  text-align: center;
+}
+
+.delete_bt {
+  color: #fc9c02;
+  font-size: 36rpx;
+}
+
+.delete_address_bg {
+  position: absolute;
+  width: 750rpx;
+  background: rgba(34, 34, 34, 0.65);
+  height: 100%;
+  z-index:1000;
+}
+
+.delete_address {
+  background: #fff;
+  border-radius: 24rpx;
+  width: 566rpx;
+  height: 292rpx;
+  display: flex;
+  position: absolute;
+  left: 98rpx;
+  top: 386rpx;
+  z-index:10001;
+}
+
+.delete_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: rgba(51, 51, 51, 0.87);
+  letter-spacing: 0;
+  position: absolute;
+  top: 82rpx;
+  left: 134rpx;
+}
+
+.bt_container {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+
+.cancle_bt, .certain_bt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top:1px solid #dddddd;
+  width: 278rpx;
+  height: 98rpx;
+}
+.cancle_bt{
+  border-right:1px solid #dddddd;
+}

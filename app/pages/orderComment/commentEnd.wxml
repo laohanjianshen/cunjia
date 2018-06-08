@@ -1,0 +1,23 @@
+<!--评价完成页面-->
+<view class="commentEnd">
+	<view class="header">
+		<view class="view1">
+			<image src="../../images/order/commonEnd.png"></image>
+			<text>感谢您的评价</text>
+		</view>
+		<view class="thankText">我们的不足之处将及时改进，竭诚为您提供更优质的服务，祝您生活愉快！</view>
+	</view>
+	<view class="hongbao">
+		<view class="bgHongbao">
+			<image src="../../images/order/comment.png"></image>
+			<view class="hongbaoNum">6.70</view>
+			<view class="text">恭喜你！</view>
+			<view class="info">获得村家送出的0.53元评价红包</view>
+			<view class="shareBtn">分享红包 惊喜来袭</view>
+		</view>
+	</view>
+	<view class="footer">
+		<view class="readComment" bindtap="toComment">查看评价</view>
+		<view bindtap='toIndex'>返回首页</view>
+	</view>
+</view>

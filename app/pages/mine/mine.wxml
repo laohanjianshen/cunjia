@@ -1,0 +1,59 @@
+<!--pages/mine/mine.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view class="mine-container" wx:if="{{!networkFail}}">
+  <view class="mine-info">
+  <!--背景图片  -->
+    <image src="../../images/mine/bg.png"></image>
+  <!-- 头像 -->
+    <!-- <image src="../../images/mine/headimg.png"></image> -->
+    <image src="{{userInfo.userAvatarUrl?userInfo.userAvatarUrl:'../../images/mine/headimg.png'}}"></image>
+    <view>{{userInfo.userNickname}}</view>
+  </view>
+  <!--账户余额  -->
+  <!-- <view class="mine-account">
+    <view bindtap="toBalance">
+        <image src="../../images/mine/account.png"></image>
+        <text>账户余额</text> 
+        <view><text>{{userInfo.balance}}</text>元</view>
+    </view>
+    <view bindtap="toRedPacket">
+      <image src="../../images/mine/hongbao.png"></image>
+      <text>可用红包</text> 
+      <view><text>{{userInfo.redPacket}}</text>元</view>
+    </view>
+  </view> -->
+  <!--功能列表  -->
+  <view class="mine-main">
+    <navigator url="redPacket" class="mine-list">
+      <image src="../../images/mine/hongbao.png"></image>
+      <text>红包管理</text>
+      <image src="../../images/mine/right.png"></image>
+    </navigator>
+    <view class="mine-list  mine-margintop" bindtap='navigate_to_addressManager'>
+      <image src="../../images/mine/address.png"></image>
+      <text>收货地址管理</text>
+      <image src="../../images/mine/right.png"></image>
+    </view>
+    <navigator url="bindTel" class="mine-list">
+      <image src="../../images/mine/phone.png"></image>
+      <text>绑定手机号</text>
+      <image src="../../images/mine/right.png"></image>
+    </navigator>
+    <navigator url="instruction" class="mine-list  mine-margintop">
+      <image src="../../images/mine/detail.png"></image>
+      <text>使用说明</text>
+      <image src="../../images/mine/right.png"></image>
+    </navigator>
+    <navigator url="suggest" class="mine-list">
+      <image src="../../images/mine/faceback.png"></image>
+      <text>意见与建议</text>
+      <image src="../../images/mine/right.png"></image>
+    </navigator>
+    <view class="mine-list mine-kefu" bindtap='callMe'>
+      <image src="../../images/mine/call.png"></image>
+      <view>客服电话：<text>400-666-1753</text><text>（服务时间：9：00-23：00）</text></view>
+      <image src="../../images/mine/right.png"></image>
+    </view>
+  </view>
+</view>

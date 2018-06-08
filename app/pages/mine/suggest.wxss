@@ -1,0 +1,33 @@
+/* pages/mine/suggest.wxss */
+/*意见与建议  */
+page{
+  background: #fff;
+}
+.suggest-container{
+  padding:36rpx 24rpx;
+  font-size:32rpx;
+  color:#333333;
+}
+.suggest-container textarea{
+  border:2rpx solid #bbbbbb;
+  height:412rpx;
+  width: 100%;
+  margin-top:30rpx;
+
+}
+.suggest-container image{
+  width:32rpx;
+  height:32rpx;
+  vertical-align:middle;
+}
+.suggest-container>.submit{
+  background:#fc9c02;
+  border-radius:12rpx;
+  width:686rpx;
+  height:94rpx;
+  margin: 46rpx auto;
+  line-height: 94rpx;
+  text-align: center;
+  font-size:36rpx;
+  color:#ffffff;
+}

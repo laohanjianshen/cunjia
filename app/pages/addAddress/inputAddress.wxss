@@ -1,0 +1,271 @@
+/* pages/addAddress/inputAddress.wxss */
+
+.container1 {
+  width: 750rpx;
+  position: relative;
+}
+
+.address_container {
+  background: #fff;
+  width: 750rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.address_location_icon, .all_address_icon, .all_address_icon2 {
+  width: 28rpx;
+  height: 32rpx;
+  position: absolute;
+  left: 28rpx;
+}
+
+.address_location_down {
+  width: 25rpx;
+  height: 10rpx;
+  padding-left: 10rpx;
+}
+
+.city {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  position: absolute;
+  left: 70rpx;
+  display: flex;
+  align-items: center;
+}
+
+.distinct {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  position: absolute;
+  left: 216rpx;
+  display: flex;
+  align-items: center;
+}
+
+.search_container {
+  position: absolute;
+  left: 370rpx;
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  border-radius: 8rpx;
+  width: 356rpx;
+  height: 72rpx;
+}
+
+.search_icon {
+  position: absolute;
+  left: 20rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.search_text {
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #bbb;
+  text-align: left;
+  position: absolute;
+  left: 64rpx;
+}
+
+.citys_cintainer {
+  position: absolute;
+  top: 96rpx;
+  width: 750rpx;
+  height: 1108rpx;
+}
+
+.city_column {
+  color: #000;
+  font-size: 24rpx;
+}
+
+.letter_column {
+  text-align: right;
+  color: #222;
+  font-size: 24rpx;
+}
+
+.nearby_address {
+  background: #fff;
+  width: 750rpx;
+  height: 622rpx;
+  position: absolute;
+  top: 96rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.header, .all_address_header {
+  width: 100%;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+}
+
+.nearby_address_lable, .all_address_lable {
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #999;
+  text-align: left;
+  position: absolute;
+  left: 70rpx;
+}
+
+.nearby_address_content, .all_address_content {
+  height: 550rpx;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 680rpx;
+  top: 72rpx;
+  left: 70rpx;
+}
+
+.poi, .all_address_item {
+  width: 634rpx;
+  height: 110rpx;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-top: 1px solid #eee;
+}
+
+.poi_title, .all_address_title {
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+}
+
+.poi_address, .all_address_address {
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #999;
+  text-align: left;
+}
+
+.all_address {
+  position: absolute;
+  width: 750rpx;
+  top: 718rpx;
+  height: 698rpx;
+  background: #fff;
+}
+
+.all_address_content {
+  display: flex;
+  width: 750rpx;
+  flex-direction: column;
+  align-items: center;
+}
+
+.all_address1, .search_result {
+  position: absolute;
+  width: 750rpx;
+  top: 96rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #fff;
+}
+
+.all_address_header {
+  height: 76rpx;
+  background: #fff;
+}
+
+.all_address_icon {
+  height: 14rpx;
+}
+
+.all_address_icon2 {
+  position: absolute;
+  left: 700rpx;
+  width: 25rpx;
+  height: 10rpx;
+}
+
+.all_address_content {
+  height: 622rpx;
+  width: 680rpx;
+  background: #fff;
+}
+
+.all_address_content2 {
+}
+
+.search_result {
+  width: 750rpx;
+  position: absolute;
+  top: 96rpx;
+  height: 1200rpx;
+}
+
+.search_note {
+  position: absolute;
+  left: 166rpx;
+  top: 144rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  color: #999;
+  text-align: center;
+}
+
+.current_location_city_lable {
+  position: absolute;
+  left: 66rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #333;
+  text-align: left;
+}
+
+.current_location_city_text {
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #fc9c02;
+  text-align: left;
+  position: absolute;
+  left: 250rpx;
+}
+
+.citys_list_container {
+  background:#ffffff;
+  width: 750rpx;
+  position: absolute;
+  top: 96rpx;
+}
+
+.city_header {
+  width: 750rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+}
+
+.citys_list {
+  background:#ffffff;
+  width: 750rpx;
+}
+
+.city_item {
+  background:#ffffff;
+  border-top: 2rpx solid #eee;
+  margin-left: 66rpx;
+  margin-right: 66rpx;
+  height: 96rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  line-height: 96rpx;         
+}

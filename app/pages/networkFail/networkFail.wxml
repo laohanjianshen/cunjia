@@ -1,0 +1,13 @@
+<!--pages/networkFail/networkFail.wxml-->
+<template name="networkFail">
+<view class="network-fail">
+ <image src="../../images/common/network-fail.png"></image>
+ <text>网络连接失败</text>
+ <view bindtap="onLoad">重试</view>
+</view>
+</template>
+<!-- 
+  引用方式：
+  <import src="../networkFail/networkFail.wxml"/>
+  <template is="networkFail" data=""/>
+-->

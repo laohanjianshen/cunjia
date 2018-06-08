@@ -1,0 +1,102 @@
+/* pages/mine/mine.wxss */
+/* 个人头像姓名 */
+mine-container{
+  width:100%;
+}
+.mine-info{
+  width:100%;
+  height:246rpx;
+  text-align: center;
+}
+.mine-info>image:first-child{
+  width:100%;
+  height:246rpx;
+  position: absolute;
+  left:0;
+}
+.mine-info>image:nth-child(2){
+  width:128rpx;
+  height:128rpx;
+  border-radius:100%;
+  background:#e3e3e3;
+  margin-top:22rpx;
+  position: relative;
+  z-index: 10;
+}
+.mine-info>view{
+  font-size:36rpx;
+  color:#ffffff;
+  position: relative;
+  z-index: 10;
+}
+/*账户  */
+
+/* .mine-account{
+  background:#ffffff;
+  width:100%;
+  height:160rpx;
+  margin: 26rpx 0;
+}
+.mine-account>view{
+  width:375rpx;
+  text-align: center;
+  display: inline-block;
+  margin-top:30rpx;
+}
+.mine-account>view>image{
+  width:44rpx;
+  height:44rpx;
+  margin-right:12rpx;
+}
+.mine-account>view>text{
+  font-size:28rpx;
+  color:#333333;
+}
+.mine-account>view>view{
+  font-size:24rpx;
+  color:#333333;
+}
+.mine-account>view>view>text{
+  font-size:48rpx;
+  color:#fc9c02;
+  margin-right:12rpx;
+} */
+/*功能操作列表  */
+.mine-main{
+  margin-top:28rpx;
+}
+.mine-margintop{
+  margin-top:24rpx;
+}
+.mine-list{
+  background:#ffffff;
+  height:94rpx;
+  line-height:94rpx;
+  margin-bottom:2rpx;
+  padding:0 24rpx 0 26rpx;
+  font-size:16px;
+  color:#333333;
+}
+.mine-list>image:first-child{
+  width:48rpx;
+  height:44rpx;
+  float: left;
+  margin:24rpx 20rpx 0 0;
+}
+.mine-list>image:last-child{
+  width:20rpx;
+  height:36rpx;
+  float: right;
+  margin-top:24rpx;
+}
+.mine-list.mine-kefu>view{
+  display: inline-block;
+}
+.mine-list.mine-kefu>view>text:first-child{
+  font-size:22rpx;
+  color:#333333;
+}
+.mine-list.mine-kefu>view>text:last-child{
+  font-size:22rpx;
+  color:#666;
+}

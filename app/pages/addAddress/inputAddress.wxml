@@ -1,0 +1,136 @@
+<!--pages/addAddress/inputAddress.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view class='container1' wx:if="{{!networkFail}}">
+  <view class='address_container'>
+    <image class='address_location_icon' src='../../images/icon/address_location.png'></image>
+    <view class='city' bindtap='toggleCity' wx:if="{{region[selected_city].cityName}}">
+      <text class='city_text'>{{region[selected_city].cityName}}</text>
+      <image class='address_location_down' src='../../images/icon/down.png'></image>
+    </view>
+    <view class='distinct' bindtap='toggleDistinct' wx:if="{{region[selected_city].districtList[selected_distinct].districtName}}">
+      <text class='distinct_text'>{{region[selected_city].districtList[selected_distinct].districtName}}</text>
+      <image class='address_location_down' src='../../images/icon/down.png'></image>
+    </view>
+    <view class='search_container'>
+      <image class='search_icon' src='../../images/icon/search.png'></image>
+      <input class='search_text' placeholder='请输入收货地址' bindinput='searchAddress'></input>
+    </view>
+  </view>
+  <!--附近地址  有定位权限才渲染-->
+  <view class='nearby_address' bindtap='nearbyT' wx:if="{{isShowNearby&&hasLocationAuth}}">
+    <view class='header'>
+      <image class='address_location_icon' src='../../images/icon/address_location.png'></image>
+      <text class='nearby_address_lable'>附近地址</text>
+    </view>
+    <scroll-view class='nearby_address_content' scroll-y='true'>
+      <block wx:for="{{pois}}">
+        <view class='poi'>
+          <text class='poi_title'>{{item.title}}</text>
+          <text class='poi_address'>{{item.address}}</text>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <!--所有地址 有定位才渲染-->
+  <view class='all_address' wx:if="{{isShowAllAddress&&hasLocationAuth}}">
+    <view class='all_address_header' bindtap='showAllAddress'>
+      <image class='all_address_icon' src='{{all_address_icon_url[url_index]}}'></image>
+      <text class='all_address_lable'>显示所有支持大厦</text>
+      <image class='all_address_icon2' src='{{all_address_icon2_url[url_index]}}'></image>
+    </view>
+    <scroll-view class='all_address_content' scroll-y='true' wx:if="{{isShowAllAddressContent==true}}">
+      <block wx:for="{{region}}">
+        <block wx:for="{{item.districtList}}">
+          <block wx:for="{{item.localtionsList}}">
+            <view class='poi' bindtap='setAddress' data-city="{{region[selected_city].cityName}}" data-district="{{region[selected_city].districtList[selected_distinct].districtName}}" data-poi_id="{{item.locationId}}" data-poi_title="{{item.locationBuilding}}" data-poi_address="{{item.addressDetail}}">
+              <text class='poi_title'>{{item.locationBuilding}}</text>
+              <text class='poi_address'>{{item.addressDetail}}</text>
+            </view>
+          </block>
+        </block>
+      </block>
+    </scroll-view>
+  </view>
+  <!--无定位权限  -->
+  <!--无定位权限  -->
+  <view class='all_address1' wx:if="{{isShowAllAddress&&!hasLocationAuth}}">
+    <block wx:for="{{region}}">
+      <block wx:for="{{item.districtList}}">
+        <block wx:for="{{item.localtionsList}}">
+          <view class='poi' bindtap='setAddress' data-poi_id="{{item.locationId}}" data-poi_title="{{item.locationBuilding}}" data-poi_address="{{item.addressDetail}}">
+            <text class='poi_title'>{{item.locationBuilding}}</text>
+            <text class='poi_address'>{{item.addressDetail}}</text>
+          </view>
+        </block>
+      </block>
+    </block>
+  </view>
+  <!--搜索结果展示  -->
+  <view class='search_result' wx:if="{{search_status}}">
+    <block wx:for="{{search_address}}">
+      <view class='poi' bindtap='setAddress' data-poi_id="{{item.locationId}}" data-poi_title="{{item.locationBuilding}}" data-poi_address="{{item.addressDetail}}">
+        <text class='poi_title'>{{item.locationBuilding}}</text>
+        <text class='poi_address'>{{item.addressDetail}}</text>
+      </view>
+    </block>
+    <block wx:if="{{!search_address[0]}}">
+      <text class='search_note'>无此大厦，或暂不支持该配送地址</text>
+    </block>
+  </view>
+  <!-- 市选择器    -->
+  <view class='citys_list_container' wx:if="{{isShowCitys==true}}">
+    <view class='city_header'>
+      <image class='address_location_icon' src='../../images/icon/address_location.png'></image>
+      <text class='current_location_city_lable'>当前定位城市：</text>
+      <text class='current_location_city_text'>杭州市</text>
+    </view>
+    <!--  -->
+    <view class='citys_list'>
+      <block wx:for="{{region}}">
+          <view class='city_item' bindtap='setCity' data-city_id = "{{index}}">{{item.cityName}}</view>
+      </block>
+    </view>
+  </view>
+  <view class='citys_list_container' wx:if="{{isShowdistincts==true}}">
+    <view class='city_header'>
+      <image class='address_location_icon' src='../../images/icon/address_location.png'></image>
+      <text class='current_location_city_lable'>当前定位城市：</text>
+      <text class='current_location_city_text'>萧山区</text>
+    </view>
+    <!--  -->
+    <view class='citys_list'>
+      <block wx:for="{{region[selected_city].districtList}}">
+          <view class='city_item' bindtap='setDistinct' data-district_id = "{{index}}">{{item.districtName}}</view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 用选择器实现的市区选择   -->
+  <!--市选择器  -->
+  <!-- <picker-view wx:if="{{isShowCitys==true}}" class="citys_cintainer" value="{{values}}" indicator-class="selected_city" bindchange='setCity'>
+    <picker-view-column class="region">
+      <view wx:for="{{region}}">
+        {{item.cityName}}
+      </view>
+    </picker-view-column>
+    <picker-view-column class="letter_column">
+      <view wx:for="{{letter}}">
+        <text class='single_lettle'>{{item}}</text>
+      </view>
+    </picker-view-column>
+  </picker-view>  -->
+  <!--区选择器  -->
+  <!-- <picker-view wx:if="{{isShowdistincts==true}}" class="citys_cintainer" value="{{values}}" indicator-class="selected_city" bindchange='setDistinct'>
+    <picker-view-column class="city_column">
+      <view wx:for="{{region[selected_city].districtList}}">
+        {{item.districtName}}
+      </view>
+    </picker-view-column>
+    <picker-view-column class="letter_column">
+      <view wx:for="{{letter}}">
+        <text class='single_lettle'>{{item}}</text>
+      </view>
+    </picker-view-column>
+  </picker-view>    -->
+</view>

@@ -1,0 +1,34 @@
+/* pages/networkFail/networkFail.wxss */
+view,text{
+  font-family:PingFangSC-Medium;
+}
+.network-fail{
+  width:100%;
+  height:50%;
+  position: absolute;
+  top:25%;
+}
+.network-fail>image{
+  width:204rpx;
+  height:226rpx;
+  display: block;
+  margin: 0 auto;
+}
+.network-fail>text{
+  display: block;
+  text-align: center;
+  font-size:32rpx;
+  color:#333333;
+  margin:36rpx 0 26rpx 0;
+}
+.network-fail>view{
+  text-align: center;
+  font-size:36rpx;
+  color:#333333;
+  background:#fc9c02;
+  border-radius:12rpx;
+  width:200rpx;
+  height:76rpx;
+  margin: 0 auto;
+  line-height:76rpx;
+}

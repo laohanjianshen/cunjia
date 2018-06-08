@@ -1,0 +1,15 @@
+<!--绑定手机号-->
+<view class="wrap">
+	<view class="inputText">
+		<view>+86</view>
+		<input value="{{tel}}" bindinput="inputTel" type="number" maxlength="11" placeholder="手机号" />
+	</view>
+	<view class="inputText" style="margin-bottom:70rpx;">
+		<view>
+			<image src="../../images/mine/lock-1x.png"></image>
+		</view>
+		<input value="{{code}}" bindinput="inputCode" style="width:326rpx;" type="number" placeholder="验证码" />
+		<text class="getCode" bindtap="getCode">{{btnInfo}}</text>
+	</view>
+	<view class="submit {{submitStatus?'submit2':''}}" bindtap="submit">提交</view>
+</view>

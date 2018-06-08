@@ -1,0 +1,13 @@
+<!--pages/mine/suggest.wxml-->
+<!--意见与建议  -->
+ <view class="suggest-container">
+  <view>
+    <view>
+      <image src="../../images/mine/pen.png"></image>
+      反馈内容
+    </view>
+    <textarea value="{{suggetContent}}" bindinput="getContent"/>
+  </view>
+  <view class="submit" bindtap='submitTo'>提交</view>
+</view> 
+

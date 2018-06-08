@@ -1,0 +1,232 @@
+/* pages/buffet/buffetShop.wxss */
+.title{
+	background: #F7F7F7;
+	padding: 36rpx 0 34rpx 0;
+	overflow: hidden;
+}
+.title .right{
+	width: 160rpx;
+	margin-left: 34rpx;
+	float: left;
+	height: 300rpx;
+}
+.title .right .fruit{
+	border-radius:8rpx;
+	width:160rpx;
+	height:138rpx;
+	margin-top: 40rpx;
+	position: relative;
+}
+.title .right .fruit view{
+	background:#ffffff;
+	width: 100%;
+	height: 100%;
+	font-size:24rpx;
+	color:#bbbbbb;
+	border:2rpx solid #dddddd;
+	line-height: 138rpx;
+	text-align: center;
+	border-radius: 8rpx;
+}
+.title .right .fruit image{
+	width: 100%;
+	height: 100%;
+	border-radius: 8rpx;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.title .good-box{
+	width: 504rpx;
+	height: 418rpx;
+	float: left;
+	position: relative;
+	margin-left: 24rpx;
+}
+.title .good-box .bgIMG{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.title .good-box .select-food{
+	width: 100%;	
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.title .good-box .select-food .top1{
+	border-radius:4px;
+	width:98rpx;
+	height:98rpx;
+	position: absolute;
+	left: 32rpx;
+	top: 32rpx;
+}
+.title .good-box .select-food .top2{
+	border-radius:4px;
+	width:98rpx;
+	height:96rpx;
+	position: absolute;
+	left: 144rpx;
+	top: 32rpx;
+}
+.title .good-box .select-food .top3{
+	border-radius:4px;
+	width:80rpx;
+	height:96rpx;
+	position: absolute;
+	left: 256rpx;
+	top: 32rpx;
+}
+.title .good-box .select-food .top4{
+	border-radius:4px;
+	width:120rpx;
+	height:96rpx;
+	position: absolute;
+	right: 30rpx;
+	top: 32rpx;
+}
+.title .good-box .select-food .top5{
+	border-radius:4px;
+	width:100rpx;
+	height:238rpx;
+	position: absolute;
+	left: 30rpx;
+	bottom: 32rpx;
+}
+.title .good-box .select-food .top6{
+	border-radius:4px;
+	width:144rpx;
+	height:172rpx;
+	position: absolute;
+	left: 144rpx;
+	bottom: 32rpx;
+}
+.title .good-box .select-food .top7{
+	border-radius:4px;
+	width:164rpx;
+	height:192rpx;
+	position: absolute;
+	right: 34rpx;
+	bottom: 32rpx;
+}
+
+/*用户菜品详细列表*/
+	.detail{
+		background: #fff;
+		margin-bottom: 100rpx;
+	}
+	.detail .time{
+		font-size:28rpx;
+		color:#999999;
+		height:72rpx;
+		line-height: 72rpx;
+		padding-left: 24rpx;
+		border-bottom: 2rpx solid #f7f7f7;
+	}
+	.module .info{
+		margin:0 24rpx;
+		font-size:28rpx;
+		color:rgba(51,51,51,0.87);
+		line-height: 72rpx;
+		border-bottom: 2rpx solid #dddddd;
+	}
+	.module .detail-item{
+		width:726rpx;
+		overflow: hidden;
+		margin-top: 18rpx;
+		padding-bottom: 18rpx;
+	}
+	.module .detail-item .inner{
+		margin-left: 24rpx;
+		width: 836rpx;
+		display: flex;
+		transition:all 0.5s;
+	}
+	.module .detail-item .inner2{
+		margin-left: -110rpx;
+	}
+	.module .detail-item .inner image{
+		flex:186rpx 0; 
+		height: 116rpx;
+		
+		margin-right: 28rpx;
+	}
+	.module .detail-item .inner .textInfo{
+		position: relative;
+		flex:1;
+	}
+	.module .detail-item .inner .textInfo .name{
+		font-size:32rpx;
+		color:rgba(0,0,0,0.87);
+		margin-bottom: 12rpx;
+	}
+	.module .detail-item .inner .textInfo .price{
+		font-size:24rpx;
+		color:#e96969;
+		font-weight: bold;
+	}
+	.module .detail-item .inner .textInfo .delete{
+		background:#d15454;
+		height:116rpx;
+		font-size:32rpx;
+		color:#ffffff;
+		text-align: center;
+		line-height: 116rpx;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width:0rpx;
+		overflow: hidden;
+		transition: all 0.5s;
+	}
+	.module .detail-item .inner .textInfo .delete2{
+		width:152rpx;
+	}
+
+	.footerShop{
+		height: 100rpx;
+		overflow: hidden;
+		width: 750rpx;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		background:rgba(61,50,50,0.96);
+		box-shadow:0 0 14rpx 0 rgba(192,192,192,0.50);
+		overflow: hidden;
+		color: #fff;
+	}
+	.footerShop .left{
+		float: left;
+		padding-left: 40rpx;
+	}
+	.footerShop .toOrder{
+		float: right;
+		background:#bbb;
+		width:184rpx;
+		height:100rpx;
+		border-radius: 0 0 0 30rpx;
+		font-size:36rpx;
+		text-align: center;
+		line-height: 100rpx;
+		color:rgba(255,255,255,0.87);
+	}
+	.footerShop .toOrder2{
+		background: #fc9c02;
+	}
+	.footerShop .left>view:nth-child(1){
+		font-size:32rpx;
+	}
+	.noTip{
+		line-height: 100rpx;
+	}
+	.footerShop .left>view:nth-child(1) text{
+		font-size:48rpx;
+	}
+	.footerShop .left>view:nth-child(2){
+		font-size:24rpx;
+		margin-top: -10rpx;
+	}

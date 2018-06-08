@@ -1,0 +1,36 @@
+<!--pages/addressManage/addressManage.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view class='changeAddress' wx:if="{{!networkFail}}">
+  <!--我的地址列表  -->
+  <view class='address_list'>
+    <block wx:for="{{address}}">
+      <scroll-view class='addressItem_container' scroll-x='true' bindscroll='bindscroll' data-scroll_id='{{index}}' data-string='{{scroll_into_view_array[index].scroll_into_view}}' scroll-into-view='{{scroll_into_view_array[index].scroll_into_view}}' data-address_id="{{item.addressId}}">
+        <view id='scrollitem0{{index}}' class='space'>
+        </view>
+        <view class='addressItem' id='scrollitem1{{index}}'>
+          <text class='address_text'>{{item.cityName +  span + item.districtName + span + item.locationBuilding}}</text>
+          <view class='address_user_container'>
+            <text class='address_userName'>{{item.addressName}}</text>
+            <text class='address_sex' wx:if="{{item.addressSex == 0}}">先生</text>
+            <text class='address_sex' wx:if="{{item.addressSex == 1}}">女士</text>
+            <text class='address_phone'>{{item.addressPhone}}</text>
+          </view>
+          <image class="more_address_location" src='../../images/icon/edit_address.png' bindtap='edit_address' data-address_id="{{item.addressId}}"></image>
+        </view>
+        <view class='delete_view_container' id='scrollitem2{{index}}' >
+          <view class='delete_view' bindtap='deleteAddress' data-address_id="{{item.addressId}}">
+            删除
+          </view>
+        </view>
+        <view id='scrollitem3{{index}}' class='space'>
+        </view>
+      </scroll-view>
+    </block>
+  </view>
+  <!--底部新增地址按钮  -->
+  <view class='add_address_ciontainer' bindtap='navigate_to_add'>
+    <image class='add_icon' src='../../images/icon/add_address.png'></image>
+    <text class='add_address_text'>新增收货地址</text>
+  </view>
+</view>

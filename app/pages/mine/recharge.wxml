@@ -1,0 +1,9 @@
+<!--pages/mine/recharge.wxml-->
+<view class="wrap">
+	<view class="info">充值金额</view>
+	<view class="num">
+		<text>￥</text>
+		<input bindinput="inputMoney" type="digit" auto-focus/>
+	</view>
+</view>
+<view class="recharge" bindtap="recharge">充值</view>

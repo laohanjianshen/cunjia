@@ -1,0 +1,139 @@
+/* pages/orderComment/orderComment.wxss */
+@import "../../app.wxss";
+.comment-star-area{
+    background:#fff;
+    padding:28rpx 24rpx;
+}
+.comment-star-area{
+  background:#fff;
+  margin-top:10rpx;
+}
+.comment-star-area>image{
+  width:200rpx;
+  height:124rpx;
+}
+.comment-star{
+  display: inline-block;
+  margin-left:40rpx;
+  font-size:32rpx;
+  color:#333333;
+   vertical-align: super;
+  line-height:60rpx;
+}
+.comment-star-area .stars{
+  margin-top:10rpx;
+}
+.comment-star-area .stars>image{
+  width:40rpx;
+  height:40rpx;
+  margin-right:20rpx;
+}
+.comment-star-area .stars>view{
+  float: right;
+  font-size:24rpx;
+  color:#666666;
+  line-height: 40rpx;
+  vertical-align: top;
+  margin-left:40rpx;
+}
+/*评价关键词  */
+.comment-tips{
+  background:#fff;
+  padding:0 24rpx 26rpx 24rpx;
+  margin-bottom:12rpx;
+}
+.comment-tips>view{
+  display: inline-block;
+  padding:12rpx 26rpx;
+  border:2rpx solid #dddddd;
+  border-radius:200rpx;
+  margin-right:20rpx;
+  margin-top:16rpx;
+  font-size:28rpx;
+  color:#666666;
+}
+.comment-tips>view.tip-selected{
+  border:2rpx solid #fc9c02;
+  color:#fc9c02;
+}
+/* 口味和包装 */
+.taste-wrap{
+  padding:24rpx 24rpx 0 24rpx;
+  background:#fff;
+}
+.taste-wrap>view>view{
+  display: inline-block;
+  margin:0 40rpx 10rpx 0;
+  vertical-align: middle;
+  font-size:28rpx;
+  color:#666666;
+}
+.taste-wrap image{
+  width:58rpx;
+  height:58rpx;
+  margin-right:18rpx;
+}
+/* 评价内容 */
+.comment-textarea{
+  background:#ffffff;
+  height:360rpx;
+  margin-top:12rpx;
+}
+.comment-textarea>textarea{
+  height:194rpx;
+  font-size:28rpx;
+  color:#666;
+  width:700rpx;
+  margin:0 25rpx;
+  padding-top:30rpx;
+  line-height: 40rpx;
+}
+.placeholder{
+  font-size:28rpx;
+  color:#bbbbbb;
+}
+.comment-textarea>image{
+  width:122rpx;
+  height:122rpx;
+  margin-left:25rpx;
+}
+/* 评价红包 */
+.comment-red-bracket{
+  background:#ffffff;
+  height:62rpx;
+  padding: 20rpx 24rpx;
+  margin-top:4rpx;
+}
+.comment-red-bracket>view{
+  display: inline-block;
+  line-height:40rpx;
+}
+.comment-red-bracket>view:last-child{
+  float: right;
+  line-height:62rpx;
+  font-size:28rpx;
+  color:#666666;
+}
+.comment-red-bracket>view>text:first-child{
+  display:block;
+  font-size:28rpx;
+  color:#fc9c02;
+  margin-top:-10rpx;
+}
+.comment-red-bracket>view>text:last-child{
+  display:block;
+  font-size:24rpx;
+  color:#999999;
+}
+/*提交评价  */
+.comment-submit{
+  height:116rpx;
+}
+.comment-submit>button{
+  width:702rpx;
+  height:74rpx;
+  line-height:74rpx;
+  background:#fc9c02;
+  margin-top:32rpx;
+  color:#fff;
+}

@@ -1,0 +1,15 @@
+<!--多订单完成页-->
+<view class="order-status">
+	<view class="waitSend">
+		<image src="../../images/order/bg.png" class="bg"></image>
+		<view class="con">
+			<view class="status">付款成功</view>
+			<view class="indemnity">感谢您对1753的支持，我们将用心为您备餐</view>
+			<view class="line"></view>
+			<view class="btns">
+				<view bindtap='toOrders'>查看订单</view>
+				<view bindtap='toOrders'>完成</view>
+			</view>
+		</view>
+	</view>
+</view>

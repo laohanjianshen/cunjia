@@ -1,0 +1,61 @@
+<!--pages/submitRefund/submitRefund.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view class="wrap" wx:if="{{!networkFail}}">
+	<view class="title">
+		<image src="../../images/product_detail/XMLID.png"></image>
+		<view class="info">
+			<view>一起午餐</view>
+			<view>当前东单共有2个商品，消费小计32.00元</view>
+		</view>
+	</view>
+	<view class="moneyAddress">退款方式：<text>退款至您的支付账户</text></view>
+	<view class="select-goods">
+		<view class="con">
+			<view class="select-info">选择退款商品</view>
+			<!-- 商品列表 -->
+			<view class="goods-item">
+				<image src="../../images/product_detail/test.png"></image>
+				<view>
+					<view class="good-name">酸辣土豆丝</view>
+					<view class="good-num">x1</view>
+				</view>
+				<view class="price">
+					<view>￥16</view>
+					<view>￥26</view>
+				</view> 
+			</view>
+			<view class="goods-item">
+				<image src="../../images/product_detail/test.png"></image>
+				<view>
+					<view class="good-name">酸辣土豆丝酸辣土豆丝酸辣土豆丝</view>
+					<view class="good-num">x1</view>
+				</view>
+				<view class="price">
+					<view>￥16</view>
+					<view>￥26</view>
+				</view> 
+			</view>
+			
+			<view class="money">退款金额：<text>￥32.00</text></view>
+		</view>
+	</view>
+	<view class="select-reasson" bindtap="selectReason">{{reason==''?pickerVal:reason}} <text>></text></view>
+	<view class="input">
+		<textarea wx:if="{{!pickerIsShow}}" placeholder="请描述退款原因" placeholder-style="font-size:28rpx;color:#bbbbbb;"></textarea>
+	</view>
+	<navigator redirect url="../orderDetail/orderDetail?status=4"><view class="submit">提交</view></navigator>
+</view>
+<view class="mask" wx:if="{{pickerIsShow}}" bindtap="cancel">
+	<view class="pick" catchtap="selectReason">
+		<view class="caozuo">
+			<view class="cancel" catchtap="cancel">取消</view>
+			<view class="ok" catchtap="ok">确定</view>
+		</view>
+	    <picker-view catchchange="changePicker">
+			<picker-view-column>
+		      	<view class="item " wx:for="{{reasons}}">{{item}}</view>
+		    </picker-view-column>
+	    </picker-view>
+	 </view>
+</view>

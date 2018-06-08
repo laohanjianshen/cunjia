@@ -1,0 +1,2 @@
+<!--使用说明-->
+<view class="con">{{info}}</view>

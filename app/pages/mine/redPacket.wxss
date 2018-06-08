@@ -1,0 +1,183 @@
+/* pages/mine/redPacket.wxss */
+/*红包弹窗  */
+.redPacket-content{
+  width:100%;
+  height:100%;
+  margin-bottom:40rpx;
+}
+.redPacket-content .modal-top{
+  background:#ffffff;
+  padding: 0 34rpx;
+  height:104rpx;
+  line-height: 92rpx;
+  color:#666666;
+  font-size:28rpx;
+  position: fixed;
+  top:0;
+  width:100%;
+  z-index:10;
+}
+.modal-top view{
+  display: inline-block;
+  width:341rpx;
+}
+.modal-top view:last-child{
+  text-align: right;
+}
+.modal-top>view>text{
+   font-size:30rpx;
+   font-family:MicrosoftYaHei;
+}
+.modal-top>view>text:nth-child(2){
+  font-size:48rpx;
+  color:#d15454;
+  margin-right:8rpx;
+  font-family:PingFangSC-Semibold;
+}
+.modal-top>view>text:last-child{
+  font-size:22rpx;
+}
+.modal-top image{
+  width:28rpx;
+  height:28rpx;
+  margin-left:6rpx;
+}
+/*暂无红包  */
+.redPacket-empty{
+  margin: 204rpx 0;
+  text-align: center;
+  font-size:32rpx;
+  color:#999999;
+}
+.redPacket-empty>image{
+  width:200rpx;
+  height:180rpx;
+}
+.redPacket-empty>view{
+  margin-top:20rpx;
+}
+.redPacket-empty>.redPacket-share{
+  margin-top:70rpx;
+}
+.redPacket-empty>view>button{
+  font-size:32rpx;
+  color:#ffad08;
+  background:transparent;
+  display: inline;
+  padding: 0;
+}
+.redPacket-empty>view>button::after{
+  border: none;
+}
+/*过期红包  */
+.old-redPacket{
+  font-size:28rpx;
+  color:#666666;
+  text-align: center;
+  padding-bottom:10rpx;
+}
+/*红包列表  */
+.redPacket-list{
+  height:auto;
+  padding:30rpx 34rpx 0 34rpx;
+  margin-top:92rpx;
+}
+.redPacket-item{
+  height:204rpx;
+  margin-bottom:36rpx;
+}
+.redPacket-item .item-top{
+  padding: 0 30rpx;
+  font-size:24rpx;
+  color:#ffffff;
+  border-radius:12rpx 12rpx 0 0;
+  width:626rpx;
+  height:48rpx;
+  line-height:48rpx;
+}
+.redPacket-item .item-top-1{
+  background:#2bbb76;
+}
+.redPacket-item .item-top-2{
+  background:#ee7373;
+}
+.redPacket-item .item-top-3{
+  background:rgba(84,182,220,0.97);
+}
+.redPacket-item .item-top>text:last-child{
+  float:right;
+}
+.redPacket-item>image,.redPacket-item>.item-content{
+  width:684rpx;
+  height:156rpx;
+  position:absolute;
+  box-shadow:0 4rpx 8rpx 0 rgba(221,221,221,0.50);
+}
+.item-content>view>image{
+  width:40rpx;
+  height:44rpx;
+  margin-right:20rpx;
+}
+.item-content>view:first-child{
+  float:left;
+  font-size:28rpx;
+  color:#d15454;
+  line-height:136rpx;
+  width:196rpx;
+  text-align:center;
+}
+.item-content>view:first-child>text{
+  font-size:48rpx;
+  color:#d15454;
+}
+.item-content>view:nth-child(2){
+  float:left;
+  margin-top: 20rpx;
+  font-size:24rpx;
+  color:#999999;
+  border-left:2rpx dashed #ccc;
+  padding-left:50rpx;
+}
+.item-content>view:nth-child(3){
+  float: right;
+  margin:40rpx 50rpx 0 0;
+  width:138rpx;
+  height:52rpx;
+  line-height: 52rpx;
+  text-align: center;
+}
+.item-content>view>button{
+  font-family:PingFangSC-Medium;
+  font-size:12px;
+  padding:0;
+  background:transparent;
+  border-radius:200rpx;
+}
+.item-content>view>button::after{border:none;}
+.share-btn-1{
+  color:#2bbb76;
+   border:1px solid #2bbb76; 
+}
+.share-btn-2{
+  color:#ee7373;
+  border:1px solid #ee7373;
+}
+.share-btn-3{
+  color:#59b7dc;
+  border:1px solid #59b7dc;
+}
+.item-content>view:nth-child(2)>text{
+  font-size:32rpx;
+  color:#333333;
+  line-height:70rpx;
+}
+/*过期红包列表  */
+.overdue .item-content view,.overdue .item-content view text{
+  color:#999;
+}
+.overdue{
+  margin-top:0;
+}
+.overdue .item-top{
+  background:#cdcdcd;
+}

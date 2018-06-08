@@ -1,0 +1,197 @@
+<!--index.wxml-->
+<import src="../networkFail/networkFail.wxml" />
+<template wx:if="{{networkFail}}" is="networkFail" data="" />
+
+<view wx:if="{{!networkFail}}">
+  <!--定位信息  -->
+  <view class='location-info' bindtap='knowWhereAreYou'>
+    <view class='location-info-container'>
+      <image class="location-icon" src='{{location_icon_url}}'></image>
+      <text class='location-name'>{{distinct}}【村家股份】</text>
+    </view>
+  </view>
+  <view class="container" style='location:relative'>
+    <!-- banner -->
+    <view class='swiper-container'>
+      <swiper bindchange='swiperChange' indicator-color="rgba(255,255,255,0.5)" circular="true" indicator-active-color="#ffbc00" interval="3000" duration="500" current='{{swiperCurrent}}' autoplay='{{isAutoPlay}}'>
+        <block wx:for="{{imgUrls}}">
+          <swiper-item>
+            <image class="image" src="{{item}}" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="dots">
+        <block wx:for="{{imgUrls}}">
+          <view class="dot{{index == swiperCurrent ? ' active' : ''}}" data-current="{{index}}" bindtap='dotTap'></view>
+        </block>
+      </view>
+    </view>
+    <!--订餐选择  -->
+    <view class='order-choose'>
+      <block wx:for="{{order_choose_desc}}">
+        <navigator class='order-choose-item' url='{{item.navigateUrl}}'>
+          <image class='order-choose-image' src='{{item.imageurl}}'></image>
+          <text class='order-choose-text'>{{item.text}}</text>
+        </navigator>
+      </block>
+    </view>
+    <!--推广区  -->
+    <view class='ad_container'>
+      <text>推广区</text>
+    </view>
+    <!--天天惊喜  -->
+    <view class='everyday_is_happy'>
+      <image src="../../images/index/day-suprise.png"></image>
+    </view>
+    <!--套餐推荐区  -->
+    <view class='recommend_container'>
+      <scroll-view scroll-x="true" class='recommend_items'>
+        <view wx:for="{{recommend_items_desc}}" class='swiper-item'>
+          <navigator class='recommend_item_container' url='../productDetail/productDetail'>
+            <view class='recommend_item'>
+              <text class='recommend_item_name'>照烧翅根套餐</text>
+              <text class='recommend_item_price'>立减15元</text>
+              <image class='recommend_item_image' src='../../images/index/recommend.png'></image>
+            </view>
+          </navigator>
+        </view>
+      </scroll-view>
+    </view>
+    <!--又一个推广区   -->
+    <view class='ad_container'>
+      <text>推广区</text>
+    </view>
+    <!--菜品区  -->
+    <!-- 
+  <view class='content'>
+      <block wx:for="{{food_items_desc}}">
+      <navigator url='../productDetail/productDetail?id=2' class='food_item'>
+        
+        <view class='food_item_header'>
+          <text class='benefit_countdown'>优惠倒计时：</text>
+          <text class='benefit_countdown hour'>{{hour}}</text>
+          <text class='benefit_countdown'>:</text>
+          <text class='benefit_countdown minute'>{{minute}}</text>
+          <text class='benefit_countdown'>:</text>
+          <text class='benefit_countdown second'>{{second}}</text>
+        </view>
+         
+        <view class='food_item_picture'>
+          <image class='food_item_picture' src='../../images/index/example.png'></image>
+        </view>
+        
+        <view class='food_item_header2'>
+          <text class='order_countdown'>订餐倒计时：</text>
+          <text class='order_countdown hour'>{{hour}}</text>
+          <text class='order_countdown'>:</text>
+          <text class='order_countdown minute'>{{minute}}</text>
+          <text class='order_countdown'>:</text>
+          <text class='order_countdown second'>{{second}}</text>
+        </view>
+        <view class='food_item_body'>
+          <text class='food_name'>露笋火腿套餐</text>
+          <text class='food_price'>￥66.00</text>
+        </view>
+        <view class='food_item_footer'>
+          <view class='favor_item'>
+            <image class='favor_icon' src='../../images/index/favor.png'></image>
+            <text class='favor_times'>123</text>
+          </view>
+          <view class='has_sold'>
+            <text class='has_sold_text'>已售：12632</text>
+          </view>
+        </view>
+      </navigator>
+    </block>  
+  </view>
+  -->
+
+    <!--首页个人点餐修改后  -->
+    <view class="main-content">
+      <view class="main-content-top">
+        <image src="../../images/index/person-top.png"></image>
+        <view class="content-timedesc">
+          <view>订餐倒计时</view>
+          <view>
+            <text>{{orderTime.hour}}</text>时
+            <text>{{orderTime.minute}}</text>分
+            <text>{{orderTime.second}}</text>秒
+          </view>
+        </view>
+      </view>
+      <view class="content-item" wx:for="{{foodsList}}" data-id="{{item.id}}" bindtap="showItemDetail">
+        <image mode="aspectFill" src="{{item.img}}"></image>
+        <text>{{item.name}}</text>
+        <view class="item-price">
+          <view>
+            <text>￥</text>
+            <text class="item-now-price">{{item.currentPrice}}</text>
+            <text class="item-old-price"><text wx:if="{{item.oldPrice>0}}">￥{{item.oldPrice}}</text></text>
+          </view>
+          <view class="create-order" data-id="{{item.id}}" data-price="{{item.currentPrice}}" catchtap="addCart">点餐</view>
+        </view>
+        <view class="item-bottom">
+          <image src="{{item.ispraised?'/images/common/min-dianzan.png':'/images/common/min-dianzan2.png'}}" data-id="{{item.id}}" catchtap="praise"></image>
+          <text>{{item.praiseNum}}</text>
+          <text>已售：{{item.saleNum}}</text>
+        </view>
+      </view>
+
+
+      <!-- 选规格 -->
+      <view class="select-standard" wx:if="{{standard_isshow}}" bindtap="cancelStandard">
+
+        <view class="standard-box" catchtap='emptyFunc'>
+
+          <view class="standardInfo">
+            <view class="standardInfo-item">
+              <view class="standard-item-text">选规格:</view>
+              <view class="item-list">
+                <view wx:for="{{standardArr}}" class="item-button {{standardNum==item.skuId?'select-button':''}}" data-index="{{index}}" data-id="{{item.skuId}}" catchtap="selectStandard">{{item.skuName}}</view>
+
+              </view>
+            </view>
+            <view class="standardInfo-item">
+              <view class="standard-item-text">选调料包:</view>
+              <view class="item-list">
+                <view wx:for="{{standardArr2}}" class="item-button {{standardNum==item.skuId?'select-button':''}}" data-index="{{index}}" data-id="{{item.skuId}}" catchtap="selectStandard">{{item}}</view>
+              </view>
+            </view>
+          </view>
+
+          <view class="standard-num">
+            <view>
+              <image src="../../images/common/add.png" catchtap="addNum"></image>
+              <text>{{goodNums}}</text>
+              <image src="../../images/common/sub.png" catchtap="subNum"></image>
+            </view>
+            <view class="standard-num-footer">
+              <view>￥
+                <text>{{priceCount}}</text>
+              </view>
+              <view bindtap="addShop">加入购餐车</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+
+    <!-- 购物车图标 暂时不要了-->
+    <!-- <navigator url="../shopCar/shopCar" class="myCart">
+    <image src="../../images/personOrder/cart.png"></image>
+    <view>3</view>
+  </navigator> -->
+    <!--加载更多  -->
+    <view class="loadmore" wx:if="{{loadMore}}">
+      <view class="loading"></view>
+      <view class="loadmore_tips">正在加载</view>
+    </view>
+    <view class="loadmore" wx:if="{{!loadMore&&!noMore}}">
+      <view class="loadmore_tips">上拉加载更多哦~</view>
+    </view>
+    <view class="loadmore" wx:if="{{!loadMore&&noMore}}">
+      <view class="loadmore_tips">亲，没有更多数据了哦~</view>
+    </view>
+  </view>
+</view>

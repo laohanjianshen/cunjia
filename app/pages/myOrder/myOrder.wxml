@@ -1,0 +1,105 @@
+<!--pages/myOrder/myOrder.wxml-->
+<import src="../networkFail/networkFail.wxml" />
+<template wx:if="{{networkFail}}" is="networkFail" data="" />
+<view class='container' wx:if="{{!networkFail}}">
+  <view class='header'>
+    <view class='all_order' bindtap='toogle_orderStatus' data-start='0' data-end='5'>
+      <image class='header_icon' src='../../images/icon/all_class.png'></image>
+      <text class='header_lable'>全部</text>
+    </view>
+    <view class='to_be_received' bindtap='toogle_orderStatus' data-start='0' data-end='3'>
+      <image class='header_icon' src='../../images/icon/ballet.png'></image>
+      <text class='header_lable'>待收货</text>
+    </view>
+    <view class='to_be_comment' bindtap='toogle_orderStatus' data-start='3' data-end='4'>
+      <image class='header_icon' src='../../images/icon/to_be_comment.png'></image>
+      <text class='header_lable'>待评价</text>
+    </view>
+    <view class='after_sale'>
+      <image class='header_icon' src='../../images/icon/after_sale.png'></image>
+      <text class='header_lable'>退款/售后</text>
+    </view>
+  </view>
+  <view class='content'>
+    <!--0:个人点餐 1:自主点餐  -->
+    <view class='all_order_content' wx:for="{{orderList.length > 0?orderList:orders}}" data-ordertype="{{item.orderType}}" data-orderid="{{item.orderId}}" data-orderstatus="{{item.orderStatus}}" bindtap="toOrderDetail"> 
+      <view class='personalOrder' wx:if='{{ifShowStatus[item.orderStatus]}}'>
+        <view class='order_header'>
+          <image class='single_order_icon' src='../../images/icon/single_order_icon.png' wx:if="{{item.orderType==0}}"></image>
+          <image class='single_order_icon' src='../../images/icon/zizhu.png' wx:if="{{item.orderType==1}}"></image>
+          <text class='single_order_lable' wx:if="{{item.orderType==0}}">个人点餐</text>
+          <text class='single_order_lable' wx:if="{{item.orderType==1}}">自助点餐</text>
+          <text class='single_order_status' wx:if="{{item.orderStatus == 0}}">待付款</text>
+          <text class='single_order_status' wx:if="{{item.orderStatus == 1}}">备货中</text>
+          <text class='single_order_status' wx:if="{{item.orderStatus == 2}}">配送中</text>
+          <text class='single_order_status' wx:if="{{item.orderStatus == 3}}">待评价</text>
+          <text class='single_order_status' wx:if="{{item.orderStatus == 4}}">已完成</text>
+        </view>
+        <!--选购的菜品  -->
+        <view class='single_order_content' wx:if="{{item.orderType == 0}}">
+          <block wx:for="{{item.boxLunchList}}">
+            <view class='choosen_food_item'>
+              <image class='choosen_food_item_pic' src='{{item.boxLunchImagesUrl}}'></image>
+              <text class='choosen_food_item_name'>{{item.boxLunchName}}</text>
+              <view catchtap='comment' data-id='{{index}}' data-type="{{0}}">评价</view>
+              <text class='choosen_food_item_quantity'>x{{item.boxLunchNumber}}</text>
+            </view>
+          </block>
+        </view>
+        <view class='single_order_content' wx:if="{{item.orderType == 1}}">
+          <block wx:for="{{item.boxLunchList[0].foodVOList}}">
+            <view class='single_food_item'>
+              <text>{{item.foodName}}</text>
+              <view catchtap='comment' data-id='{{index}}' data-type="{{1}}">评价</view>
+            </view>
+          </block>
+          <view class='last-child'>
+              x{{item.boxLunchList[0].foodVOList.length}} 共一件商品
+            </view>
+        </view>
+        <!--下单时间，总价,订单操作（支付，评价，删除等）  -->
+        <view class='single_order_footer_container'>
+          <view class='single_order_footer'>
+            <text class='single_order_time'>{{item.orderCreateTime}}</text>
+            <text class='single_order_price_lable'>合计：</text>
+            <text class='single_order_price_text'>{{item.totalPrice}}</text>
+          </view>
+          <view class='single_order_operate'>
+            <!--代付款  -->
+            <view class='to_be_pay_operate' wx:if="{{item.orderStatus == 0}}">
+              <view class='pay_bt'>
+                <text class='pay_bt_text'>去付款</text>
+              </view>
+            </view>
+            <!--配货中  配送中-->
+            <view class='to_be_received_operate' wx:if="{{item.orderStatus == 1 || item.orderStatus == 2}}">
+              <view class='to_be_received_bt'>
+                <navigator class='to_be_received_text' url='../submitRefund/submitRefund'>申请退款</navigator>
+              </view>
+            </view>
+            <!--待评价订单  -->
+            <view class='to_be_comment_operate' wx:if="{{item.orderStatus == 3}}">
+              <view class='delete_bt'>
+                <text class='delete_bt_text'>删除订单</text>
+              </view>
+              <view class='comment_bt'>
+                <navigator class='comment_bt_text' url='../orderComment/orderComment'>评价</navigator>
+              </view>
+            </view>
+            <!--已完成  -->
+            <view class='complete_operate' wx:if="{{item.orderStatus == 4}}">
+              <view class='delete_bt'>
+                <text class='delete_bt_text'>删除订单</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- <view class="loadmore" wx:if="{{loadMore}}">
+    <view class="loading"></view>
+    <view class="loadmore_tips">正在加载</view>
+  </view> -->
+</view>

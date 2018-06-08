@@ -1,0 +1,150 @@
+<!--pages/buffet/buffet.wxml-->
+<import src="../networkFail/networkFail.wxml" />
+<import src="../components/youhuiModal"></import>
+<template wx:if="{{networkFail}}" is="networkFail" data="" />
+<view class="buffet-container" wx:if="{{!networkFail}}">
+  <!--顶部  -->
+  <view class="buffet-top" style='z-index:2'>
+    <!-- 倒计时 -->
+    <view class='time'>
+      <view class='discount-time' bindtap="deadlineAnswer">
+        <view class='text'>订餐截止时间
+          <image src='../../images/product_detail/question.png'></image>
+        </view>
+        <view>
+          <text>{{offsetHours}}</text>:
+          <text>{{offsetMinutes}}</text>:
+          <text>{{offsetSeconds}}</text>
+        </view>
+      </view>
+      <image src='../../images/personOrder/timeout.png'></image>
+      <view class='order-time' bindtap="deadlineAnswer">
+        <view class='text'>优惠截止时间
+          <image src='../../images/product_detail/question.png'></image>
+        </view>
+        <view>
+          <text>{{offsetHoursY}}</text>:
+          <text>{{offsetMinutesY}}</text>:
+          <text>{{offsetSecondsY}}</text>
+        </view>
+      </view> 
+    </view>
+    <view class="current-tap">{{selectedMenuBtn}}</view>
+  </view>
+  <!--预定送餐时间  -->
+  <view class='deliver-time' >
+    <text wx:if='{{hasSelectedTime}}'>{{deliver_time}}</text>
+    <text bindtap='change_deliver_time'>{{operate_bt}}</text>
+  </view>
+  <!--主体  -->
+  <scroll-view class="buffet-main" scroll-y="true" bindtap="hideMenu">
+    <view class="content-item" wx:for="{{foodsList}}" data-id="{{item.foodId}}" data-foodtype="{{selectedMenuBtn}}" data-food="{{item}}" bindtap="showItemDetail">
+      <image mode="aspectFill" src="{{item.foodImagesUrl}}"></image>
+      <text>{{item.foodName}}</text>
+      <view class="item-price">
+        <view>
+          <text>￥</text>
+          <text class="item-now-price">{{item.foodSalePrice}}</text>
+          <text class="item-old-price"><text>￥{{item.foodPrice}}</text></text> 
+        </view>
+        <view class="create-order {{deliver_time==''||(offsetHours=='00'&&offsetMinutes=='00'&&offsetSeconds=='00')?'noOrder':''}}" data-foodtype="{{selectedMenuBtn}}" data-food="{{item}}" catchtap="addCart">点餐</view>
+      </view>
+      <view class="item-bottom">
+        <image src="{{item.ispraised?'/images/common/min-dianzan.png':'/images/common/min-dianzan2.png'}}" data-id="{{item.boxLunchId}}" catchtap="praise"></image>
+        <text>{{3333}}</text>
+        <text>已售：{{333}}</text>
+      </view>
+    </view>
+  </scroll-view>
+  <!--右侧菜单  -->
+  <view class="right-menu-btn" bindtap='showMenu' >
+    <text>菜单</text>
+    <view></view>
+    <view></view>
+  </view>
+  <!--右侧菜单列表  -->
+  <view class="right-menu {{showMenu?'show':''}}" >
+    <view class="top" bindtap="requiredMenuShow">
+      必点
+      <image src="../../images/product_detail/question.png"></image>
+    </view>
+    <view class="right-menu-main">
+      <view wx:for="{{necessaryList}}" class="{{selectedMenu==item.categoryId?'selected-menu':''}}" data-id="{{item.categoryId}}" data-name="{{item.categoryName}}" bindtap="selectMenu">
+        <view>{{item.categoryName}}</view>
+        <view></view>
+      </view>
+    </view>
+    <view class="top choose" bindtap="requiredMenuShow">
+      选点
+      <image src="../../images/product_detail/question.png"></image>
+    </view>
+    <view class="right-menu-main">
+      <view wx:for="{{noNecessaryList}}" class="{{selectedMenu==item.categoryId?'selected-menu':''}}" data-id="{{item.categoryId}}" data-name="{{item.categoryName}}" bindtap="selectMenu">
+        <view>{{item.categoryName}}</view>
+        <view></view>
+      </view>
+    </view>
+  </view>
+  <!--页面底部  -->
+  <view class="buffet-bottom">
+    <view class="allPrice {{isRead?'okPrice':''}}"><text wx:if="{{isRead}}">￥</text>{{isRead?allPrice:'购餐车空空的'}}</view>
+    <view class="buffet-bottom-view {{isRead?'ok':''}}" bindtap='readShop'>看看都点了啥</view>
+  </view>
+   <!--时间选择器  -->
+  <view class='bg' bindtap='change_deliver_time' style='z-index:5' wx:if='{{change_deliver_time}}' ></view>
+  <view class='time_cintainer2' style='z-index:6' wx:if='{{change_deliver_time}}'>
+    <view class='time_cintainer_header'>
+      <text bindtap='change_deliver_time'>取消</text>
+      <text>请选择预定送餐日期</text>
+      <text bindtap='setTime'>确定</text>
+    </view>
+    <picker-view class="time_cintainer" indicator-class="select_date" bindchange='timeChanged'>
+      <picker-view-column class="year">
+        <view wx:for="{{time_selector}}">
+          {{item.year}}年
+        </view>
+      </picker-view-column>
+      <picker-view-column class="month">
+        <view wx:for="{{time_selector[year_index].months}}">
+          {{item.month}}月
+        </view>
+      </picker-view-column>
+      <picker-view-column class="day">
+        <view wx:for="{{time_selector[year_index].months[month_index].days}}">
+          {{item}}日
+        </view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+</view>
+<template is="youhuiModal" wx:if="{{timeoutModal}}"></template>
+<!-- 提示选择时间 -->
+<view class="tipMask" wx:if="{{tip_is_show}}">
+  <view class="tipCon">
+    <view class="title">一起午餐：</view>
+    <view class="con">点餐前，请先选择您的预订送餐日期哦</view>
+    <image src="../../images/buffet/tip1.png"></image>
+  </view>
+  <view class="IKnow" bindtap="know">我知道了</view>
+</view>
+<!-- 提示必选菜单 -->
+<view class="tipMask" wx:if="{{menuTip}}">
+  <view class="tipCon menuTip">
+    <view class="title">一起午餐：</view>
+    <view class="con">四个必点项点完才能下单哦！</view>
+    <image src="../../images/buffet/tip2.png"></image>
+  </view>
+  <view class="IKnow" bindtap="menuknow">我知道了</view>
+</view>
+<!-- 必点、选点规则 -->
+<view class="timeout-modal" wx:if="{{requiredMenu}}">
+  <view catchtap='emptyFunc'> 
+    <text class="title">1、什么是<text>必点</text>？</text>
+
+    至于“形”的含义，《乐记》里有“在天成象，在地成形”的话。钱钟书先生释为“‘形’者，完成之定状”。钱先生还引述亚里士多德论“自然”有五层含义。其四，是“相形之下，尚未成形之原料”，也就是“有质而无形”的状态；
+    <text class="title">2、什么是<text>选点</text>？</text>
+
+    至于“形”的含义，《乐记》里有“在天成象，在地成形”的话。钱钟书先生释为“‘形’者，完成之定状”。钱先生还引述亚里士多德论“自然”有五层含义。其四，是“相形之下，尚未成形之原料”，也就是“有质而无形”的状态；
+  </view>
+  <image class="close-modal" src="../../images/personOrder/closeModal.png" catchtap="requiredMenuHide"></image>
+</view>

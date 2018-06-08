@@ -1,0 +1,283 @@
+<!--pages/submitOrder/submitOrder.wxml-->
+<view wx:if="{{networkStatus}}">
+  <view class='container'>
+    <view class='chooseAddress'>
+      <!--查询到用户地址为空，渲染新增收货地址   -->
+      <block wx:if="{{address.length==0 || address == null}}">
+        <view class='add_address_ciontainer' bindtap='navigate_to_add'>
+          <view class='add_address_icon'>
+            <view class='add_address_icon1'></view>
+            <view class='add_address_icon2'></view>
+          </view>
+          <text class='add_address_text'>新增收货地址</text>
+        </view>
+      </block>
+      <!--如果用户已经有地址，则渲染用户默认地址  -->
+      <block wx:if="{{address.length>0}}">
+        <view class='show_address' bindtap='toggle_change'>
+          <image class="address_location" src='../../images/icon/address_location.png'></image>
+          <text class='address_text'>{{currentAddress.cityName + span + currentAddress.districtName + span +currentAddress.locationBuilding}}</text>
+          <view class='address_user_container'>
+            <text class='address_userName'>{{currentAddress.addressName}}</text>
+            <text class='address_sex' wx:if="{{currentAddress.addressSex == 0}}">先生</text>
+            <text class='address_sex' wx:if="{{currentAddress.addressSex == 1}}">女士</text>
+            <text class='address_phone'>{{currentAddress.addressPhone}}</text>
+          </view>
+          <image class="more_address_location" src='../../images/icon/right.png'></image>
+        </view>
+      </block>
+    </view>
+    <scroll-view class='orderItems' scroll-y="true" wx:if="{{orderType == 0}}">
+      <block wx:for="{{orderList}}">
+        <view class='order_item'>
+          <!--预计送达时间  -->
+          <view class='expected_delivery_time'>
+            <image class='expected_delivery_time_icon' src='../../images/icon/expected_delivery_time_icon.png'></image>
+            <text class='expected_delivery_time_lable'>预计送达时间</text>
+            <text class='expected_delivery_time_text'>{{item.formatDate}}</text>
+          </view>
+          <!--个人点餐选购的菜品  -->
+          <view class='choosen_foods'>
+            <block wx:for="{{item.boxLunchList}}" wx:for-item="sitem">
+              <view class='choosen_food_item'>
+                <image class='choosen_food_item_pic' src='{{sitem.boxLunchImagesUrl}}'></image>
+                <text class='choosen_food_item_name'>{{sitem.boxLunchName}}</text>
+                <text class='choosen_food_item_quantity'>x{{sitem.boxLunchNumber}}</text>
+                <text class='choosen_food_item_price'>￥{{sitem.boxLunchPrice}}</text>
+              </view>
+            </block>
+          </view>
+          <!--包装费 配送费  -->
+          <view class='tops_container'>
+            <view class='packing_tip'>
+              <text>包装费</text>
+              <text class='packing_price'>￥{{item.surfacePrice}}</text>
+            </view>
+            <view class='delivery_tip'>
+              <text>配送费</text>
+              <text class='delivery_price'>￥{{0}}</text>
+            </view>
+          </view>
+          <!--红包  -->
+          <view class='coupon_container' data-ordersum="{{item.boxLunchTotalPrice}}" data-orderid="{{item.boxLunchDate}}" bindtap="showRedPacket">
+            <text class='coupon_text'>红包</text>
+            <!-- 红包状态 -->
+            <text class='choose_coupon' wx:if="{{notAddress}}">填写地址后可选</text>
+            <view class='choose_coupon'>
+              <text class="haveCoupon" wx:if="{{!notAddress&&redPacketList.length>0&&!item.redPacketValue}}">有红包可用</text>
+              <text wx:if="{{!notAddress&&redPacketList.length==0}}">暂无红包</text>
+              <text class="coupon" wx:if="{{!notAddress&&item.redPacketValue}}">- ￥{{item.redPacketValue}}</text>
+              <image src="../../images/icon/right.png" wx:if="{{!notAddress}}"></image>
+            </view>
+          </view>
+          <!--小计  -->
+          <view class='total_price_container'>
+            <view wx:if="{{useRedPacket&&!notAddress&&redPacket}}">
+              <text>优惠规则</text>
+              <image src="../../images/product_detail/question.png" bindtap="openRedPacketModal"></image>
+            </view>
+            <text class="youhui" wx:if="{{!notAddress&&item.redPacketValue}}">已优惠￥{{item.redPacketValue}}</text>
+            <text class='total_price_lable'>小计：</text>
+            <text class='total_price' wx:if="{{item.redPacketValue}}">￥{{item.littleTotal}}</text>
+            <text class='total_price' wx:if="{{!item.redPacketValue}}">￥{{item.boxLunchTotalPrice}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <scroll-view class='orderItems' scroll-y="true" wx:if="{{orderType == 1}}">
+      <block wx:for="{{orderList}}">
+        <view class='order_item'>
+            <!--预计送达时间  -->
+            <view class='expected_delivery_time'>
+              <image class='expected_delivery_time_icon' src='../../images/icon/expected_delivery_time_icon.png'></image>
+              <text class='expected_delivery_time_lable'>预计送达时间</text>
+              <text class='expected_delivery_time_text'>{{item.boxLunchDate}}</text>
+            </view>
+            <view class="buffet-food-list">
+              <view class="food-item {{foodItem.foodNumber==0?'food-item2':''}}" wx:for="{{item.boxLunchList[0].foodVOList}}" wx:for-item="foodItem">
+                <view>{{foodItem.categoryName}}</view>
+                <view>{{foodItem.foodNumber==0?'空':foodItem.foodName}}</view>
+                <view wx:if="{{foodItem.foodNumber!=0}}">x{{foodItem.foodNumber}}</view>
+              </view>
+            </view>
+            <!--包装费 配送费  -->
+            <view class='tops_container'>
+              <view class='packing_tip'>
+                <text>包装费</text>
+                <text class='packing_price'>￥{{item.orderSurfacePrice}}</text>
+              </view>
+              <view class='delivery_tip'>
+                <text>配送费</text>
+                <text class='delivery_price'>￥{{0}}</text>
+              </view>
+            </view>
+            <!--红包  -->
+            <view class='coupon_container' data-ordersum="{{item.boxLunchTotalPrice}}" data-orderid="{{item.boxLunchDate}}" bindtap="showRedPacket">
+              <text class='coupon_text'>红包</text>
+              <!-- 红包状态 -->
+              <text class='choose_coupon' wx:if="{{notAddress}}">填写地址后可选</text>
+              <view class='choose_coupon'>
+                <text class="haveCoupon" wx:if="{{!notAddress&&redPacketList.length>0&&!item.redPacketValue}}">有红包可用</text>
+                <text wx:if="{{!notAddress&&redPacketList.length==0}}">暂无红包</text>
+                <text class="coupon" wx:if="{{!notAddress&&item.redPacketValue}}">- ￥{{item.redPacketValue}}</text>
+                <image src="../../images/icon/right.png" wx:if="{{!notAddress}}"></image>
+              </view>
+            </view>
+            <!--小计  -->
+            <view class='total_price_container'>
+              <view wx:if="{{useRedPacket&&!notAddress&&redPacket}}">
+                <text>优惠规则</text>
+                <image src="../../images/product_detail/question.png" bindtap="openRedPacketModal"></image>
+              </view>
+              <text class="youhui" wx:if="{{!notAddress&&item.redPacketValue}}">已优惠￥{{item.redPacketValue}}</text>
+              <text class='total_price_lable'>小计：</text>
+              <text class='total_price' wx:if="{{item.redPacketValue}}">￥{{item.littleTotal}}</text>
+              <text class='total_price' wx:if="{{!item.redPacketValue}}">￥{{item.boxLunchTotalPrice}}</text>
+            </view>
+        </view>
+      </block>
+    </scroll-view>
+      <!--优惠总额  -->
+      <view class='total_benifit'>
+        <text class='total_benifit_lable'>优惠总额:</text>
+        <text class='total_benifit_text'>￥{{redPacketTotal||0}}</text>
+      </view>
+      <!--支付方式  -->
+      <view class='pay_method_container'>
+        <text class='pay_method_lable'>支付方式：</text>
+        <text class='pay_method'>在线支付</text>
+      </view>
+    
+    <!--底部信息栏  -->
+    <view class='bottom_info'>
+      <text class='submit_lable'>合计 ￥ </text>
+      <text class='submit_price'>{{orderTotalPrice}}</text>
+      <view class='submit_container'>
+        <text class='submit_bt' bindtap='createOrder'>提交订单</text>
+      </view>
+    </view>
+  </view>
+  <!--红包弹窗  -->
+  <view class="redPacket-modal" wx:if="{{showRedPacket}}" bindtap="closeRedPacket">
+    <view class="redPacket-content" catchtap="emptyFunc">
+      <!--顶部标题  -->
+      <view class="modal-top">
+
+        <view>红包说明
+          <image src="../../images/product_detail/question.png" bindtap="openRedPacketModal"></image>
+        </view>
+        <text>村家红包</text>
+        <view bindtap="unuseRedPacket" wx:if="{{redPacket}}">不使用红包</view>
+        <!-- <view bindtap="unuseRedPacket" wx:if="{{redPacket&&!useRedPacket}}">使用红包</view> -->
+      </view>
+      <!--暂无红包  -->
+      <view class="redPacket-empty" wx:if="{{!redPacket}}">
+        <view>暂无红包？</view>
+        <view>告诉你个小秘密，分享午餐也可获得红包哦！
+          <button open-type="share">去分享 ></button>
+        </view>
+      </view>
+      <!-- 红包列表 -->
+      <view class="redPacket-list" wx:if="{{redPacket}}">
+        <!-- <view class="redPacket-count">
+          <text>——</text>红包总额：
+          <text>{{redPacket}}</text>元
+          <text>——</text>
+        </view> -->
+        <view class="redPacket-num">共{{redPacketList.length}}个可用红包</view>
+        <view class="redPacket-item" wx:for="{{redPacketList}}" data-id="{{index}}" bindtap="chooseRedPacket">
+          <view class="item-top item-top-{{item.redPacketType}}">
+            <text>失效日期： {{item.deadline}}</text>
+            <text></text>
+          </view>
+          <image src="../../images/icon/bg.png"></image>
+          <view class="item-content">
+            <view>￥
+              <text>{{item.redPacketPrice}}</text>
+            </view>
+            <view>
+              <image src="../../images/icon/hongbao-{{item.redPacketType}}.png"></image> 
+              <text wx:if="{{item.redPacketType==1}}">评论红包</text>
+              <text wx:if="{{item.redPacketType==2}}">点赞红包</text>
+              <text wx:if="{{item.redPacketType==3}}">分享红包</text>
+              <view>每月月底清零</view>
+            </view>
+            <view class="choose-redPacket">
+              <image src="{{item.check==currentOrderId?'../../images/icon/selected.png':(item.check?'../../images/icon/no_select.png':'../../images/icon/unselected.png')}}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--过期红包  -->
+      <view class="old-redPacket" bindtap="showOverduePacket">
+        查看过期红包 >>
+      </view>
+      <!--过期红包列表  -->
+      <view class="redPacket-list overdue" wx:if="{{overdueRedPacket}}">
+        <view class="redPacket-item" wx:for="{{expiredRedPacket}}">
+          <view class="item-top">
+            <text>失效日期： {{item.deadline}}</text>
+            <text></text>
+          </view>
+          <image src="../../images/icon/overdue-bg.png"></image>
+          <view class="item-content">
+            <view>￥
+              <text>{{item.redPacketPrice}}</text>
+            </view>
+            <view>
+              <image src="../../images/icon/overdue-{{item.redPacketType}}.png"></image>
+              <text wx:if="{{item.redPacketType==1}}">评论红包</text>
+              <text wx:if="{{item.redPacketType==2}}">点赞红包</text>
+              <text wx:if="{{item.redPacketType==3}}">分享红包</text>
+              <view>每月月底清零</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--红包说明弹出框  -->
+  <import src="../../pages/components/redPacketModal"></import>
+  <template is="redPacketModal" wx:if="{{youhuiModal}}"></template>
+
+</view>
+<!--网络加载失败时  -->
+<view wx:if="{{!networkStatus}}">
+  <import src="../networkFail/networkFail.wxml" />
+  <template is="networkFail" data="" />
+</view>
+
+<!--弹出变更地址选择栏  -->
+<view class='changeAddressContainer' wx:if="{{ifChangeAddress}}" bindtap='toggle_change'>
+</view>
+
+<view class='changeAddress' wx:if="{{ifChangeAddress}}">
+  <view class='changeAddressHeder'>
+    <text class='cencle_bt' bindtap='toggle_change'>取消</text>
+    <text class='myAdddressLable'>我的收货地址</text>
+  </view>
+  <!--我的地址列表  -->
+  <scroll-view class='address_list' scroll-y="true">
+    <block wx:for="{{address}}">
+      <view class='addressItem' bindtap='changeAddress' data-id='{{index}}'>
+        <image class="address_location" src='../../images/icon/selected.png' wx:if='{{currentAddress.addressId == item.addressId}}'></image>
+        <text class='address_text'>{{item.cityName +  span + item.districtName+  span + item.locationBuilding}}</text>
+        <view class='address_user_container'>
+          <text class='address_userName'>{{item.addressName}}</text>
+          <text class='address_sex' wx:if="{{item.addressSex == 0}}">先生</text>
+          <text class='address_sex' wx:if="{{item.addressSex == 1}}">女士</text>
+          <text class='address_phone'>{{item.addressPhone}}</text>
+        </view>
+        <image class="more_address_location" src='../../images/icon/edit_address.png' bindtap='edit_address' data-address_id="{{item.addressId}}"></image>
+      </view>
+    </block>
+  </scroll-view>
+  <!--底部新增地址按钮  -->
+  <view class='add_address_ciontainer' bindtap='navigate_to_add' style='position:absolute;bottom:0;left:225rpx;'>
+    <view class='add_address_icon'>
+      <view class='add_address_icon1'></view>
+      <view class='add_address_icon2'></view>
+    </view>
+    <text class='add_address_text'>新增收货地址</text>
+  </view>
+</view>

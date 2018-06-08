@@ -1,0 +1,29 @@
+/* pages/mine/putForward.wxss */
+@import "recharge.wxss";
+.wrap{
+	height: auto;
+}
+.footer,.footer2{
+	width: 644rpx;
+	margin: 0 auto;
+	margin-top: 46rpx;
+	border-top:  2rpx solid #dddddd;
+	display: flex;
+}
+.footer2{
+	color: #fc9c02;
+	font-size:28rpx;
+	line-height: 58rpx;
+}
+.footer view{
+	flex:1;
+	font-size:28rpx;
+	color:#999999;
+	line-height: 58rpx;
+}
+.footer .putForwardAll{
+	flex:120rpx 0;
+}
+.norecharge{
+	background: rgba(252,156,2,0.5);
+}

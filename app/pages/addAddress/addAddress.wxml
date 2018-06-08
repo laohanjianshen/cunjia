@@ -1,0 +1,61 @@
+<!--pages/addAddress/addAddress.wxml-->
+<view class='container'>
+  <view class='username'>
+    <text class='usernale_lable'>联系人：</text>
+    <input class="usernme_input" maxlength='5' type='text' placeholder="请填写收货人姓名" bindinput='update_name'  value='{{currentAddress.addressName}}' style='color:#000'></input>
+  </view>
+  <view class='sex'>
+    <!-- <radio-group>
+      <radio value='先生' class='man'>先生</radio>
+      <radio value='女士' class='woman'>女士</radio>
+    </radio-group> -->
+    <view>
+      <view class='man'>
+        <image class='man_icon' src='{{man_icon}}' bindtap='selectSex0'></image>
+        <text class='man_lable'>先生</text>
+      </view>
+      <view class='woman'>
+         <image class='womam_icon' src='{{woman_icon}}'  bindtap='selectSex1'></image>
+         <text class='woman_lable'>女士</text>
+      </view>
+    </view>
+  </view>
+  <view class='phone'>
+    <text class='phone_lable'>手机号：</text>
+    <input class="phone_input" type='number' maxlength='11' placeholder="请填写收货人手机号" bindinput='update_phone' value='{{currentAddress.addressPhone}}' style='color:#000'></input>
+  </view>
+  <view class='address'>
+    <text class='address_lable'>收货地址：</text>
+    <view class='address_input' bindtap='navigateToInputAddress'>
+      <image class='address_location_icon' src='../../images/icon/address_location.png'></image>
+      <block>
+        <input class="adddress_location_choose_text"  placeholder='点击选择' disabled='true' value='{{currentAddress.cityName +  span + currentAddress.districtName +  span + currentAddress.locationBuilding}}' style='color:#000'></input>
+      </block>
+      <image class='address_location_choose' src='../../images/icon/right.png'></image>
+    </view>
+  </view>
+  <view class='address_detail'>
+    <text class='address_detail_lable'>详细地址:</text>
+    <input class='address_detail_input' placeholder='自动获取' disabled='true' value='{{currentAddress.addressDetail}}' style='color:#000'></input>
+  </view>
+  <view class='save' style='background:{{save_ground}}' bindtap='saveAddress'>
+    <text class='save_bt' style='color:{{savebt_color}}' >保存地址</text>
+  </view>
+  <view class='delate' wx:if="{{edit_status}}" bindtap='toggle_delete'>
+    <text class='delete_bt' bindtap='{{toggle_delete}}'>删除地址</text>
+  </view>
+  <!--删除地址弹框  -->
+  <view class='delete_address_bg' wx:if="{{delete_status}}">
+  </view>
+  <view class='delete_address' wx:if="{{delete_status}}">
+    <text class='delete_lable'>确认要删除地址？</text>
+    <view class='bt_container'>
+      <view class='cancle_bt' bindtap='toggle_delete'>
+        <text>否</text>
+      </view>
+      <view class='certain_bt' bindtap='deleteAddress'>
+        <text style='color:#fc9c02;'>删除</text>
+      </view>
+    </view>
+  </view>
+</view>

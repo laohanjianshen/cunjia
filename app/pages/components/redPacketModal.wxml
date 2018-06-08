@@ -1,0 +1,13 @@
+<!--pages/components/redPacketModal.wxml-->
+ <template name="redPacketModal"> 
+  <!--红包说明模态框  -->
+    <view class="timeout-modal" bindtap="closeRedPacketModal">
+      <view class="HBcon">
+          <view catchtap='emptyFunc' class="emptyFunc">
+          <view class="title titleHB">红包说明</view>
+          <view>说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明</view>
+        </view>
+        <image class="close-modal" src="../../images/personOrder/closeModal.png"></image>
+      </view>
+    </view>
+ </template> 

@@ -1,0 +1,43 @@
+/* pages/mine/moneyDetail.wxss */
+page{
+	background: #fff;
+}
+.wrap{
+	width: 100%;
+}
+.detail-item{
+	overflow: hidden;
+	padding: 0px 24rpx;
+	border-bottom: 2rpx solid #ddd;
+}
+.detail-item .left{
+	float: left;
+	margin-top: 24rpx;
+}
+.detail-item .left .doWhat{
+	font-size:32rpx;
+	color:#333333;
+	font-weight: bold;
+	margin-bottom: 2rpx;
+}
+.detail-item .left .time{
+	font-size:28rpx;
+	color:#999999;
+	margin-bottom: 26rpx;
+}
+.detail-item .num{
+	float: right;
+	font-size:36rpx;
+	color:#ffad08;
+	margin-top: 40rpx;
+}
+.detail-item .num2{
+	color:#333333;
+}
+.loadMore{
+	height: 100rpx;
+	font-size:28rpx;
+	color:#333333;
+	line-height: 100rpx;
+	text-align: center;
+}

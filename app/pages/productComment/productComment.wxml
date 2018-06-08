@@ -1,0 +1,115 @@
+<!--pages/productComment/productComment.wxml-->
+
+<view class="swiper-item" bindtap="cancelInput">
+    <!-- 评论的内容 -->
+    <view class="header">商品评价（{{percentNum.commentNumber}}）</view>
+	<view>
+	  <view class="display">
+	    <view class="left">
+	      <view><text>{{percentNum.percentageTotalEvaluate}}</text>%</view>
+	      <view>好评度</view>
+	    </view>
+	    <view class="right">
+	      <view style="margin-bottom:18rpx;">
+	        <text>口味</text>
+	        <image wx:for="{{flavor_num}}" src="{{percentNum.percentageFlavor>=item?'../../images/product_detail/face.png':'../../images/product_detail/face-copy.png'}}"></image>
+	        <text class="text">{{percentNum.percentageFlavor}} %</text>
+	      </view>
+	      <view>
+	        <text>包装</text>
+	        <image wx:for="{{flavor_num}}" src="{{percentNum.percentagePacking>=item?'../../images/product_detail/face.png':'../../images/product_detail/face-copy.png'}}"></image>
+	        <text class="text">{{percentNum.percentagePacking}} %</text>
+	      </view>
+	    </view>
+	  </view>
+	  <view class="con">
+	    <view class="nav">
+	      <text wx:for="{{pinglunBtns}}" class="{{PL_select_btn==item.goodsDescribeId?'select':''}}" data-plbtn="{{item.goodsDescribeId}}" data-index="{{index}}" catchtap="selectPL">{{item.describeName=='全部'?item.describeName:item.describeName+item.sumNumber}}</text>
+	    </view>
+	    <view class="have-img" catchtap="haveImgPL">
+	      <image src="{{haveImg?'../../images/product_detail/have-img2.png':'../../images/product_detail/have-img.png'}}"></image>
+	      <text>有图评价</text>
+	    </view>
+	    <!-- 排序 -->
+	    <view class="hot">
+	    	<view class="show" catchtap="selectHot">
+	    		<image src="../../images/product_detail/sort-1x.png"></image>
+	    		<text>{{hotSortArr[hotSortArrIndex]}}</text>
+	    		<view class="clear"></view>
+	    	</view>
+			<view class="select-box" wx:if="{{hotItem}}">
+				<image src="../../images/product_detail/hot-box-1x.png"></image> 
+				<view wx:for="{{hotSortArr}}" class="hot-item {{hotSortArrIndex==index?'select-hot':''}}" data-sort="{{index}}" bindtap="selectReason">{{item}}</view>
+				<!-- <view class="hot-item">按时间</view> -->
+			</view>
+	    </view>
+	  </view>
+	  <!-- 评价具体内容 -->
+	  <view class="PL-con">
+	      <view class="pl-item {{index+1==plData.length?'pl-item-last':''}}" wx:for="{{plData}}" wx:if="{{haveImg?item.pictureUrl.length>0:true}}">
+	        <view class="user-pl">
+	          <image src="{{item.userAvatarUrl}}"></image>
+	          <view class="user-con">
+	              <view class="userInfo">
+	                  <text>{{item.userName}}</text>
+	                  <image src="../../images/product_detail/hongbao-01.png"></image>
+	                  <text class="pl-data">{{item.commentDate}}</text>
+	              </view>
+	            <view class="start">
+	                  <image src="{{item.totalEvaluate>=1?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+	                  <image src="{{item.totalEvaluate>=2?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+	                  <image src="{{item.totalEvaluate>=3?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+	                  <image src="{{item.totalEvaluate>=4?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+	                  <image src="{{item.totalEvaluate>=5?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+	                <text>“{{manyiArr[item.totalEvaluate-1]}}”</text>
+	            </view>
+	            <view class="userContent">{{item.commentDetail}}</view>
+	            <view class="userImgs" wx:if="{{item.pictureUrl.length>0}}">
+	                <image wx:for="{{item.pictureUrl}}" wx:for-item="itemImg" data-src="{{itemImg}}" data-list="{{item.pictureUrl}}" src="{{itemImg}}" bindtap="selectBigImg"></image>
+	            </view>
+	            <view class="dianzanPl">
+	                 <view class='dianzan'>
+	                    <image data-index="{{index}}" data-plid="{{item.commentFirstLevelId}}" catchtap="plDianzanTap" src="{{item.isPraise?'../../images/product_detail/dianzan-select.png':'../../images/product_detail/dianzan.png'}}"></image>
+	                    <text>{{item.praiseNumber}}</text>
+	                </view>
+	                <view class='pinglun-box' data-index="{{index}}" data-plid="{{item.commentFirstLevelId}}" catchtap="pinglunInput">
+	                    <image src="../../images/product_detail/Group-1x.png"></image>
+	                    <text>{{item.sumCommentNumber}}</text>
+	                </view>
+	            </view>
+	          </view>
+	        </view>
+	        <view class="line"></view>
+	        <view class="official-pl">
+	            <!-- <view class="offical-pl-item">
+	                  <image src="../../images/product_detail/XMLID.png"></image>
+	                  <view class="office-con" wx:if="item.office">
+	                      <text>官方回复：</text><text class="office-pl-con">{{item.office.con}}
+	                      </text>
+	                  </view>
+	            </view> -->
+	            <view class="offical-pl-item" wx:for="{{item.commentSecondLevelList}}" wx:for-item="qitaItem" wx:if="{{index<item.showNum}}">
+					<image src="{{qitaItem.userAvatarUrl}}"></image>
+					<view class="office-con">
+					  <text class="qita">{{qitaItem.seondUserName}}：</text><text class="office-pl-con">{{qitaItem.commentDetail}}
+					  </text>
+					</view>
+	            </view>
+	        </view>
+	        <!-- 二级评论长度大于3就出现 -->
+	        <view class="loading" wx:if="{{item.commentSecondLevelList.length>3&&item.selectAll}}">
+	            <view class="line"></view>
+	            <view class="read-all" data-index="{{index}}" catchtap="readInfoAll">查看全部 {{item.commentSecondLevelList.length}}条信息</view>
+	        </view>
+			<!-- 最后一条加这个 -->
+	        <view class="loading" wx:if="{{index+1==plData.length}}" bindtap="loadmore">
+	            <view class="load-more">{{isLoad?'加载更多':'这是全部评价'}}</view>
+	        </view>
+	      </view>
+	   </view>
+	</view>
+</view>
+<view class="inputbox" wx:if="{{pinglunInputStatus}}">
+	<input type="text" confirm-type="send" auto-focus placeholder="回复评论" catchconfirm='send' />
+	<!-- <textarea auto-height rows="3" placeholder="回复评论" show-confirm-bar="false" auto-focus catchconfirm='send' /> -->
+</view>

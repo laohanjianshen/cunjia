@@ -1,0 +1,52 @@
+/* pages/components/requestRefund.wxss */
+.refundBox{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background:rgba(34,34,34,0.65);
+	left: 0px;
+	top: 0px;
+	z-index:40;
+	display:flex;flex-direction:row;justify-content:center;align-items:center;
+}
+.refundBox .con{
+	width: 556rpx;
+	background:#ffffff;
+	border-radius:24rpx;
+}
+.refundBox .con .header{
+	text-align: center;
+	font-size:36rpx;
+	color:rgba(51,51,51,0.87);
+	margin-top: 34rpx;
+	margin-bottom: 20rpx;
+	font-weight: bold;
+}
+.refundBox .con .content{
+	width: 480rpx;
+	margin: 0px auto;
+	font-size:32rpx;
+	color:rgba(51,51,51,0.87);
+	margin-bottom: 40rpx;
+}
+.refundBox .con .line{
+	height: 2rpx;
+	background: #ddd;
+}
+.refundBox .con .footer{
+	display: flex;
+}
+.refundBox .con .footer>view{
+	flex:1;
+	text-align: center;
+	font-size:36rpx;
+	color:rgba(51,51,51,0.87);
+	line-height: 68rpx;
+	padding-bottom: 14rpx;
+}
+.refundBox .con .footer>view:nth-child(1){
+	border-right: 2rpx solid #ddd;
+}
+.refundBox .con .footer>view:nth-child(2){
+	color:#fc9c02;
+}

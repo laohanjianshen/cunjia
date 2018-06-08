@@ -1,0 +1,73 @@
+<!--pages/mine/redPacket.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view wx:if="{{!networkFail}}">
+    <view class="redPacket-content">
+    <!--顶部标题  -->
+      <view class="modal-top">
+        <view>
+          <text>红包总额：</text>
+          <text>{{redPacket||0}}</text>
+          <text>元</text>
+        </view>
+        <view bindtap="openRedPacketModal">红包说明<image src="../../images/product_detail/question.png"></image></view>
+      </view>
+      <!--暂无红包  -->
+      <view class="redPacket-empty" wx:if="{{!redPacket}}">
+          <image src="../../images/mine/nopacket.png"></image>
+          <view>暂无红包</view>
+          <view class="redPacket-share">你可以通过 <!-- <button open-type="share">分享小程序、</button> -->点赞、评论商品获得哦</view>
+      </view>
+      <!-- 红包列表 -->
+      <view class="redPacket-list" wx:if="{{redPacket}}">
+        <view class="redPacket-item" wx:for="{{redPacketList}}">
+          <view class="item-top item-top-{{item.redPacketType}}">
+            <text>失效日期：{{item.deadline}}</text>
+            <text></text>
+          </view>
+          <image src="../../images/icon/bg.png"></image>
+          <view class="item-content">
+            <view>￥<text>{{item.redPacketPrice}}</text></view>
+            <view>
+              <image src="../../images/icon/hongbao-{{item.redPacketType}}.png"></image>
+              <text wx:if="{{item.redPacketType==1}}">评论红包</text>
+              <text wx:if="{{item.redPacketType==2}}">点赞红包</text>
+              <text wx:if="{{item.redPacketType==3}}">分享红包</text>
+              <view>每月月底清零</view>
+            </view>
+           <view><button class="share-btn-{{item.redPacketType}}" open-type="share">分享赚钱</button></view>
+          </view>
+        </view>
+      </view>
+      <!--过期红包  -->
+      <view class="old-redPacket" bindtap="showOverduePacket">
+      查看过期红包 >>
+      </view>
+      <!--过期红包列表  -->
+      <view class="redPacket-list overdue" wx:if="{{overdueRedPacket}}">
+        <view class="redPacket-item" wx:for="{{expiredRedPacket}}">
+          <view class="item-top">
+            <text>失效日期：{{item.deadline}}</text>
+            <text></text>
+          </view>
+          <image src="../../images/icon/overdue-bg.png"></image>
+          <view class="item-content">
+            <view>￥<text>{{item.redPacketPrice}}</text></view>
+            <view>
+              <image src="../../images/icon/overdue-{{item.redPacketType}}.png"></image>
+              <text wx:if="{{item.redPacketType==1}}">评论红包</text>
+              <text wx:if="{{item.redPacketType==2}}">点赞红包</text>
+              <text wx:if="{{item.redPacketType==3}}">分享红包</text>
+              <view>每月月底清零</view>
+            </view>
+            
+          </view>
+        </view>
+      </view>
+    </view>
+
+<!--红包说明弹出框  -->
+<import src="../../pages/components/redPacketModal"></import>
+  <template is="redPacketModal" wx:if="{{redPacketModal}}"></template>
+</view>
+

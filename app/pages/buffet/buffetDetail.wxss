@@ -1,0 +1,2 @@
+/* pages/buffet/buffetDetail.wxss */
+@import "../productDetail/productDetail.wxss";

@@ -1,0 +1,213 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view wx:if="{{!networkFail}}">
+<import src="../components/requestRefund.wxml"/>
+<view class="order-status">
+	<!-- 待配送 -->
+		<view class="waitSend" wx:if="{{orderDetail.orderStatus==1}}">
+			<image src="../../images/order/bg.png" class="bg"></image>
+			<view class="con">
+				<view class="status">待配送</view>
+				<view class="time">将于2018-06-06 11：00送达</view>
+				<!-- <view class="indemnity">超时最多赔付18元</view> -->
+				<view class="line"></view>
+				<view class="backMoney" bindtap="requestRefund">申请退款</view>
+			</view>
+		</view>
+	<!-- 备货中 -->
+		<view class="readyGoods waitSend" wx:if="{{orderDetail.orderStatus==2}}">
+			<view class="map">
+				<map id="map" 
+					longitude="{{longitude}}" 
+					latitude="{{latitude}}" 
+					scale="18"
+					markers="{{markers}}"
+					show-location style="width:100%;height:100%;" wx:if="{{!requestIsShow}}">
+				</map>
+			</view>
+		
+			<view class="con">
+				<image src="../../images/order/bg.png" class="bg"></image>
+				<view class="con2">
+					<view class="status">备货中</view>
+					<view class="time">预计12:00送达</view>
+					<view class="line"></view>
+					<view class="backMoney" bindtap="requestRefund">申请退款</view>
+				</view>
+			</view>
+		</view>
+	<!-- 配送中 -->
+		<view class="sending readyGoods waitSend" wx:if="{{orderDetail.orderStatus==3}}">
+			<view class="map">
+				<map id="myMap" 
+					longitude="{{longitude}}" 
+					latitude="{{latitude}}" 
+					scale="18"
+					markers="{{markers2}}"
+					show-location 
+					style="width:100%;height:100%;" wx:if="{{!requestIsShow}}">
+				</map>
+			</view>
+			<view class="con">
+				<image src="../../images/order/bg.png" class="bg"></image>
+				<view class="con2">
+					<view class="status">配送中</view>
+					<view class="time">预计12:00送达</view>
+					<view class="line"></view>
+					<view class="backMoney" bindtap="requestRefund">申请退款</view>
+				</view>
+			</view>
+		</view>
+	<!-- 待评价 -->
+		<view class="orderSuccess" wx:if="{{orderDetail.orderStatus==4}}">
+	        <image src="../../images/order/bg.png" class="bg"></image>
+	        <view>
+	          <view>订单已完成</view>
+	          <view>感谢您对1753的支持，欢迎再次光临</view>
+	          <view class="line-seperator"></view>
+	          <view class="order-comment" data-id="1" bindtap="orderComment">评价</view>
+	        </view>
+		</view>
+	<!-- 已完成 -->
+		<view class="orderSuccess" wx:if="{{orderDetail.orderStatus==5}}">
+	        <image src="../../images/order/bg.png" class="bg"></image>
+	        <view>
+	          <view>订单已完成</view>
+	          <view>感谢您对1753的支持，欢迎再次光临</view>
+	          <view class="line-seperator"></view>
+	          <view class="order-comment" data-id="1" >再逛逛</view>
+	        </view>
+		</view>
+	<!-- 退款申请已提交 -->
+		<view class="submit-refund waitSend" wx:if="{{orderDetail.orderStatus==6}}">
+			<image src="../../images/order/bg.png" class="bg"></image>
+			<view class="con">
+				<view class="status">已申请退款</view>
+				<view class="time">商家将在29分钟内处理您的退款申请</view>
+				<view class="line"></view>
+				<view class="backMoney" bindtap="cancelRefund">取消退款</view>
+				<!-- <view class="footer">
+					<view bindtap="readProgress">退款进度></view>
+					<view>等待商家处理</view>
+				</view> -->
+			</view>
+		</view>
+</view>
+<!-- 申请退款弹框 -->
+	<template is="refundBox" wx:if="{{requestIsShow}}"></template>
+<!-- 退款进度 -->
+	<!-- <view class="refund-mask" wx:if="{{refundProgress}}" catchtap="closeReadProgress">
+		<view class="progress" catchtap="noCloseReadProgress">
+			<view class="title">退款进度</view>
+			<view class="information">
+				<view class="dot">
+					<view class="dian"></view>
+					<view class="line"></view>
+					<view class="dian"></view>
+					<view class="line"></view>
+					<view class="dian"></view>
+					<view class="line"></view>
+					<view class="dian last-dian"></view>
+				</view>
+				<view class="info">
+					<view class="info-item">
+						<view>退款申请已提交</view>
+						<view>2018-05-05 14:05:40</view>
+					</view>
+					<view class="info-item">
+						<view>商家正在处理您的退款申请</view>
+						<view>2018-05-05 14:05:40</view>
+					</view>
+					<view class="info-item">
+						<view>退款申请审核通过</view>
+						<view>2018-05-05 14:05:40</view>
+					</view>
+					<view class="info-item last-info-item">
+						<view>您的退款将在3个工作日之内退回到支付账户</view>
+						<view>2018-05-05 14:05:40</view>
+					</view>
+				</view>
+			</view>
+			<view class="close" catchtap="closeReadProgress">关闭</view>
+		</view>
+		
+	</view> -->
+
+<!-- 联系配送人 -->
+<!-- <view class="call-order" wx:if="1">
+  <image src="../../images/order/logo.png"></image>
+  <view>
+    <text>黄彬彬</text>
+    <image src="../../images/order/logo.png"></image>
+    <view>176432456743</view>
+  </view>
+  <image src="../../images/order/call.png" data-id="222222222222" bindtap="callMe"></image>
+</view> -->
+<!-- 订单列表 -->
+
+<view class="order-list" wx:if="{{orderType==0}}">
+	<view class="order-list-time">{{orderDetail.week}}</view>
+  <view wx:for="{{orderDetail.boxLunchList}}">
+    <image src="{{item.boxLunchImagesUrl}}"></image>
+    <view class="item-detail">
+      <text>{{item.boxLunchName}}</text>
+      <text>￥{{item.boxLunchSalePrice}}</text>
+      <text><text class="skuLunch">{{item.skuName}}调料包：{{item.condimentName?item.condimentName:'无'}}</text><text class="salePrice" wx:if="{{item.boxLunchPrice}}">￥{{item.boxLunchPrice}}</text></text>
+      <text>X{{item.boxLunchNumber}}</text>
+    </view>
+  </view>
+</view>
+<view class="order-list" wx:if="{{orderType==1}}">
+	<view class="order-list-time">{{orderDetail.week}}</view>
+ 	<view class="buffet-food-list">
+	  <view wx:for="{{orderDetail.orderList}}" class="food-item {{foodItem.foodNumber==0?'food-item2':''}}" wx:for-item="foodItem">
+	    <view>{{foodItem.categoryName}}</view>
+	    <view>{{foodItem.foodNumber==0?'空':foodItem.foodName}}</view>
+	    <view wx:if="{{foodItem.foodNumber!=0}}">x{{foodItem.foodNumber}}</view>
+	  </view>
+	</view>
+</view>
+<!-- 各种费用部分 -->
+<view class="other-text">
+  <view>
+    <text>包装费</text><text>￥{{orderDetail.orderSurfacePrice}}</text>
+  </view>
+  <view>
+    <text>配送费</text><text>￥{{orderDetail.orderSendPrice}}</text>
+  </view>
+  <view class="hongbao">
+    <text>红包</text><text>- ￥{{orderDetail.redPacketPrice?orderDetail.redPacketPrice:0}}</text>
+  </view>
+  <view>
+    <view><text>总计￥{{orderDetail.orderTotalPrice}}</text><text>实付：<text>￥{{orderDetail.orderDealPrice}}</text></text></view>
+  </view>
+</view>
+<!-- 配送信息 -->
+<view class="delivery-detail">
+  <view>
+    <text>配送时间：</text><text>{{orderDetail.orderSendTime}}</text>
+  </view>
+  <view>
+    <text>配送地址：</text>
+    <text>{{orderDetail.addressName+" （"+(orderDetail.userSex==0?'先生':'女士')+"） "+orderDetail.addressPhone+" "}}</text>
+    <text style="color:rgba(0,0,0,0);">配送地址：</text>
+    <text class="addressBu">{{orderDetail.cityName+" "+orderDetail.districtName+" "+orderDetail.locationBuilding}}</text>
+  </view>
+  <view>
+    <text>配送服务：</text><text>村家物流</text>
+  </view>
+</view>
+<!-- 订单信息 -->
+<view class="delivery-detail order-detail">
+  <view>
+    <text>订单号码：</text><view>{{orderDetail.orderNumber}}<view class="copy-orderid" data-id="{{orderDetail.orderNumber}}" bindtap="copyOrder">复制</view></view>
+  </view>
+  <view>
+    <text>下单时间：</text><text>{{orderDetail.orderCreateTime}}</text>
+  </view>
+  <view>
+    <text>支付方式：</text><text>在线支付</text>
+  </view>
+</view>
+</view>

@@ -1,0 +1,49 @@
+/* pages/components/redPacketModal.wxss */
+/*红包模态框  */
+.timeout-modal{
+  width:100%;
+  position:fixed;
+  top:0;
+  z-index:105;
+  background:rgba(0,0,0,0.5);
+  text-align: center;
+  display:flex;flex-direction:row;justify-content:center;align-items:center;
+}
+.timeout-modal .emptyFunc{
+  height:auto;
+  width:610rpx;
+  margin:0 auto;
+  background:#fff;
+  font-size:28rpx;
+  color:#666;
+  padding:52rpx 40rpx 68rpx;
+  text-align: left;
+  background: #fff;
+  
+}
+.timeout-modal .title{
+  font-size:32rpx;
+  color:#333;
+  display:block;
+  text-align: left;
+  margin:20rpx 0;
+}
+.timeout-modal .title text{
+  color:#f00;
+}
+.timeout-modal .close-modal{
+  margin:30rpx auto 0;
+  width:60rpx;
+  height:60rpx;
+  display: block;
+}
+.timeout-modal .emptyFunc .titleHB{
+  text-align: center;
+}
+.timeout-modal>.HBcon{
+  flex:1;
+  height: auto;
+  width: 610px;
+  background: none;
+  margin-top: 0;
+}

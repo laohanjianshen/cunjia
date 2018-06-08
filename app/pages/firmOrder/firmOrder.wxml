@@ -1,0 +1,45 @@
+<!--pages/firmOrder/firmOrder.wxml-->
+<view class='container'>
+  <view class='header'>
+    <image src='{{bg_url}}'></image>
+    <text class='first-child'>企业团膳预定电话</text>
+    <view class='line'></view>
+    <text class='.text'>400-666-1753</text>
+    <view class='line'></view>
+    <text>接受长期预定 -周-月-年</text>
+  </view>
+  <view class='content'>
+    <view class='conent-header'>
+      <view class='content-lable'>
+        <image src='../../images/firmOrder/pan.png'></image>
+        <text>菜品展示</text>
+      </view>
+      <view class='content-lable2'>
+        <view></view>
+        <text>Corporate meal</text>
+        <view></view>
+      </view>
+      <image src='../../images/icon/wenhao.png' bindtap='toggle_note'></image>
+    </view>
+    <view class='conent-content'>
+      <image src='{{bg2_url}}'></image>
+    </view>
+  </view>
+  <view class='footer' bindtap='makePhoneCall'>
+    <image src='../../images/firmOrder/call.png'></image>
+    <text>立刻预定</text>
+  </view>
+  <!--企业团餐说明  -->
+  <view class='firm-order-note_bg' wx:if='{{showNote}}'>
+    <view bindtap='toggle_note'></view>
+    <view class='firm-order-note' >
+      <view>
+        <text>企业团餐说明</text>
+      </view>
+      <view>
+        <text>{{firm_order_note}}</text>
+      </view>
+    </view>
+    <image src='../../images/personOrder/closeModal.png' bindtap='toggle_note'></image>
+  </view>
+</view>

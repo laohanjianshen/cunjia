@@ -1,0 +1,20 @@
+<!--提现-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view wx:if="{{!networkFail}}">
+<view class="wrap">
+	<view class="info">提现金额</view>
+	<view class="num">
+		<text>￥</text>
+		<input value="{{inputValue}}" bindinput="inputPutNum" type="digit" auto-focus/>
+	</view>
+	<view class="footer" wx:if="{{!isMore}}">
+		<view>可提现金额￥{{numAll}}</view>
+		<view class="putForwardAll" bindtap="inputPutAll">全部提现</view>
+	</view>
+	<view class="footer2" wx:if="{{isMore}}">
+		<view>输入金额超过可提现金额</view>
+	</view>
+</view>
+<view class="recharge {{isPut?'':'norecharge'}}" bindtap="putFoward">提现</view>
+</view>

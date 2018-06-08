@@ -1,0 +1,16 @@
+<!--pages/components/requestRefund.wxml-->
+<template name="refundBox">
+	<view class="refundBox" bindtap="cancelRequestRefund">
+		<view class="con" catchtap="requestRefund">
+			<view class="header">申请退款</view>
+			<view class="content">建议您先联系商家，以免高峰期商家未看到退款申请正常出餐，出餐后商家有权拒绝您的申请</view>
+			<view class="line"></view>
+			<view class="footer">
+				<view>
+					<navigator redirect url="../submitRefund/submitRefund">申请退款</navigator>
+				</view>
+				<view catchtap="callOffice">联系商家</view>
+			</view>
+		</view>
+	</view>
+</template>

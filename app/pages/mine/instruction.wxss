@@ -1,0 +1,10 @@
+/* pages/mine/instruction.wxss */
+.con{
+	width: 702rpx;
+	margin: 44rpx auto 0;
+	font-size:32rpx;
+	color:#666666;
+	line-height:56rpx;
+	text-indent: 2em;
+	text-align: justify;
+}

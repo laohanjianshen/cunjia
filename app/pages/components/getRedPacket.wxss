@@ -1,0 +1,62 @@
+/* pages/components/getRedPacket.wxss */
+.getRedPacket{
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  z-index:100;
+  background:rgba(34,34,34,0.50);
+  text-align: center;
+}
+.getRedPacket>.getRedPacket-content{
+  width:454rpx;
+  margin: 0 auto;
+  margin-top:226rpx;
+}
+.getRedPacket>.getRedPacket-content>image{
+  width:64rpx;
+  height:64rpx;
+  margin-left:430rpx;
+}
+.getRedPacket-content-main{
+  position: relative;
+}
+.getRedPacket-content-main>image{
+  width:454rpx;
+  height:596rpx;
+  position: absolute;
+  left:0;
+  top:-10rpx;
+}
+.getRedPacket-content-main .getRedPacket-text{
+  position: relative;
+  top:100rpx;
+}
+.getRedPacket-content-main .getRedPacket-money{
+  font-family:PingFangSC-Semibold;
+  font-size:52rpx;
+  color:#c90e01;
+}
+.getRedPacket-text .text1{
+  font-family:PingFangSC-Medium;
+  font-size:44rpx;
+  color:#ffffff;
+  margin-top:80rpx;
+}
+.getRedPacket-text .text2{
+  font-family:PingFangSC-Medium;
+  font-size:28rpx;
+  color:#ffffff;
+  margin-top:20rpx;
+}
+.getRedPacket-text .text3{
+  background:#fecf4b;
+  border-radius:8rpx;
+  width:358rpx;
+  height:66rpx;
+  margin:0 auto;
+  margin-top:60rpx;
+  line-height: 66rpx;
+  font-size:28rpx;
+  color:#c70e0b;
+}

@@ -1,0 +1,15 @@
+<!--pages/components/youhuiModal.wxml-->
+ <template name="youhuiModal"> 
+  <!--订餐倒计时，优惠倒计时模态框  -->
+    <view class="timeout-modal" bindtap="closeYouhuiModal">
+      <view catchtap='emptyFunc'>
+        <text class="title">1、什么是<text>订餐倒计时</text>？</text>
+
+        至于“形”的含义，《乐记》里有“在天成象，在地成形”的话。钱钟书先生释为“‘形’者，完成之定状”。钱先生还引述亚里士多德论“自然”有五层含义。其四，是“相形之下，尚未成形之原料”，也就是“有质而无形”的状态；
+        <text class="title">1、什么是<text>订餐倒计时</text>？</text>
+
+        至于“形”的含义，《乐记》里有“在天成象，在地成形”的话。钱钟书先生释为“‘形’者，完成之定状”。钱先生还引述亚里士多德论“自然”有五层含义。其四，是“相形之下，尚未成形之原料”，也就是“有质而无形”的状态；
+      </view>
+      <image class="close-modal" src="../../images/personOrder/closeModal.png"></image>
+    </view>
+ </template> 

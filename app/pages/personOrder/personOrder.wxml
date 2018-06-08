@@ -1,0 +1,208 @@
+<!--pages/personOrder/personOrder.wxml-->
+<import src="../networkFail/networkFail.wxml" />
+<template wx:if="{{networkFail}}" is="networkFail" data="" />
+<view wx:if="{{!networkFail}}">
+  <!--顶部倒计时  -->
+  <view class="personal-top">
+    <view class="time">
+      <!--订餐倒计时  -->
+      <view class='discount-time'>
+        <view class='text'>订餐倒计时
+          <image src='../../images/product_detail/question.png' bindtap="deadlineAnswer"></image>
+        </view>
+        <view wx:if="{{orderHour}}">
+          <text>{{orderTime.hour}}</text>:
+          <text>{{orderTime.minute}}</text>:
+          <text>{{orderTime.second}}</text>
+        </view>
+        <view wx:if="{{!orderHour}}" class="time-day">
+          <text>{{orderTime.day}}</text>天
+          <text>{{orderTime.hour}}</text>时</view>
+
+      </view>
+      <!--两个倒计时分割符  -->
+      <view class="time-image">
+        <image src="../../images/personOrder/timeout.png"></image>
+      </view>
+      <!--优惠倒计时  -->
+      <view class='order-time'>
+        <view class='text'>优惠倒计时
+          <image src='../../images/product_detail/question.png' bindtap="deadlineAnswer"></image>
+        </view>
+        <view wx:if="{{discountHour}}">
+          <text>{{discountTime.hour}}</text>:
+          <text>{{discountTime.minute}}</text>:
+          <text>{{discountTime.second}}</text>
+        </view>
+        <view wx:if="{{!discountHour}}" class="time-day">
+          <text>{{discountTime.day}}</text>天
+          <text>{{discountTime.hour}}</text>时</view>
+      </view>
+    </view>
+    <!--本周下周切换  -->
+    <view class='personal-week'>
+      <view class="week-tab">
+        <view class="{{isThisWeek==1?'thisweek':'nextweek'}}" bindtap="changeweek" data-id="1">本周</view>
+        <view class="{{isThisWeek==2?'thisweek':'nextweek'}}" bindtap="changeweek" data-id="2">下周</view>
+      </view>
+    </view>
+  </view>
+  <!--套餐切换  -->
+  <view class="model-tab">
+    <!-- <view wx:for="{{foodsList}}" class="tab-item {{selectedItem==item.categoryId?'tab-active':''}}" bindtap='selectModel' data-id="{{item.categoryId}}">{{item.categoryName}}</view> -->
+    <view class="tab-item last-month-popular {{selectedItem=='fire'?'tab-active':''}}" bindtap='selectModel' data-id="fire">
+      <image src="../../images/personOrder/fire.png"></image>爆款</view>
+    <scroll-view scroll-x="true" class="tab-common">
+      <view class="common-scroll">
+        <view wx:for="{{personalClassify}}" class="tab-item {{selectedItem==item.categoryId?'tab-active':''}}" bindtap='selectModel' data-id="{{item.categoryId}}">
+          {{item.categoryName}}
+        </view>
+      </view>
+    </scroll-view>
+
+  </view>
+  <view class="personal-main-content">
+  <!--左侧星期几切换  -->
+  <view class="date-tab">
+    <view wx:for="{{dateItem}}">
+      <view class='date-tab-item' data-id="{{item.id}}" bindtap="selectDate">
+        <view class="hidden-area" style="{{selectedDate==item.id?'display:block;background:'+item.color:''}}">
+          <text>{{item.name}}</text>
+        </view>
+        <view class='date-dot' style="{{selectedDate==item.id?'background:'+item.color+';border:1px solid '+item.color:''}}"></view>
+        <text style="{{selectedDate==item.id?'color:'+item.color:''}}">{{item.cname}}</text>
+      </view>
+    </view>
+  </view>
+  <!--右侧菜品展示  -->
+  <scroll-view class="main-content" scroll-y="true" bindscrolltolower="loadMore">
+    <view class="content-item" wx:for="{{foodsList.list}}" data-id="{{item.boxLunchId}}" bindtap="showItemDetail">
+      <image mode="aspectFill" src="{{item.boxLunchImagesUrl}}"></image>
+      <text>{{item.boxLunchName}}</text>
+      <view class="item-price">
+        <view>
+          <text>￥</text>
+          <text class="item-now-price">{{item.boxLunchSalePrice}}</text>
+          <text class="item-old-price"><text wx:if="{{item.boxLunchPrice>0}}">￥{{item.boxLunchPrice}}</text></text>
+        </view>
+        <view class="create-order" data-index="{{index}}" data-price="{{0?item.boxLunchSkuVOList[0].skuSalePrice:item.boxLunchSkuVOList[0].skuPrice}}" catchtap="addCart">点餐</view>
+      </view>
+      <view class="item-bottom">
+        <image src="{{item.ispraised?'/images/common/min-dianzan.png':'/images/common/min-dianzan2.png'}}" data-id="{{item.boxLunchId}}" catchtap="praise"></image>
+        <text>{{item.boxLunchLikeNumber}}</text>
+        <text>已售：{{item.boxLunchSoldNumber}}</text>
+      </view>
+    </view>
+    <view class="load-more">
+      <!-- <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  -->
+      <text bindtap="loadMore" wx:if="{{foodsList.moreData}}">加载更多</text>
+      <text wx:if="{{!foodsList.moreData}}">更多美味敬请期待</text>
+    </view>
+  </scroll-view>
+</view>
+  <!-- 选规格 -->
+  <view class="select-standard" wx:if="{{standard_isshow}}" bindtap="cancelStandard">
+
+    <view class="standard-box" catchtap='emptyFunc'>
+
+      <view class="standardInfo">
+        <view class="standardInfo-item">
+          <view class="standard-item-text">选规格:</view>
+          <view class="item-list">
+            <view wx:for="{{standardArr}}" class="item-button {{standardNum==item.skuId?'select-button':''}}" data-index="{{index}}" data-id="{{item.skuId}}" catchtap="selectStandard">{{item.skuName}}</view>
+
+          </view>
+        </view>
+        <view class="standardInfo-item" wx:if="{{IsCondiment}}">
+          <view class="standard-item-text">选调料包:</view>
+          <view class="item-list">
+            <view wx:for="{{condimentList}}" class="item-button {{condimentId==item.condimentId?'select-button':''}}" data-id="{{item.condimentId}}" catchtap="selectCondiment">{{item.condimentName}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="standard-num">
+        <view>
+          <image src="../../images/common/add.png" catchtap="addNum"></image>
+          <text>{{goodNums}}</text>
+          <image src="../../images/common/sub.png" catchtap="subNum"></image>
+        </view>
+        <view class="standard-num-footer">
+          <view>￥
+            <text>{{priceCount}}</text>
+          </view>
+          <view bindtap="addShop">加入购餐车</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部购物车 -->
+  <view class='shop'>
+    <view>
+      <image src="{{cartNum?'../../images/product_detail/shop.png':'../../images/personOrder/emptyCart.png'}}" bindtap="showCart"></image>
+      <view class="price" wx:if="{{cartNum}}">
+        <view>￥
+          <text>{{cartCount}}</text>
+        </view>
+        <view>看看点了啥？</view>
+      </view>
+      <view class="price" wx:if="{{!cartNum}}">
+        <view class="priceEmpty">购餐车空空的</view>
+      </view>
+    </view>
+    <button class="{{cartNum?'':'cartEmpty'}}" bindtap="createOrder">买单</button>
+    <view class="clear"></view>
+  </view>
+  <import src="../../pages/components/youhuiModal"></import>
+  <template is="youhuiModal" wx:if="{{timeoutModal}}"></template>
+
+  <!--购餐车  -->
+  <view class="cart-container" wx:if="{{showCart}}" bindtap='hideCart'>
+    <view class="cart-content" catchtap='emptyFunc'>
+      <!--顶部清空按钮  -->
+      <view class="cart-top" bindtap="clearCart">
+        <image src="../../images/common/delete.png"></image>
+        <text>清空购餐车</text>
+      </view>
+      <!--主体  -->
+      <view class="cart-main">
+        <view class="cart-week" wx:for="{{cartList}}">
+          <view class="cart-week-top">
+            <text>{{item.date}}</text>
+            <text>{{item.week}}</text>
+          </view>
+          <view wx:for="{{item.cartInfoVOList}}" wx:for-item="sitem" wx:for-index="sindex">
+            <view class="cart-item {{delItem==(index+'-'+sindex)?'cart-item-del':''}}" data-index="{{index+'-'+sindex}}" bindtouchstart="getBeforeX" bindtouchmove="getAfterX" bindtouchend="leftMove">
+              <image src="{{sitem.boxLunchImagesUrl}}"></image>
+              <view class="cart-item-right {{0?'cart-item-timeout':''}}">
+                <view>
+                  <view>{{sitem.boxLunchName}}</view>
+                  <view class="cart-item-price">
+                    ￥
+                    <text>{{sitem.boxLunchPrice}}</text>
+                    <!-- <view>失效</view> -->
+                  </view>
+                </view>
+                <view>
+                  <image src="../../images/common/sub.png" data-index="{{index+'-'+sindex}}" bindtap='sub'></image>
+                  <view>{{sitem.boxLunchNumber}}</view>
+                  <image src="../../images/common/add.png" data-index="{{index+'-'+sindex}}" data-add="true" bindtap="sub"></image>
+                </view>
+              </view>
+              <view class="cart-item-delbtn" data-index="{{index+'-'+sindex+'-delete'}}" bindtap="sub">删除</view>
+            </view>
+          </view>
+          <view class="cart-week-sum">
+            <text>小计：</text> ￥
+            <text>{{item.personalTotalPrice}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--超过20份提示  -->
+<view class="overNumToast" wx:if="{{overNumToast}}">
+  超过20份请前往首页-企业团餐享受更多优惠
+</view>

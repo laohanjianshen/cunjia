@@ -1,0 +1,75 @@
+<!--自助点餐-购物车-->
+<view class="wrap">
+	<!-- 用户选择菜品饭盒展示-start -->
+		<view class="title">
+			<view class="good-box">
+				<image class="bgIMG" src="../../images/buffet/goodBox-1x.png"></image>
+				<view class="select-food">
+					<image class="top1" wx:for="{{feiXiaocaiArr}}" wx:if="{{item.type=='辅菜'}}" src="{{item.foodImagesUrl}}"></image>
+					<image wx:for="{{xiaocaiArr}}"  class="top{{index+2}}" src="{{item.foodImagesUrl}}"></image>
+					<image class="top5" wx:for="{{feiXiaocaiArr}}" wx:if="{{item.type=='主菜'}}" src="{{item.foodImagesUrl}}"></image>
+					<image class="top6" wx:for="{{feiXiaocaiArr}}" wx:if="{{item.type=='配汤'}}" src="{{item.foodImagesUrl}}"></image>
+					<image class="top7" wx:for="{{feiXiaocaiArr}}" wx:if="{{item.type=='主食'}}" src="{{item.foodImagesUrl}}"></image>
+				</view>
+			</view> 
+			<view class="right">
+				<view class="fruit">
+					<view>水果</view>
+					<image wx:for="{{feiXiaocaiArr}}" wx:if="{{item.type=='水果'}}" src="{{item.foodImagesUrl}}"></image>
+				</view>
+				<view class="fruit">
+					<view>饮料</view>
+					<image wx:for="{{feiXiaocaiArr}}" wx:if="{{item.type=='饮料'}}" src="{{item.foodImagesUrl}}"></image>
+				</view>
+			</view>
+		</view>
+	<!-- 用户选择菜品饭盒展示 -end -->
+	<!-- 用户菜品详细列表-start -->
+		<view class="detail">
+			<view class="time">{{send_time}}</view>
+			<!-- 主菜-开始 -->
+				<view class="module" wx:for="{{feiXiaocaiArr}}">
+					<view class="info">{{item.type}}</view>
+					<view class="detail-item">
+						<view bindtouchstart="readyDeleteStart" bindtouchmove="readyDeleteMove" bindtouchend="readyDeleteEnd" data-index="{{index}}" data-type="{{item.type}}" class="inner {{item.isDelete?'inner2':''}}">
+							<image src="{{item.foodImagesUrl}}"></image>
+							<view class="textInfo">
+								<view class="name">{{item.foodName}}</view>
+								<view class="price">￥{{item.foodSalePrice}}</view>
+								<view catchtap="deleteOne" data-index="{{index}}" data-type="{{item.type}}" class="delete {{item.isDelete?'delete2':''}}">删除</view>
+							</view>
+							
+						</view>
+					</view>
+					
+				</view>
+				<view class="module" wx:if="{{xiaocaiArr.length>0}}">
+					<view class="info">小菜</view>
+					<view class="detail-item" wx:for="{{xiaocaiArr}}">
+						<view bindtouchstart="readyDeleteStart" bindtouchmove="readyDeleteMove" bindtouchend="readyDeleteEnd" data-index="{{index}}" data-type="{{item.type}}" class="inner {{item.isDelete?'inner2':''}}">
+							<image src="{{item.foodImagesUrl}}"></image>
+							<view class="textInfo">
+								<view class="name">{{item.foodName}}</view>
+								<view class="price">￥{{item.foodSalePrice}}</view>
+								<view catchtap="deleteOne" data-index="{{index}}" data-type="{{item.type}}" class="delete {{item.isDelete?'delete2':''}}">删除</view>
+							</view>
+							
+						</view>
+					</view>
+					
+				</view>
+			<!-- 主菜-结束 -->
+			
+		</view>
+	<!-- 用户菜品详细列表-end -->
+	<!-- 底部结算 开始 -->
+		<view class="footerShop">
+			<view class="left">
+				<view class="{{tipStatus?'':'noTip'}}">￥<text>{{allPrice}}</text></view>
+				<view wx:if="{{tipStatus}}">{{tip}}</view>
+			</view>
+			<view class="toOrder {{!tipStatus?'toOrder2':''}}" bindtap="addShop">选好了</view>
+		</view>
+	<!-- 底部结算 结束 -->
+</view>
+

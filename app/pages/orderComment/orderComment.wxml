@@ -1,0 +1,56 @@
+<!--评价星星  -->
+<view class="comment-star-area">
+    <image src="../../images/personOrder/1.png"></image>
+    <view class="comment-star">
+      <view>总评价</view>
+      <view class="stars">
+        <image wx:for="{{star}}" src="../../images/order/start-select.png" bindtap="changeStar" data-id="{{index+1}}">
+        </image>
+        <image wx:for="{{5-star}}" src="../../images/order/start.png" bindtap="changeStar" data-id="{{star+index+1}}"></image>
+        <view>{{starDetail[star-1]}}</view>
+      </view>
+    </view>
+</view>
+<!--评价关键词  -->
+<view class="comment-tips">
+  <view wx:for="{{commentTips}}" class="{{item.selected?'tip-selected':''}}" data-id="{{item.goodsDescribeId}}" data-index="{{index}}" bindtap="selectTips">{{item.describeName}}</view>
+</view>
+<!--口味和包装  -->
+<view class="taste-wrap">
+  <view class="taste">
+    <view>口味</view>
+    <view>
+      <image wx:for="{{selectedTaste}}" data-num="{{index+1}}" src="../../images/order/smile.png" bindtap="selectTaste"></image>
+      <image wx:for="{{5-selectedTaste}}" data-num="{{selectedTaste+index+1}}"  src="../../images/order/cry.png" bindtap="selectTaste"></image>
+    </view>
+  </view>
+  <view class="wrap">
+    <view>包装</view>
+    <view>
+      <image wx:for="{{selectedWrap}}" src="../../images/order/smile.png" bindtap="selectWrap" data-num="{{index+1}}"></image>
+      <image wx:for="{{5-selectedWrap}}" src="../../images/order/cry.png"bindtap="selectWrap"  data-num="{{selectedWrap+index+1}}"></image>
+    </view>
+  </view>
+</view>
+<!--评价内容  -->
+<view class="comment-textarea">
+  <textarea placeholder="亲！ 菜品口味如何？对包装服务还满意吗？" maxlength="60" placeholder-class="placeholder"  name="textarea" value="{{commentText}}" bindinput='getCommentText'/>
+  <image wx:for="{{localImage}}" src="{{item}}" data-id="{{index}}" bindtap="deleteImage"></image>
+  <image src="../../images/order/add-image.png" bindtap="uploadImage"></image>
+  
+</view>
+<!-- 评价红包 -->
+<view class="comment-red-bracket">
+  <view>
+    <text>评价有机会获得红包</text>
+    <text></text>
+  </view>
+  <view>
+     <radio value="" checked="{{niming}}" bindtap="nimingchange"/>匿名
+  </view>
+</view>
+<!--提交评价  -->
+<view class="comment-submit">
+  <button  bindtap="submitComment"> 发布评价</button>
+</view>
+<canvas canvas-id="CCanvas"></canvas>

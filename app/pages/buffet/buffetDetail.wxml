@@ -1,0 +1,169 @@
+<!--pages/productDetail/productDetail.wxml--> 
+<import src="../networkFail/networkFail.wxml"/>
+<view class='container' wx:if="{{!networkFail}}">
+  <scroll-view scroll-y scroll-with-animation>
+    <view class="first-page" id="firstPage">
+      <view class='card'>
+        <image src="../../images/product_detail/card.png"></image>
+        <!-- banner -->
+        <view class='swiper-container'>
+          <swiper catchchange='swiperChange' indicator-color="rgba(255,255,255,0.5)" circular="true" indicator-active-color="#ffbc00" interval="3000" duration="500" current='{{swiperCurrent}}'>
+            <block wx:for="{{imgUrls}}">
+              <swiper-item>
+                <image src="{{item}}"/>
+              </swiper-item>
+            </block>
+          </swiper>
+          <view class="dots">  
+            <block wx:for="{{imgUrls}}">  
+              <view class="dot{{index == swiperCurrent ? ' active' : ''}}" data-current="{{index}}" catchtap='dotTap'></view>  
+            </block>  
+          </view>  
+        </view>
+        <!-- 商品信息 --> 
+        <view class='info'>
+          <view class='info_con'>
+            <view class='name'>{{food.foodName}}</view>
+            <view class='price'>￥<text class='new-price'>{{food.foodSalePrice}}</text><text class='icon'>￥</text><text class='old-price'>{{food.foodPrice}}</text></view>
+             <button class="select-btn {{isAdd==1?'':'select-btn2'}}" catchtap="order">点餐</button> 
+          </view>
+          <view class='info_num'>
+            <view class='dianzan'>
+                <image catchtap='dianzan' src="{{isZan?'../../images/product_detail/dianzan-select.png':'../../images/product_detail/dianzan.png'}}"></image>
+                <text>{{isZan?food.foodLikeNumber+1:food.foodLikeNumber}}</text>
+            </view>
+            <view class="sold">已售：<text>{{food.foodSoldNumber}}</text></view>  
+          </view>
+        </view>
+      </view>
+      
+      
+    </view>
+    <view class='second-page' id="secondPage">
+        <view class='header-parent'>
+          <view class='header'>
+            <view>商品评价（{{percentNum.commentNumber}}）
+              <navigator url="{{'../productComment/productComment?goodsId='+foodId}}">查看更多 ></navigator>
+            </view>
+          </view>
+        </view>
+        <view class="sen_con">
+          <view class="information">
+            <view  class="swiper-item">
+            <!-- 评价总体概览 -->
+              <view class="display">
+              <view class="left">
+                <view><text>{{percentNum.percentageTotalEvaluate}}</text>%</view>
+                <view>好评度</view>
+              </view>
+              <view class="right">
+                <view style="margin-bottom:18rpx;">
+                  <text>口味</text>
+                  <image wx:for="{{flavor_num}}" src="{{percentNum.percentageFlavor>=item?'../../images/product_detail/face.png':'../../images/product_detail/face-copy.png'}}"></image>
+                  <text class="text">{{percentNum.percentageFlavor}} %</text>
+                </view>
+                <view>
+                  <text>包装</text>
+                  <image wx:for="{{flavor_num}}" src="{{percentNum.percentagePacking>=item?'../../images/product_detail/face.png':'../../images/product_detail/face-copy.png'}}"></image>
+                  <text class="text">{{percentNum.percentagePacking}} %</text>
+                </view>
+              </view>
+            </view>
+              <!-- 评论列表 -->
+              <view class="PL-con">
+                    <view class="pl-item {{index+1==plData.length?'pl-item-last':''}}" wx:for="{{plData}}" wx:if="{{haveImg?item.pictureUrl.length>0:true}}">
+                      <view class="user-pl">
+                        <image src="{{item.userAvatarUrl}}"></image>
+                        <view class="user-con">
+                            <view class="userInfo">
+                                <text>{{item.userName}}</text>
+                                <image src="../../images/product_detail/hongbao-01.png"></image>
+                                <text class="pl-data">{{item.commentDate}}</text>
+                            </view>
+                          <view class="start">
+                                <image src="{{item.totalEvaluate>=1?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+                                <image src="{{item.totalEvaluate>=2?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+                                <image src="{{item.totalEvaluate>=3?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+                                <image src="{{item.totalEvaluate>=4?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+                                <image src="{{item.totalEvaluate>=5?'../../images/product_detail/start-select.png':'../../images/product_detail/start.png'}}"></image>
+                              <text>“{{manyiArr[item.totalEvaluate-1]}}”</text>
+                          </view>
+                          <view class="userContent">{{item.commentDetail}}</view>
+                          <view class="userImgs" wx:if="{{item.pictureUrl.length>0}}">
+                              <image wx:for="{{item.pictureUrl}}" wx:for-item="itemImg" data-src="{{itemImg}}" data-list="{{item.pictureUrl}}" src="{{itemImg}}" bindtap="selectBigImg"></image>
+                          </view>
+                          <view class="dianzanPl">
+                               <view class='dianzan'>
+                                  <image data-index="{{index}}" data-plid="{{item.commentFirstLevelId}}" catchtap="plDianzanTap" src="{{item.isPraise?'../../images/product_detail/dianzan-select.png':'../../images/product_detail/dianzan.png'}}"></image>
+                                  <text>{{item.praiseNumber}}</text>
+                              </view>
+                              <view class='pinglun-box' data-index="{{index}}" data-plid="{{item.commentFirstLevelId}}" catchtap="pinglunInput">
+                                  <image src="../../images/product_detail/Group-1x.png"></image>
+                                  <text>{{item.sumCommentNumber}}</text>
+                              </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="line"></view>
+                      <view class="official-pl">
+                          <!-- <view class="offical-pl-item">
+                                <image src="../../images/product_detail/XMLID.png"></image>
+                                <view class="office-con" wx:if="item.office">
+                                    <text>官方回复：</text><text class="office-pl-con">{{item.office.con}}
+                                    </text>
+                                </view>
+                          </view> -->
+                          <view class="offical-pl-item" wx:for="{{item.commentSecondLevelList}}" wx:for-item="qitaItem" wx:if="{{index<item.showNum}}">
+                          <image src="{{qitaItem.userAvatarUrl}}"></image>
+                          <view class="office-con">
+                            <text class="qita">{{qitaItem.seondUserName}}：</text><text class="office-pl-con">{{qitaItem.commentDetail}}
+                            </text>
+                          </view>
+                        </view>
+                </view>
+           
+              </view>
+           </view>
+
+              <!-- 商品详情的内容 -->
+              <view class="good-detail">
+                <view class="title">商品详情</view>
+                <view class="good-con">
+                  <view class="good-con1">
+                    <view class="good-info">商品名称：{{goodData.boxLunchName}}</view>
+                    <view class="navText">产品概况：</view>
+                    <view class="good-info">规格：xxg*1盒</view>
+                    <view class="good-info">保质期：即食</view>
+                    <view class="good-info">联系方式：400-666-1753</view>
+                    <view class="good-info">三即食品：即做、即送、即食</view>
+                    <view class="good-info">营养：有机、绿色食品</view>
+                    <view class="good-info">厂址：杭州市萧山区大江东纬六路508号</view>
+                  </view>
+                  <view class="good-con1">
+                    <view class="navText">餐品内容：</view>
+                    <view class="good-group">
+                      <view class="good-info">主菜：木耳香干</view>
+                      <view class="good-info">配汤：笋干老鸭汤</view>
+                    </view>
+                    <view class="good-group">
+                      <view class="good-info">辅菜：葵花大香肠</view>
+                      <view class="good-info">热量：xx卡路里</view>
+                    </view>
+                    <view class="good-group">
+                      <view class="good-info">小菜：酱瓜、豆角、蒜泥南瓜</view>
+                      <view class="good-info">净重：</view>
+                    </view>
+                    <view class="good-group">
+                      <view class="good-info">米饭：韩国cj</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+    </view>
+  </scroll-view>
+  
+</view>
+<template is="networkFail" wx:if="{{networkFail}}"/>

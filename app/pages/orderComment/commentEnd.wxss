@@ -1,0 +1,126 @@
+/* pages/orderComment/commentEnd.wxss */
+@import "../../app.wxss";
+page{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.commentEnd{
+	background: #f8f8f8;
+	padding-top: 12rpx;
+	height: 100%;
+}
+.header{
+	background: #fff;
+	overflow: hidden;
+	margin-bottom: 4rpx;
+}
+.view1{
+	height: 72rpx;
+	margin-top: 58rpx;
+	text-align: center;
+	overflow: hidden;
+}
+.view1 image{
+	width: 72rpx;
+	height: 72rpx;
+	float: left;
+	margin-right: 22rpx;
+	margin-left: 220rpx;
+}
+.view1 text{
+	font-size:36rpx;
+	color:#fc9c02;
+	line-height: 72rpx;
+	float: left;
+}
+.thankText{
+	font-family:Helvetica;
+	padding: 0 24rpx 18rpx;
+	font-size:28rpx;
+	color:#333333;
+	text-align: center;
+	line-height: 40rpx;
+	margin: 38rpx 0 12rpx;
+}
+.hongbao{
+	margin-bottom: 4rpx;
+	background: #fff;
+	overflow: hidden;
+}
+.hongbao .bgHongbao{
+	width: 454rpx;
+	height: 596rpx;
+	margin: 32rpx auto 36rpx;
+	position: relative;
+}
+.hongbao image{
+	width: 100%;
+	height: 100%;
+	position: absolute;left: 0;top: 0;
+}
+.hongbao .bgHongbao .hongbaoNum{
+	font-size: 52rpx;
+	color: #c90E01;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top: 110rpx;font-weight: bold;
+}
+.hongbao .bgHongbao .text{
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 248rpx;
+	font-size:44rpx;
+	color:#ffffff;
+}
+.hongbao .bgHongbao .info{
+	font-size:28rpx;
+	color:#ffffff;
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 324rpx;
+}
+.hongbao .bgHongbao .shareBtn{
+	background:#fecf4b;
+	border-radius:8rpx;
+	width:358rpx;
+	height:66rpx;
+	text-align: center;
+	line-height: 66rpx;
+	position: absolute;
+	left: 50%;
+	margin-left: -179rpx;
+	bottom: 104rpx;
+	font-size:28rpx;
+	color:#c70e0b;
+	font-weight: bold;
+}
+.footer{
+	height: 704rpx;
+	background: #fff;
+	overflow: hidden;
+}
+.footer view{
+	width: 208rpx;
+	height: 70rpx;
+	text-align: center;
+	line-height: 70rpx;
+	font-size:36rpx;
+	border:2rpx solid #fc9c02;
+	border-radius:12rpx;
+	margin-right: 46rpx;
+	float: left;
+	background:#fc9c02;
+	color:#ffffff;
+	margin-top: 36rpx;
+}
+.footer .readComment{
+	margin-left: 140rpx;
+	color:#fc9c02;
+	background: #fff;
+}

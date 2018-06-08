@@ -1,0 +1,127 @@
+/* pages/shopCar/shopCar.wxss */
+/*自助点餐*/
+	.buffet{
+		background: #fff;
+		
+	}
+	.buffet .title{
+		overflow: hidden;
+		height: 68rpx;
+		padding: 0rpx 24rpx;
+	}
+	.buffet .title image{
+		width: 36rpx;
+		height: 36rpx;
+		margin-top: 16rpx;
+		margin-right: 16rpx;
+		float: left;
+	}
+	.buffet .title .title-text{
+		font-size:32rpx;
+		color:#666666;
+		float: left;
+		line-height: 68rpx;
+	}
+	.buffet .title .time{
+		font-size:28rpx;
+		color:#999;
+		line-height: 68rpx;
+		float: right;
+	}
+	.buffet-footer{
+		padding: 20rpx 24rpx;
+		overflow: hidden;
+	}
+	.buffet-footer .reset-select{
+		float: left;
+		border:2rpx solid #dddddd;
+		border-radius:12rpx;
+		width:160rpx;
+		height:64rpx;
+		font-size: 32rpx;
+		color:#fc9c02;
+		text-align: center;
+		line-height: 64rpx;
+	}
+	.buffet-footer .change-num{
+		float: right;
+	}
+	.buffet-footer .change-num image{
+		width: 56rpx;
+		height: 56rpx;
+		float: right;
+	}
+	.buffet-footer .change-num .num{
+		float: right;
+		margin: 0 16rpx;
+	}
+	.buffet .total{
+		padding-right: 24rpx;
+		font-size:28rpx;
+		color:#666666;
+		line-height: 72rpx;
+		text-align: right;
+		border-top: 2rpx solid #f7f7f7;
+	}
+	.buffet .total text{
+		font-size: 32rpx;
+		color:#eb7272;
+		font-weight: bold;
+	}
+/*底部*/
+	.footer{
+		height: 100rpx;
+		width: 100%;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		background:rgba(61,50,50,0.96);
+		box-shadow:0 0 14rpx 0 rgba(192,192,192,0.50);
+		display: flex;
+	}
+	.footer>view{
+		flex:1;
+	}
+	.footer .toOrder{
+		background:#fc9c02;
+		height:100rpx;
+		flex:220rpx 0;
+		font-size:36rpx;
+		border-radius: 0 0 0 25rpx;
+		color:rgba(255,255,255,0.87);
+		text-align: center;
+		line-height: 100rpx;
+	}
+	.footer .selectAll{
+		overflow: hidden;
+		height: 100rpx;
+	}
+	.footer .selectAll .quanxuan{
+		float: left;
+		margin-left: 24rpx;
+	}
+	.footer .selectAll image{
+		width: 32rpx;
+		height: 32rpx;
+		float: left;
+		margin-top: 36rpx;
+		margin-right: 12rpx;
+
+	}
+	.footer .selectAll .quanxuan view{
+		float: left;
+		font-size:32rpx;
+		color:#ffffff;
+		line-height: 100rpx;
+	}
+	.footer .selectAll .price{
+		line-height: 100rpx;
+		float: right;
+		font-size:32rpx;
+		color:#ffffff;
+		margin-right: 36rpx;
+	}
+	.footer .selectAll .price text{
+		font-size:48rpx;
+		color:#ffffff;
+	}

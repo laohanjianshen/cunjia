@@ -1,0 +1,11 @@
+<!--pages/mine/balance.wxml-->
+<import src="../networkFail/networkFail.wxml"/>
+<template wx:if="{{networkFail}}" is="networkFail" data=""/>
+<view class="wrap" wx:if="{{!networkFail}}">
+	<navigator url="moneyDetail" class="money-progress">账户明细></navigator>
+	<image src="../../images/mine/balance-1x.png"></image>
+	<view class="money-num">￥<text>88.00</text></view>
+	<view class="info">（我的现金账户）</view>
+	<navigator url="recharge" class="btn">充值</navigator>
+	<navigator url="putForward" class="btn btn2">提现</navigator>
+</view>

@@ -1,0 +1,25 @@
+<!--pages/components/getRedPacket.wxml-->
+  <template name="getRedPacket">  
+  <!--获得红包弹出框  -->
+    <view class="getRedPacket" bindtap="closeRedPacketModal">
+      <view class="getRedPacket-content">
+        <image class="" src="../../images/personOrder/closeModal.png"></image>
+      <view class="getRedPacket-content-main" catchtap='emptyFunc'>
+        <image src="../../images/order/comment.png"></image>
+        <view class="getRedPacket-text">
+          <view class="getRedPacket-money">{{redPacket}}</view>
+          <view class="text1"> 恭喜你！</view>
+          <view class="text2">获得<text>{{redPacket}}</text>元点赞红包</view>
+          <button class="text3" open-type="share">分享</button>
+        </view>
+      </view>
+      </view>
+    </view>
+  </template>  
+
+ <!-- 
+ 调用方式：
+ <import src="../components/getRedPacket.wxml"/>
+<template  is="getRedPacket" data="{{redPacket}}"/> 
+
+-->
